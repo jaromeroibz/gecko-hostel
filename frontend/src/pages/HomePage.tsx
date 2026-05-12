@@ -1,12 +1,11 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
-import { ExperienceUpsell } from '../components/ExperienceUpsell'
 import {
   HomeBookingCtaSection,
+  HomeEditorialSection,
   HomeHero,
   HomeRoomsSection,
-  HomeStaySearchSection,
 } from '../components/home'
 
 export function HomePage() {
@@ -23,17 +22,11 @@ export function HomePage() {
   }, [pathname, hash])
 
   return (
-    <div className="space-y-20 sm:space-y-28">
+    <div className="space-y-0">
       <HomeHero />
-
-      <div className="space-y-20 sm:space-y-28">
-        <HomeStaySearchSection />
-        <HomeRoomsSection />
-        <div id="activities" className="scroll-mt-28">
-          <ExperienceUpsell />
-        </div>
-        <HomeBookingCtaSection />
-      </div>
+      <HomeEditorialSection />
+      <HomeRoomsSection />
+      <HomeBookingCtaSection />
     </div>
   )
 }
