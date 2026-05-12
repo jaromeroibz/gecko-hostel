@@ -5,6 +5,7 @@ export type Extra = {
   name: string
   description: string | null
   price: number
+  image_url?: string | null
 }
 
 export async function apiGet<T>(path: string): Promise<T> {

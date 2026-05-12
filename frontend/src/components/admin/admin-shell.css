@@ -1,0 +1,140 @@
+/* Admin dashboard shell — complements Bootstrap 5 (import Bootstrap before this file). */
+
+.admin-shell {
+  min-height: 100vh;
+  background-color: var(--bs-gray-100);
+}
+
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  max-width: min(260px, 88vw);
+  height: 100vh;
+  background-color: #212529;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease-in-out;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.15);
+}
+
+.admin-sidebar.is-visible {
+  transform: translateX(0);
+}
+
+.admin-backdrop {
+  z-index: 1035;
+}
+
+.admin-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.25s ease-in-out;
+}
+
+@media (min-width: 992px) {
+  .admin-content.is-shifted {
+    margin-left: 260px;
+  }
+}
+
+/* Preview thumbnail on hover (images table) */
+.admin-thumb-popover {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: 1080;
+  margin-top: 0.25rem;
+  padding: 0.25rem;
+  background: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  box-shadow: var(--bs-box-shadow);
+}
+
+.admin-preview-wrap:hover .admin-thumb-popover,
+.admin-preview-wrap:focus-within .admin-thumb-popover {
+  display: block;
+}
+
+.admin-thumb-popover img {
+  display: block;
+  width: 160px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: calc(var(--bs-border-radius) - 1px);
+}
+
+/* Portaled modals (see ModalPortal): more inset than Bootstrap defaults so text isn’t flush to the border */
+[data-admin-modal-root] .modal-content > .modal-header,
+[data-admin-modal-root] .modal-content > .modal-footer {
+  padding: 1.25rem 1.75rem;
+}
+
+[data-admin-modal-root] .modal-content > .modal-body {
+  padding: 1.75rem 1.75rem;
+}
+
+/* Admin modals (upload + edit): strong contrast on white panel */
+.admin-modal-panel {
+  color: #212529;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+.admin-modal-panel .modal-header {
+  background-color: #fff;
+  border-bottom-color: #dee2e6;
+}
+
+.admin-modal-panel .modal-footer {
+  background-color: #f8f9fa !important;
+  border-top-color: #dee2e6;
+}
+
+.admin-modal-panel .modal-body {
+  background-color: #fff;
+  color: #212529;
+}
+
+.upload-images-modal .upload-category-box {
+  background: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.upload-images-modal .upload-category-box .upload-category-title {
+  color: #212529;
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.upload-images-modal .upload-category-box .upload-category-hint {
+  color: #495057;
+  font-size: 0.8125rem;
+  margin-bottom: 0.75rem;
+}
+
+.upload-images-modal .upload-category-btn.btn-outline-secondary {
+  color: #212529;
+  border-color: #6c757d;
+  background-color: #fff;
+}
+
+.upload-images-modal .upload-category-btn.btn-outline-secondary:hover {
+  color: #fff;
+  background-color: #495057;
+  border-color: #495057;
+}
+
+.upload-images-modal .upload-category-btn.btn-primary {
+  font-weight: 600;
+}

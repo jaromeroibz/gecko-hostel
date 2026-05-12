@@ -1,20 +1,39 @@
-import { ExtrasList } from '../components/ExtrasList'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+
+import { ExperienceUpsell } from '../components/ExperienceUpsell'
+import {
+  HomeBookingCtaSection,
+  HomeHero,
+  HomeRoomsSection,
+  HomeStaySearchSection,
+} from '../components/home'
 
 export function HomePage() {
-  return (
-    <div className="space-y-8">
-      <section className="space-y-4">
-        <h1 className="text-3xl font-bold text-slate-900">Welcome to Gecko Hostel</h1>
-        <p className="max-w-2xl text-slate-600">
-          Manage your hostel reservations and extras with a modern workflow integrated with
-          Lodgify.
-        </p>
-      </section>
+  const { pathname, hash } = useLocation()
 
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-slate-900">Available extras</h2>
-        <ExtrasList />
-      </section>
+  useEffect(() => {
+    if (pathname !== '/') return
+    const id = hash.replace(/^#/, '')
+    if (!id) return
+    const el = document.getElementById(id)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [pathname, hash])
+
+  return (
+    <div className="-mt-2 space-y-20 sm:space-y-28">
+      <HomeHero />
+
+      <div className="space-y-20 sm:space-y-28">
+        <HomeStaySearchSection />
+        <HomeRoomsSection />
+        <div id="activities" className="scroll-mt-28">
+          <ExperienceUpsell />
+        </div>
+        <HomeBookingCtaSection />
+      </div>
     </div>
   )
 }
