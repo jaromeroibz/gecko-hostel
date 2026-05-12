@@ -7,6 +7,7 @@ import { AdminLoginPage } from './pages/AdminLoginPage'
 import { Booking } from './pages/Booking'
 import { ContactPage } from './pages/ContactPage'
 import { HomePage } from './pages/HomePage'
+import { LocationPage } from './pages/LocationPage'
 
 const AdminPage = lazy(() => import('./pages/AdminPage').then((m) => ({ default: m.AdminPage })))
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/location" element={<LocationPage />} />
         <Route path="/admin/login" element={<AdminLoginPage />} />
       </Route>
       {/* Full-viewport admin shell (no public navbar / max-width wrapper — avoids fixed sidebar overlap) */}

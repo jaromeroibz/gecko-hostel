@@ -1,6 +1,7 @@
 from decimal import Decimal, InvalidOperation
 
 from flask import jsonify, request
+from flask_jwt_extended import jwt_required
 
 from app.api import api_bp
 from app.extensions import db
@@ -13,6 +14,7 @@ def serialize_extra(extra: Extra) -> dict:
         "name": extra.name,
         "description": extra.description,
         "price": float(extra.price),
+        "image_url": extra.image_url,
     }
 
 
@@ -47,6 +49,14 @@ def validate_extra_payload(payload: dict, partial: bool = False) -> dict:
     elif not partial:
         cleaned_data["description"] = None
 
+    if "image_url" in payload:
+        image_url = payload.get("image_url")
+        if image_url is not None and not isinstance(image_url, str):
+            return {"error": "Field 'image_url' must be a string"}
+        cleaned_data["image_url"] = image_url
+    elif not partial:
+        cleaned_data["image_url"] = None
+
     return cleaned_data
 
 
@@ -57,6 +67,7 @@ def get_extras():
 
 
 @api_bp.post("/extras")
+@jwt_required()
 def create_extra():
     payload = request.get_json(silent=True)
     validated = validate_extra_payload(payload, partial=False)
@@ -81,6 +92,7 @@ def get_extra(extra_id: int):
 
 
 @api_bp.put("/extras/<int:extra_id>")
+@jwt_required()
 def update_extra(extra_id: int):
     extra = Extra.query.get(extra_id)
     if extra is None:
@@ -102,6 +114,7 @@ def update_extra(extra_id: int):
 
 
 @api_bp.delete("/extras/<int:extra_id>")
+@jwt_required()
 def delete_extra(extra_id: int):
     extra = Extra.query.get(extra_id)
     if extra is None:

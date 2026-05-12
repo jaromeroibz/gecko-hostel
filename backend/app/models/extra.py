@@ -8,6 +8,7 @@ class Extra(db.Model):
     name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.Text, nullable=True)
     price = db.Column(db.Numeric(10, 2), nullable=False)
+    image_url = db.Column(db.Text, nullable=True)
 
     extra_bookings = db.relationship(
         "ExtraBooking",

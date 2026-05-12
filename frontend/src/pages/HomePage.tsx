@@ -23,7 +23,7 @@ export function HomePage() {
   }, [pathname, hash])
 
   return (
-    <div className="-mt-2 space-y-20 sm:space-y-28">
+    <div className="space-y-20 sm:space-y-28">
       <HomeHero />
 
       <div className="space-y-20 sm:space-y-28">

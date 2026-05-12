@@ -1,74 +1,292 @@
-const HERO_IMAGE =
-  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2400&q=85'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
-/**
- * Full-bleed hero relative to `MainLayout` main column. Parent layout should use `overflow-x-hidden`.
- * Wave footer softens transition into cream page (Gecko / reference rhythm).
- */
+const LOGO_URL =
+  'https://res.cloudinary.com/doow0mhrm/image/upload/v1778622715/background-removed_kzu281.png'
+
+const HERO_NAV = [
+  { label: 'Home', to: '/' },
+  { label: 'Rooms', to: '/#rooms' },
+  { label: 'Location', to: '/location' },
+  { label: 'Contact Us', to: '/contact' },
+]
+
 export function HomeHero() {
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
+
+  const close = () => setMenuOpen(false)
+
   return (
-    <div className="relative left-1/2 z-0 mb-0 w-screen max-w-[100vw] -translate-x-1/2">
-      <div className="relative min-h-[min(90vh,840px)] overflow-hidden bg-gecko-forestDeep">
-        <img
-          src={HERO_IMAGE}
-          alt="Tropical shoreline at golden hour"
-          className="absolute inset-0 h-full w-full object-cover object-center saturate-[1.05]"
-          fetchPriority="high"
-        />
-        <div
-          className="absolute inset-0 bg-gradient-to-t from-gecko-forestDeep via-gecko-forestDeep/75 to-gecko-forest/20"
-          aria-hidden
-        />
-        <div
-          className="absolute inset-0 bg-gradient-to-r from-gecko-forestDeep/60 via-transparent to-gecko-forestDeep/30"
-          aria-hidden
-        />
+    <>
+      {/* ── Hero section ────────────────────────────────────────────── */}
+      <div
+        className="relative left-1/2 z-0 w-screen max-w-[100vw] -translate-x-1/2 bg-gecko-cream"
+        style={{ height: '100svh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      >
+        <div className="hero-content">
 
-        <div className="relative flex min-h-[min(90vh,840px)] flex-col justify-end px-5 pb-24 pt-28 sm:px-10 sm:pb-28 sm:pt-32 lg:px-16">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-gecko-sageLight sm:text-xs">
-            Costa Rica · Gecko Hostel
-          </p>
-          <h1 className="mt-4 max-w-[14ch] font-display text-4xl font-medium leading-[1.08] tracking-tight text-gecko-cream sm:max-w-[18ch] sm:text-5xl sm:leading-[1.06] lg:text-6xl lg:leading-[1.05]">
-            Where jungle calm meets surf culture
-          </h1>
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-gecko-cream/90 sm:text-lg">
-            Gecko Hostel is for travelers who want salt on their skin, quiet mornings, and a
-            straight path from daydream to booking—without losing the hostel pulse.
-          </p>
+          {/* ROW 1: Logo + Welcome text */}
+          <div className="hero-row">
 
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-            <a
-              href="#plan-your-stay"
-              className="inline-flex items-center justify-center rounded-xl bg-gecko-sageLight px-7 py-3.5 text-center text-base font-semibold text-gecko-forestDeep shadow-lg shadow-black/25 transition hover:bg-gecko-cream focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gecko-cream"
-            >
-              Check dates and guests
-            </a>
-            <a
-              href="#rooms"
-              className="inline-flex items-center justify-center rounded-xl border border-gecko-cream/35 bg-gecko-cream/10 px-7 py-3.5 text-center text-base font-semibold text-gecko-cream backdrop-blur-md transition hover:border-gecko-cream/55 hover:bg-gecko-cream/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gecko-cream"
-            >
-              Explore rooms
-            </a>
+            <div className="hero-logo-col">
+              <img
+                src={LOGO_URL}
+                alt="Gecko Surf House"
+                className="hero-logo-img"
+                fetchPriority="high"
+              />
+            </div>
+
+            <div className="hero-text-col">
+              <h1 className="hero-heading font-display font-medium tracking-tight text-gecko-forestDeep">
+                Welcome to<br />Gecko Surf House
+              </h1>
+            </div>
           </div>
-          <p className="mt-6 max-w-md text-xs leading-relaxed text-gecko-cream/65 sm:text-sm">
-            Start with your dates below, wander the room stories, then stack surf and tour extras
-            before you complete payment on Lodgify.
-          </p>
-        </div>
 
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 translate-y-px" aria-hidden>
-          <svg
-            className="h-12 w-full text-gecko-cream sm:h-16"
-            viewBox="0 0 1440 60"
-            preserveAspectRatio="none"
-          >
-            <path
-              fill="currentColor"
-              d="M0,38 C240,12 480,52 720,34 C960,16 1200,44 1440,28 L1440,60 L0,60 Z"
-            />
-          </svg>
+          {/* ROW 2: Desktop navbar */}
+          <nav className="hero-nav" aria-label="Hero navigation">
+            {HERO_NAV.map(({ label, to }) => (
+              <Link
+                key={label}
+                to={to}
+                className="hero-nav-link font-nav font-medium uppercase text-gecko-forest hover:text-gecko-forestDeep"
+              >
+                {label}
+              </Link>
+            ))}
+            <Link
+              to="/booking"
+              className="hero-book-btn font-nav font-medium uppercase text-gecko-forest hover:bg-gecko-forest hover:text-gecko-cream"
+            >
+              Book Now
+            </Link>
+          </nav>
+
+          {/* Burger — mobile only */}
+          <div className="hero-burger-wrap">
+            <button
+              className="hero-burger"
+              onClick={() => setMenuOpen(true)}
+              aria-label="Open menu"
+            >
+              <span /><span /><span />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* ── Drawer backdrop ─────────────────────────────────────────── */}
+      <div
+        className="drawer-backdrop"
+        style={{ opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? 'auto' : 'none' }}
+        onClick={close}
+      />
+
+      {/* ── Side drawer ─────────────────────────────────────────────── */}
+      <div
+        className="drawer"
+        style={{ transform: menuOpen ? 'translateX(0)' : 'translateX(100%)' }}
+        aria-hidden={!menuOpen}
+      >
+        <button className="drawer-close" onClick={close} aria-label="Close menu">✕</button>
+
+        <nav className="drawer-nav">
+          {HERO_NAV.map(({ label, to }) => (
+            <Link
+              key={label}
+              to={to}
+              className="drawer-link font-nav font-medium uppercase text-gecko-forest hover:text-gecko-forestDeep"
+              onClick={close}
+            >
+              {label}
+            </Link>
+          ))}
+          <Link
+            to="/booking"
+            className="drawer-book font-nav font-medium uppercase text-gecko-forest hover:bg-gecko-forest hover:text-gecko-cream"
+            onClick={close}
+          >
+            Book Now
+          </Link>
+        </nav>
+      </div>
+
+      <style>{`
+        /* ── Content block ─────────────────────────────── */
+        .hero-content {
+          width: 100%;
+          max-width: 900px;
+          padding: 0 2rem;
+        }
+
+        /* ── Row 1 ─────────────────────────────────────── */
+        .hero-row {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          gap: 4rem;
+        }
+
+        .hero-logo-col {
+          flex: 1;
+          display: flex;
+          justify-content: center;
+        }
+
+        .hero-logo-img {
+          width: 100%;
+          max-width: 450px;
+          height: auto;
+        }
+
+        .hero-text-col {
+          flex: 1;
+        }
+
+        .hero-heading {
+          font-size: clamp(2rem, 3.5vw, 3.5rem);
+          line-height: 1.06;
+          margin: 0;
+        }
+
+        /* ── Desktop navbar ────────────────────────────── */
+        .hero-nav {
+          margin-top: 3.5rem;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+          gap: 2.5rem;
+        }
+
+        .hero-nav-link {
+          font-size: 0.9rem;
+          letter-spacing: 0.2em;
+        }
+
+        .hero-book-btn {
+          font-size: 0.9rem;
+          letter-spacing: 0.16em;
+          border: 1px solid #1e3d32;
+          border-radius: 9999px;
+          padding: 0.75rem 1.75rem;
+          transition: background 0.2s, color 0.2s;
+        }
+
+        /* ── Burger — hidden on desktop ────────────────── */
+        .hero-burger-wrap { display: none; }
+
+        .hero-burger {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 8px;
+        }
+
+        .hero-burger span {
+          display: block;
+          width: 26px;
+          height: 2px;
+          background: #1e3d32;
+          border-radius: 2px;
+        }
+
+        /* ── Backdrop ──────────────────────────────────── */
+        .drawer-backdrop {
+          position: fixed;
+          inset: 0;
+          background: rgba(20, 41, 35, 0.35);
+          z-index: 90;
+          transition: opacity 0.3s ease;
+        }
+
+        /* ── Drawer ────────────────────────────────────── */
+        .drawer {
+          position: fixed;
+          top: 0;
+          right: 0;
+          height: 100dvh;
+          width: 280px;
+          background: #f4f1ea;
+          z-index: 100;
+          display: flex;
+          flex-direction: column;
+          padding: 2rem 2rem 3rem;
+          transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: -4px 0 24px rgba(20, 41, 35, 0.12);
+        }
+
+        .drawer-close {
+          align-self: flex-end;
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: 1.25rem;
+          color: #1e3d32;
+          padding: 4px 8px;
+          margin-bottom: 2.5rem;
+        }
+
+        .drawer-nav {
+          display: flex;
+          flex-direction: column;
+          gap: 1.75rem;
+        }
+
+        .drawer-link {
+          font-size: 1.1rem;
+          letter-spacing: 0.2em;
+        }
+
+        .drawer-book {
+          font-size: 1rem;
+          letter-spacing: 0.16em;
+          border: 1px solid #1e3d32;
+          border-radius: 9999px;
+          padding: 0.875rem 2rem;
+          text-align: center;
+          transition: background 0.2s, color 0.2s;
+          margin-top: 0.5rem;
+        }
+
+        /* ── Tablet (768–1023px) ───────────────────────── */
+        @media (max-width: 1023px) {
+          .hero-row { gap: 2.5rem; }
+          .hero-logo-img { max-width: 320px; }
+        }
+
+        /* ── Mobile (<768px) ───────────────────────────── */
+        @media (max-width: 767px) {
+          .hero-row {
+            flex-direction: column;
+            gap: 1.5rem;
+          }
+
+          .hero-logo-img { max-width: 180px; }
+
+          .hero-text-col { text-align: center; }
+
+          .hero-heading { font-size: clamp(1.75rem, 6vw, 2.5rem); }
+
+          .hero-nav { display: none; }
+
+          .hero-burger-wrap {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+          }
+        }
+      `}</style>
+    </>
   )
 }

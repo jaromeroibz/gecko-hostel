@@ -38,6 +38,22 @@ backend/
 5. Ejecutar servidor:
    - `flask --app wsgi run --debug`
 
+## Migraciones (Flask-Migrate)
+
+1. Inicializar migraciones (solo primera vez):
+   - `flask --app wsgi db init`
+2. Crear nueva migracion:
+   - `flask --app wsgi db migrate -m "descripcion del cambio"`
+3. Aplicar migraciones:
+   - `flask --app wsgi db upgrade`
+
+## Admin auth (JWT)
+
+- Crear/actualizar admin inicial:
+  - `flask --app wsgi create-admin --username admin --password admin123`
+- Login:
+  - `POST /api/login` con `username` y `password`
+
 ## Endpoint inicial
 
 - `GET /api/health`

@@ -1,0 +1,49 @@
+---
+description: Public marketing UI — follow docs/ui-direction.md; editorial surf hospitality; not admin
+globs:
+  - frontend/src/pages/HomePage.tsx
+  - frontend/src/pages/Booking.tsx
+  - frontend/src/pages/ContactPage.tsx
+  - frontend/src/components/layout/**/*
+  - frontend/src/components/home/**/*
+  - frontend/src/components/lodgify/**/*
+  - frontend/src/components/booking/**/*
+  - frontend/src/components/ui/**/*
+  - frontend/src/components/ExperienceUpsell.tsx
+  - frontend/src/index.css
+  - frontend/index.html
+  - frontend/tailwind.config.js
+alwaysApply: false
+---
+
+# Gecko Hostel — public UI (canonical direction)
+
+**Scope:** This rule applies **only** when editing the files matched by `globs` above — public marketing and guest booking shell. **Do not** apply this visual system to `components/admin/**`, `pages/AdminPage.tsx`, `pages/AdminLoginPage.tsx`, or other dashboard code.
+
+## Source of truth
+
+- Read and follow **`docs/ui-direction.md`** (repo root) for typography, spacing, imagery, motion, color restraint, and UX flow (cinematic editorial hospitality; premium surf/travel identity).
+- Beach Break–style references are **philosophy only** — never clone layouts or assets.
+
+## Must prioritize
+
+- Cinematic, breathable, premium-calm layouts; **photography-led** sections.
+- Large vertical rhythm (`py-24`–`32` class of spacing), generous whitespace, clear hierarchy.
+- Elegant modern **sans** for primary UI type; **accent** display/handcrafted type **sparingly** (micro-labels only), per `docs/ui-direction.md`.
+- Images: warm, slightly moody, soft overlays; avoid neon stock-tourism and card-heavy “template” grids.
+
+## Must avoid (public UI)
+
+- Generic Tailwind / SaaS dashboard patterns (dense card walls, heavy shadows, chip clutter).
+- Aggressive “book now”–only flows before destination and lifestyle context.
+- Playful tropical fonts for primary navigation or forms.
+
+## Motion
+
+- Subtle, slow, premium: fades, light rises, gentle image scale; **500ms–1200ms**, `ease-out`; respect `prefers-reduced-motion`.
+
+## Identity
+
+- Preserve **Gecko Hostel** palette and story (`gecko.*` tokens, logo usage) — tune toward restrained luxury, not theme-park UI.
+
+When unsure: **remove** UI before adding; re-read `docs/ui-direction.md` pre-flight checklist.
