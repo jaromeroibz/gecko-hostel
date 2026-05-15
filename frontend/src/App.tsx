@@ -5,6 +5,7 @@ import { RequireAdminAuth } from './components/auth/RequireAdminAuth'
 import { MainLayout } from './components/layout/MainLayout'
 import { AdminLoginPage } from './pages/AdminLoginPage'
 import { Booking } from './pages/Booking'
+import { BookingRoom } from './pages/BookingRoom'
 import { ContactPage } from './pages/ContactPage'
 import { HomePage } from './pages/HomePage'
 import { LocationPage } from './pages/LocationPage'
@@ -17,6 +18,7 @@ function App() {
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/booking" element={<Booking />} />
+        <Route path="/booking/:roomId" element={<BookingRoom />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/location" element={<LocationPage />} />
         <Route path="/admin/login" element={<AdminLoginPage />} />

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { WaveButton } from '../ui/WaveButton'
 
 const LOGO_URL =
   'https://res.cloudinary.com/doow0mhrm/image/upload/v1778622715/background-removed_kzu281.png'
@@ -60,12 +61,9 @@ export function HomeHero() {
                 {label}
               </Link>
             ))}
-            <Link
-              to="/booking"
-              className="hero-book-btn font-nav font-medium uppercase text-gecko-forest hover:bg-gecko-forest hover:text-gecko-cream"
-            >
+            <WaveButton to="/booking" className="hero-book-btn font-nav font-medium uppercase">
               Book Now
-            </Link>
+            </WaveButton>
           </nav>
 
           {/* Burger — mobile only */}
@@ -107,13 +105,9 @@ export function HomeHero() {
               {label}
             </Link>
           ))}
-          <Link
-            to="/booking"
-            className="drawer-book font-nav font-medium uppercase text-gecko-forest hover:bg-gecko-forest hover:text-gecko-cream"
-            onClick={close}
-          >
+          <WaveButton to="/booking" className="drawer-book font-nav font-medium uppercase" onClick={close}>
             Book Now
-          </Link>
+          </WaveButton>
         </nav>
       </div>
 

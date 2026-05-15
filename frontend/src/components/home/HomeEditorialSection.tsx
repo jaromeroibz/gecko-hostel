@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { WaveButton } from '../ui/WaveButton'
 
 const IMAGE_1 =
   'https://res.cloudinary.com/doow0mhrm/image/upload/v1778627977/frames-for-your-heart-eBSKJJuPeO8-unsplash_uc6ksc.jpg'
@@ -8,6 +8,13 @@ const IMAGE_2 =
 export function HomeEditorialSection() {
   return (
     <section className="editorial-section">
+      {/* ── Shape divider ─────────────────────────────────────────── */}
+      <div className="custom-shape-divider-top-1778816122">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="shape-fill"></path>
+        </svg>
+      </div>
+
       <div className="editorial-grid">
 
         {/* ── LEFT: Text content ───────────────────────────────────── */}
@@ -36,12 +43,9 @@ export function HomeEditorialSection() {
             Stay close to the ocean. Stay close to nature.
           </p>
 
-          <Link
-            to="/booking"
-            className="editorial-cta font-nav font-medium uppercase text-gecko-cream hover:bg-gecko-forestDeep"
-          >
+          <WaveButton to="/booking" className="editorial-cta font-nav font-medium uppercase">
             Book your next adventure
-          </Link>
+          </WaveButton>
         </div>
 
         {/* ── RIGHT: Overlapping image composition ─────────────────── */}
@@ -59,9 +63,32 @@ export function HomeEditorialSection() {
       </div>
 
       <style>{`
+        /* ── Shape divider ────────────────────────────────── */
+        .custom-shape-divider-top-1778816122 {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 100vw;
+          overflow: hidden;
+          line-height: 0;
+        }
+
+        .custom-shape-divider-top-1778816122 svg {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 147px;
+        }
+
+        .custom-shape-divider-top-1778816122 .shape-fill {
+          fill: #4D6433;
+        }
+
         /* ── Section ──────────────────────────────────────── */
         .editorial-section {
-          padding: 6rem 0 7rem;
+          position: relative;
+          padding: 9rem clamp(2rem, 8vw, 7rem) 10rem;
         }
 
         /* ── Grid ─────────────────────────────────────────── */
@@ -70,6 +97,8 @@ export function HomeEditorialSection() {
           grid-template-columns: 1fr 1fr;
           gap: 5rem;
           align-items: center;
+          max-width: 1200px;
+          margin: 0 auto;
         }
 
         /* ── Text ─────────────────────────────────────────── */
@@ -113,14 +142,17 @@ export function HomeEditorialSection() {
 
         .editorial-cta {
           align-self: flex-start;
-          background: #1e3d32;
+          background: #ffffff;
+          color: #1e3d32;
+          border: 1px solid #1e3d32;
           border-radius: 0.75rem;
           padding: 0.875rem 1.75rem;
           font-size: 0.8rem;
           letter-spacing: 0.16em;
-          transition: background 0.2s;
+          transition: background 0.2s, color 0.2s;
           margin-top: 0.5rem;
         }
+
 
         /* ── Image composition ────────────────────────────── */
         .editorial-images {
@@ -163,6 +195,10 @@ export function HomeEditorialSection() {
 
         /* ── Tablet (768–1023px) ──────────────────────────── */
         @media (max-width: 1023px) {
+          .editorial-section {
+            padding: 7rem clamp(2rem, 6vw, 4rem) 8rem;
+          }
+
           .editorial-grid {
             grid-template-columns: 1fr;
             gap: 3.5rem;
@@ -180,7 +216,7 @@ export function HomeEditorialSection() {
         /* ── Mobile (<640px) ──────────────────────────────── */
         @media (max-width: 639px) {
           .editorial-section {
-            padding: 4rem 0 5rem;
+            padding: 6rem 1.5rem 7rem;
           }
 
           .editorial-images {

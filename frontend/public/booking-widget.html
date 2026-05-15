@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: transparent; }
+
+    :root {
+      --ldg-bnb-background:                    #ffffff;
+      --ldg-bnb-border-radius:                 0.75rem;
+      --ldg-bnb-box-shadow:                    none;
+      --ldg-bnb-padding:                       0px;
+      --ldg-bnb-input-background:              #f4f1ea;
+      --ldg-bnb-button-border-radius:          9999px;
+      --ldg-bnb-font-family:                   system-ui, sans-serif;
+      --ldg-bnb-color-primary:                 #1e3d32;
+      --ldg-bnb-color-primary-lighter:         #4d6433;
+      --ldg-bnb-color-primary-darker:          #142923;
+      --ldg-bnb-color-primary-contrast:        #f4f1ea;
+      --ldg-component-calendar-cell-selection-bg-color: #1e3d32;
+      --ldg-component-calendar-cell-selection-color:    #f4f1ea;
+      --ldg-component-calendar-cell-selected-bg-color:  #4d6433;
+      --ldg-component-calendar-cell-selected-color:     #f4f1ea;
+    }
+
+    #lodgify-book-now-box { width: 100%; }
+  </style>
+</head>
+<body>
+  <div
+    id="lodgify-book-now-box"
+    data-website-id="595112"
+    data-slug="rentari-group"
+    data-language-code="en"
+    data-new-tab="true"
+    data-version="stable"
+    data-has-guests-breakdown=""
+    data-check-in-label="Check-in"
+    data-check-out-label="Check-out"
+    data-guests-label="Guests"
+    data-guests-singular-label="{{NumberOfGuests}} guest"
+    data-guests-plural-label="{{NumberOfGuests}} guests"
+    data-total-price-label="Total:"
+    data-select-dates-to-see-price-label="Select dates to see total price"
+    data-minimum-price-per-night-first-label="From"
+    data-minimum-price-per-night-second-label="/ night"
+    data-book-button-label="Book now"
+    data-guests-breakdown-label="Guests"
+    data-adults-label='{"one":"adult","other":"adults"}'
+    data-adults-description="Ages {minAge} and above"
+    data-children-label='{"one":"child","other":"children"}'
+    data-children-description="Ages {minAge} - {maxAge}"
+    data-children-not-allowed-label="Not suitable for children"
+    data-infants-label='{"one":"infant","other":"infants"}'
+    data-infants-description="Under {maxAge}"
+    data-infants-not-allowed-label="Not suitable for infants"
+    data-pets-label='{"one":"pet","other":"pets"}'
+    data-pets-not-allowed-label="Pets not allowed"
+    data-done-label="Done"
+  ></div>
+
+  <script>
+    // ── Read params from URL ─────────────────────────────────────────────────
+    const params   = new URLSearchParams(location.search)
+    const rentalId = params.get('rentalId') ?? ''
+    const arrival  = params.get('arrival')  ?? ''   // YYYYMMDD
+    const departure= params.get('departure')?? ''   // YYYYMMDD
+    const adults   = parseInt(params.get('adults') ?? '1', 10)
+
+    // Stamp rental-id onto the widget div before the script runs
+    if (rentalId) {
+      document.getElementById('lodgify-book-now-box').setAttribute('data-rental-id', rentalId)
+    }
+
+    // ── Height reporter ──────────────────────────────────────────────────────
+    // Dialogs (calendar, guests) are fixed-position and don't affect body.scrollHeight.
+    // We measure them via getBoundingClientRect and also attach a ResizeObserver to
+    // each one so every animation frame gets reported to the parent iframe.
+    const _seenDialogs = new WeakSet()
+    let _heightTimer = null
+
+    function reportHeight() {
+      let h = document.body.scrollHeight
+      for (const dialog of document.querySelectorAll('[role="dialog"]')) {
+        const rect = dialog.getBoundingClientRect()
+        if (rect.height > 0) {
+          h = Math.max(h, Math.ceil(window.scrollY + rect.bottom) + 32)
+        }
+        if (!_seenDialogs.has(dialog)) {
+          _seenDialogs.add(dialog)
+          // Track this dialog's size through its open animation.
+          new ResizeObserver(reportHeight).observe(dialog)
+        }
+      }
+      window.parent.postMessage({ type: 'ldg-widget-height', height: h }, '*')
+    }
+
+    // Body resize (widget content changes).
+    new ResizeObserver(reportHeight).observe(document.body)
+
+    // DOM mutations (dialogs appearing). Also schedule a re-check after 350 ms
+    // so CSS open-transitions that finish after the initial insert are captured.
+    new MutationObserver(() => {
+      reportHeight()
+      clearTimeout(_heightTimer)
+      _heightTimer = setTimeout(reportHeight, 350)
+    }).observe(document.body, { childList: true, subtree: true })
+
+    // ── Calendar pre-fill helpers ────────────────────────────────────────────
+    const MONTH_NAMES = [
+      'January','February','March','April','May','June',
+      'July','August','September','October','November','December',
+    ]
+
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)) }
+
+    function getVisibleCalendarMonth() {
+      // Try scoped containers first (dialog, presentation), then the whole body.
+      // This covers differences in how Lodgify renders the calendar popup across room types.
+      const roots = [
+        ...document.querySelectorAll('[role="dialog"]'),
+        ...document.querySelectorAll('[role="presentation"]'),
+        document.body,
+      ]
+      for (const root of roots) {
+        for (const el of root.querySelectorAll('span, p, h2, h3, div')) {
+          const text = (el.textContent ?? '').trim()
+          const match = text.match(/^(\w+)\s+(\d{4})$/)
+          if (match) {
+            const idx = MONTH_NAMES.indexOf(match[1])
+            if (idx !== -1) return { year: parseInt(match[2]), month: idx + 1 }
+          }
+        }
+      }
+      return null
+    }
+
+    async function navigateCalendarToMonth(targetYear, targetMonth) {
+      for (let i = 0; i < 24; i++) {
+        const current = getVisibleCalendarMonth()
+        if (!current) {
+          console.warn('[ldg-prefill] getVisibleCalendarMonth returned null — calendar may not be open')
+          break
+        }
+        if (current.year === targetYear && current.month === targetMonth) break
+
+        const goBack =
+          current.year > targetYear ||
+          (current.year === targetYear && current.month > targetMonth)
+
+        const label = goBack ? 'Previous' : 'Next'
+        // Prefer a dialog-scoped button, fall back to any matching button in the document.
+        const btn =
+          document.querySelector(`[role="dialog"] button[aria-label="${label}"]`) ??
+          document.querySelector(`button[aria-label="${label}"]`)
+        if (!btn) {
+          console.warn(`[ldg-prefill] nav button "${label}" not found`)
+          break
+        }
+        btn.click()
+        await sleep(250)
+      }
+    }
+
+    async function prefillBookingBox() {
+      if (arrival.length !== 8 || departure.length !== 8) return
+
+      const arrDay   = parseInt(arrival.slice(6, 8), 10)
+      const arrMonth = parseInt(arrival.slice(4, 6), 10)
+      const arrYear  = parseInt(arrival.slice(0, 4), 10)
+      const depDay   = parseInt(departure.slice(6, 8), 10)
+      const depMonth = parseInt(departure.slice(4, 6), 10)
+      const depYear  = parseInt(departure.slice(0, 4), 10)
+
+      const container = document.getElementById('lodgify-book-now-box')
+
+      // ── 1. Open date picker ──────────────────────────────────────────────
+      const dateTrigger = container.querySelector('[data-testid="book-now-box.date-picker.trigger"]')
+      if (!dateTrigger) { console.warn('[ldg-prefill] date trigger not found'); return }
+      console.log('[ldg-prefill] clicking date trigger')
+      dateTrigger.click()
+      await sleep(700)
+
+      const monthAfterOpen = getVisibleCalendarMonth()
+      console.log('[ldg-prefill] calendar open, visible month:', monthAfterOpen)
+
+      // ── 2. Navigate to arrival month and click arrival date ──────────────
+      await navigateCalendarToMonth(arrYear, arrMonth)
+      await sleep(200)
+
+      const arrCellTestid = `book-now-box.date-picker-calendar-cell-${arrDay}-${arrMonth}`
+      const arrCell = document.querySelector(`[data-testid="${arrCellTestid}"]`)
+      const arrDisabled = arrCell?.getAttribute('aria-disabled') === 'true'
+      console.log('[ldg-prefill] arrival cell:', arrCellTestid, 'found:', !!arrCell, 'disabled:', arrDisabled)
+
+      if (!arrCell || arrDisabled) {
+        // Arrival date is blocked in Lodgify (room restriction or unavailability).
+        // Leave the calendar open so the user can immediately pick available dates.
+        console.warn('[ldg-prefill] arrival date unavailable — leaving calendar open for manual selection')
+        return
+      }
+      arrCell.click()
+      await sleep(400)
+
+      // ── 3. Navigate to departure month and click departure date ──────────
+      await navigateCalendarToMonth(depYear, depMonth)
+      await sleep(200)
+
+      const depCellTestid = `book-now-box.date-picker-calendar-cell-${depDay}-${depMonth}`
+      const depCell = document.querySelector(`[data-testid="${depCellTestid}"]`)
+      const depDisabled = depCell?.getAttribute('aria-disabled') === 'true'
+      console.log('[ldg-prefill] departure cell:', depCellTestid, 'found:', !!depCell, 'disabled:', depDisabled)
+
+      if (!depCell || depDisabled) {
+        console.warn('[ldg-prefill] departure date unavailable — leaving calendar open')
+        return
+      }
+      depCell.click()
+      await sleep(400)
+
+      // ── 4. Pre-fill guests if more than the default 1 adult ─────────────
+      if (adults > 1) {
+        const guestsTrigger = container.querySelector('[data-testid="guests-breakdown-trigger"]')
+        if (!guestsTrigger) return
+        guestsTrigger.click()
+        await sleep(400)
+
+        const dialog = document.querySelector('[role="dialog"]')
+        if (!dialog) return
+
+        const incrementBtn =
+          dialog.querySelector('[data-testid*="adults"][data-testid*="increment"]') ??
+          dialog.querySelector('[data-testid*="adult"][data-testid*="add"]') ??
+          Array.from(dialog.querySelectorAll('button')).find(b => b.textContent?.trim() === '+')
+
+        if (incrementBtn) {
+          for (let i = 1; i < adults; i++) {
+            incrementBtn.click()
+            await sleep(150)
+          }
+        }
+
+        const doneBtn = Array.from(dialog.querySelectorAll('button')).find(b =>
+          /done|apply|confirm/i.test(b.textContent ?? ''),
+        )
+        doneBtn?.click()
+      }
+    }
+
+    // ── Poll until the date trigger appears, then pre-fill ──────────────────
+    // Interval polling is more reliable than onload+MutationObserver across
+    // different rental IDs whose APIs may respond at different speeds.
+    ;(function startPrefillPoller() {
+      if (arrival.length !== 8 || departure.length !== 8) return
+      const deadline = Date.now() + 20000
+      const id = setInterval(() => {
+        const trigger = document.querySelector('[data-testid="book-now-box.date-picker.trigger"]')
+        if (trigger) {
+          clearInterval(id)
+          setTimeout(() => prefillBookingBox().catch(() => {}), 300)
+        } else if (Date.now() > deadline) {
+          clearInterval(id)
+        }
+      }, 400)
+    })()
+  </script>
+
+  <script
+    src="https://app.lodgify.com/book-now-box/stable/renderBookNowBox.js"
+    defer
+  ></script>
+</body>
+</html>
