@@ -250,19 +250,45 @@
       }
     }
 
-    // ── Poll until the date trigger appears, then pre-fill ──────────────────
-    // Interval polling is more reliable than onload+MutationObserver across
-    // different rental IDs whose APIs may respond at different speeds.
-    ;(function startPrefillPoller() {
-      if (arrival.length !== 8 || departure.length !== 8) return
+    // ── Poll until the widget is ready, prefill dates, wait for pricing ────────
+    // The parent keeps its spinner until it receives ldg-widget-ready, so we
+    // only send that signal after the full flow: render → prefill → price loaded.
+    // This means the user never sees the date-click animation or the loading state.
+    ;(function startPoller() {
       const deadline = Date.now() + 20000
+
+      async function revealWidget() {
+        if (arrival.length === 8 && departure.length === 8) {
+          // Run prefill (clicks dates in the calendar).
+          await prefillBookingBox().catch(() => {})
+
+          // If no dialog is open after prefill, both dates were accepted and
+          // Lodgify is fetching the price. Poll for "Total" to appear, which
+          // means the price API has responded and the widget is fully ready.
+          // If a dialog is still open (dates unavailable, calendar left open),
+          // skip the price wait and reveal immediately.
+          if (!document.querySelector('[role="dialog"]')) {
+            const container = document.getElementById('lodgify-book-now-box')
+            const priceDeadline = Date.now() + 5000
+            while (Date.now() < priceDeadline) {
+              if (container?.textContent?.toLowerCase().includes('total')) break
+              await sleep(300)
+            }
+          }
+        }
+        reportHeight()
+        window.parent.postMessage({ type: 'ldg-widget-ready' }, '*')
+      }
+
       const id = setInterval(() => {
         const trigger = document.querySelector('[data-testid="book-now-box.date-picker.trigger"]')
         if (trigger) {
           clearInterval(id)
-          setTimeout(() => prefillBookingBox().catch(() => {}), 300)
+          revealWidget()
         } else if (Date.now() > deadline) {
           clearInterval(id)
+          // Timeout fallback — reveal whatever rendered.
+          window.parent.postMessage({ type: 'ldg-widget-ready' }, '*')
         }
       }, 400)
     })()

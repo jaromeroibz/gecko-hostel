@@ -5,6 +5,10 @@ import { WaveButton } from '../ui/WaveButton'
 const LOGO_URL =
   'https://res.cloudinary.com/doow0mhrm/image/upload/v1778622715/background-removed_kzu281.png'
 
+// Ambient background — surf lesson on golden beach under palms
+const HERO_BG =
+  'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036019/AZC_9979_gzhuvd.jpg'
+
 const HERO_NAV = [
   { label: 'Home', to: '/' },
   { label: 'Rooms', to: '/#rooms' },
@@ -26,9 +30,27 @@ export function HomeHero() {
     <>
       {/* ── Hero section ────────────────────────────────────────────── */}
       <div
-        className="relative left-1/2 z-0 w-screen max-w-[100vw] -translate-x-1/2 bg-gecko-cream"
-        style={{ height: '100svh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        className="relative left-1/2 z-0 w-screen max-w-[100vw] -translate-x-1/2"
+        style={{
+          height: '100svh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundImage: `url('${HERO_BG}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 30%',
+          backgroundColor: '#f4f1ea',
+        }}
       >
+        {/* Cream veil — lets the beach texture breathe without competing with the logo */}
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'rgba(244, 241, 234, 0.88)',
+          }}
+        />
         <div className="hero-content">
 
           {/* ROW 1: Logo + Welcome text */}
@@ -114,6 +136,8 @@ export function HomeHero() {
       <style>{`
         /* ── Content block ─────────────────────────────── */
         .hero-content {
+          position: relative;
+          z-index: 1;
           width: 100%;
           max-width: 900px;
           padding: 0 2rem;
@@ -161,8 +185,24 @@ export function HomeHero() {
         }
 
         .hero-nav-link {
+          position: relative;
           font-size: 0.9rem;
           letter-spacing: 0.2em;
+        }
+
+        .hero-nav-link::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 0;
+          height: 1.5px;
+          background: currentColor;
+          transition: width 0.25s ease;
+        }
+
+        .hero-nav-link:hover::after {
+          width: 100%;
         }
 
         .hero-book-btn {
@@ -238,8 +278,25 @@ export function HomeHero() {
         }
 
         .drawer-link {
+          position: relative;
           font-size: 1.1rem;
           letter-spacing: 0.2em;
+          padding-bottom: 2px;
+        }
+
+        .drawer-link::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background: #1e3d32;
+          transition: width 0.25s ease;
+        }
+
+        .drawer-link:hover::after {
+          width: 100%;
         }
 
         .drawer-book {

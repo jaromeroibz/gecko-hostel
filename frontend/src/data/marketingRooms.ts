@@ -27,7 +27,7 @@ export const MARKETING_ROOMS: MarketingRoom[] = [
     fromPriceUsd: 45,
     imageSrc:
       'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1200&q=80',
-    imageAlt: 'Bright hostel dorm with wooden bunks and warm lighting',
+    imageAlt: 'Spacious shared dorm at Gecko Surf House',
     highlights: ['Lockers', 'Shared lounge', 'Surf rinse area nearby'],
   },
   {
@@ -40,8 +40,8 @@ export const MARKETING_ROOMS: MarketingRoom[] = [
     roomType: 'Private room',
     fromPriceUsd: 95,
     imageSrc:
-      'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=80',
-    imageAlt: 'Minimal private bedroom with crisp linens',
+      'https://res.cloudinary.com/doow0mhrm/image/upload/v1778106215/lphrdekhiwz6shgubevs.png',
+    imageAlt: 'Private double room at Gecko Surf House — La Lora',
     highlights: ['Private bathroom', 'Daily housekeeping', 'Premium linens'],
   },
   {
@@ -54,8 +54,8 @@ export const MARKETING_ROOMS: MarketingRoom[] = [
     roomType: 'Family room',
     fromPriceUsd: 120,
     imageSrc:
-      'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80',
-    imageAlt: 'Spacious hotel family room with two beds',
+      'https://res.cloudinary.com/doow0mhrm/image/upload/v1778106383/ljp9opiqapsdx5u5ipno.png',
+    imageAlt: 'Paraíso quadruple room at Gecko Surf House',
     highlights: ['Lounge seating', 'Work-friendly table', 'Kid-friendly layout'],
   },
   {
@@ -68,8 +68,8 @@ export const MARKETING_ROOMS: MarketingRoom[] = [
     roomType: 'Private suite',
     fromPriceUsd: 110,
     imageSrc:
-      'https://images.unsplash.com/photo-1611892440504-42a792e54d32?auto=format&fit=crop&w=1200&q=80',
-    imageAlt: 'Boutique hotel suite with ocean-inspired decor',
+      'https://res.cloudinary.com/doow0mhrm/image/upload/v1778097552/nptib5wvaavcyx87vmlj.png',
+    imageAlt: 'Rocamar quadruple room at Gecko Surf House',
     highlights: ['Premium mattress', 'Rain shower', 'Local art touches'],
   },
 ]

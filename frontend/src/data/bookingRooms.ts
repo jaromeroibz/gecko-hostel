@@ -4,6 +4,7 @@ export type BookingRoom = {
   name: string
   type: string
   beds: string
+  capacity: number
   size: number
   bathroom: 'private' | 'shared'
   description: string
@@ -18,6 +19,7 @@ export const BOOKING_ROOMS: BookingRoom[] = [
     name: '6 Gecko',
     type: 'Dormitory Room',
     beds: '1 single bed',
+    capacity: 6,
     size: 56,
     bathroom: 'shared',
     description:
@@ -31,6 +33,7 @@ export const BOOKING_ROOMS: BookingRoom[] = [
     name: 'Doble — La Lora',
     type: 'Double Room',
     beds: '1 double bed',
+    capacity: 2,
     size: 30,
     bathroom: 'shared',
     description:
@@ -48,6 +51,7 @@ export const BOOKING_ROOMS: BookingRoom[] = [
     name: '4 Arriba — Rocamar',
     type: 'Quadruple Room',
     beds: '2 single beds + 1 double bed',
+    capacity: 4,
     size: 42,
     bathroom: 'private',
     description:
@@ -66,6 +70,7 @@ export const BOOKING_ROOMS: BookingRoom[] = [
     name: '4 Abajo — Paraíso',
     type: 'Quadruple Room',
     beds: '2 single beds + 1 double bed',
+    capacity: 4,
     size: 42,
     bathroom: 'private',
     description:

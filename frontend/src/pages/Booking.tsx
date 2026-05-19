@@ -13,7 +13,7 @@ export function Booking() {
   const searchQuery = `?arrival=${search.arrivalYmd}&departure=${search.departureYmd}&adults=${search.adults}`
 
   function scrollToSearch() {
-    searchRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   return (
@@ -30,7 +30,7 @@ export function Booking() {
       </header>
 
       {/* ── Date search bar ─────────────────────────────────────────── */}
-      <div ref={searchRef} className="scroll-mt-6">
+      <div ref={searchRef}>
         <BookingSearchBar
           key={`${search.arrivalYmd}-${search.departureYmd}-${search.adults}`}
           arrivalYmd={search.arrivalYmd}

@@ -1,0 +1,656 @@
+// ── Experience images ──────────────────────────────────────────────────────
+// Sunrise surf session — warm, immersive, golden hour
+const IMG_SURF     = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036019/AZC_9979_gzhuvd.jpg'
+// Golden-hour longboard — warmth + flow for ATV adventure feel
+const IMG_ATV      = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_7689_wollqs.jpg'
+// Jungle / raw terrain reference
+const IMG_JUNGLE   = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_8778_qyo4bt.jpg'
+// Aerial cutback — technical, cinematic surf video analysis
+const IMG_ANALYSIS = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_1348_ucphi8.jpg'
+
+export function HomeExperiencesSection() {
+  return (
+    <section
+      className="ex-section relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2"
+      aria-label="Experiences at Gecko"
+    >
+      {/* ── Top wave — sand (#e6e1d6) peeling into dark section ── */}
+      <div className="ex-top-wave" aria-hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" />
+        </svg>
+      </div>
+
+      {/* ── Section header ─────────────────────────────────────────────────── */}
+      <header className="ex-header">
+        <p className="ex-eyebrow font-label font-medium uppercase text-gecko-clay">
+          Explore with us
+        </p>
+        <h2 className="ex-heading font-display text-gecko-cream">
+          Beyond the break.
+        </h2>
+        <p className="ex-subtext">
+          Santa Teresa doesn't start and end in the water.<br />
+          Jungle, rivers, hidden falls, open roads —<br />
+          there's a whole world between sessions.
+        </p>
+      </header>
+
+      {/* ── Main cluster ──────────────────────────────────────────────────── */}
+      <div className="ex-cluster">
+
+        {/* ─── ROW 1 — Hero card: Surf Lessons ─────────────────────────── */}
+        <div className="ex-hero-card">
+          <img
+            src={IMG_SURF}
+            alt="Surf session in Santa Teresa, Costa Rica"
+            loading="lazy"
+            className="ex-hero-img"
+          />
+          {/* cinematic bottom gradient */}
+          <div className="ex-hero-overlay" aria-hidden />
+
+          {/* Floating content panel — bottom left */}
+          <div className="ex-hero-panel">
+            <span className="ex-cat font-label">On the water</span>
+            <h3 className="ex-panel-title font-display">
+              Read the<br />wave.
+            </h3>
+            <p className="ex-panel-body">
+              From your first pop-up to your first green wave —
+              our coaches meet you where you are.
+              No shame, no rush, just progress.
+            </p>
+            <span className="ex-tag font-label">
+              Surf Lessons · All levels · Daily sessions
+            </span>
+          </div>
+
+          {/* Popularity badge — top right */}
+          <div className="ex-badge font-label" aria-label="Most popular experience">
+            ★ Most popular
+          </div>
+
+          {/* Card number — top left accent */}
+          <span className="ex-num" aria-hidden>01</span>
+        </div>
+
+        {/* ─── ROW 2 — ATV + Waterfalls ────────────────────────────────── */}
+        <div className="ex-row-2">
+
+          {/* ATV Tours */}
+          <div className="ex-card">
+            <img
+              src={IMG_ATV}
+              alt="ATV adventure through Costa Rica jungle"
+              loading="lazy"
+            />
+            <div className="ex-card-overlay" aria-hidden />
+            <span className="ex-num" aria-hidden>02</span>
+            <div className="ex-card-content">
+              <span className="ex-cat font-label">Off-road</span>
+              <h3 className="ex-card-title font-display">
+                Rip through<br />the jungle.
+              </h3>
+              <p className="ex-card-body">
+                Coastal cliffs, hidden lookouts, jungle trails.
+                A guided ATV ride through Santa Teresa's wildest terrain.
+              </p>
+              <span className="ex-tag font-label">ATV Tours · Half day · Guided</span>
+            </div>
+          </div>
+
+          {/* Waterfalls — warm colour block, no photo */}
+          <div className="ex-card ex-card--warm">
+            {/* Layered warm gradient background */}
+            <div className="ex-warm-bg" aria-hidden />
+            {/* Ghost watermark heading */}
+            <span className="ex-ghost font-display" aria-hidden>Falls</span>
+            <span className="ex-num ex-num--dark" aria-hidden>03</span>
+            <div className="ex-card-content ex-card-content--warm">
+              <span className="ex-cat ex-cat--dark font-label">Into the wild</span>
+              <h3 className="ex-card-title ex-card-title--dark font-display">
+                Swim<br />somewhere<br />untouched.
+              </h3>
+              <p className="ex-card-body ex-card-body--dark">
+                Hike through dense rainforest to waterfalls so remote
+                they feel like secrets. Cold water, warm light, zero crowds.
+              </p>
+              <span className="ex-tag ex-tag--dark font-label">
+                Waterfall Hikes · Full day · Guided
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+        {/* ─── ROW 3 — Jungle + Video Analysis ─────────────────────────── */}
+        <div className="ex-row-3">
+
+          {/* Jungle Adventures */}
+          <div className="ex-card">
+            <img
+              src={IMG_JUNGLE}
+              alt="Jungle adventure in Costa Rica"
+              loading="lazy"
+            />
+            <div className="ex-card-overlay" aria-hidden />
+            <span className="ex-num" aria-hidden>04</span>
+            <div className="ex-card-content">
+              <span className="ex-cat font-label">Deep jungle</span>
+              <h3 className="ex-card-title font-display">
+                The jungle<br />goes deep.
+              </h3>
+              <p className="ex-card-body">
+                Zip lines, river crossings, wildlife spotting — a full
+                immersion in the Costa Rican wild with guides who know every trail.
+              </p>
+              <span className="ex-tag font-label">
+                Jungle Adventure · Full day · Expert guides
+              </span>
+            </div>
+          </div>
+
+          {/* Surf Video Analysis */}
+          <div className="ex-card">
+            <img
+              src={IMG_ANALYSIS}
+              alt="Aerial surf footage for video analysis"
+              loading="lazy"
+            />
+            <div className="ex-card-overlay" aria-hidden />
+            <span className="ex-num" aria-hidden>05</span>
+            <div className="ex-card-content">
+              <span className="ex-cat font-label">Level up</span>
+              <h3 className="ex-card-title font-display">
+                See what<br />you're missing.
+              </h3>
+              <p className="ex-card-body">
+                Your session, captured and analyzed. Watch the footage,
+                fix the fundamentals, and progress faster than you thought possible.
+              </p>
+              <span className="ex-tag font-label">
+                Surf Video Analysis · All levels · On-demand
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+        {/* ─── CTA strip ────────────────────────────────────────────────── */}
+        <div className="ex-cta-strip">
+          <p className="ex-cta-copy font-display">
+            Every day is a new adventure.
+          </p>
+          <a href="/booking" className="ex-cta-btn font-label font-medium uppercase">
+            Book your stay →
+          </a>
+        </div>
+
+      </div>
+
+      {/* ── Bottom wave — dark → cream for rooms section ──────────────── */}
+      <div className="ex-bottom-wave" aria-hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" />
+        </svg>
+      </div>
+
+      <style>{`
+
+        /* ━━ Section — deep jungle canvas ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .ex-section {
+          background: #0d1f18;
+          padding: 7rem clamp(1.5rem, 6vw, 5rem) 9rem;
+          position: relative;
+        }
+
+        /* ━━ Top wave — sand peeling into dark ━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .ex-top-wave {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 100vw;
+          height: 88px;
+          overflow: hidden;
+          line-height: 0;
+          pointer-events: none;
+        }
+
+        .ex-top-wave svg {
+          display: block;
+          width: 100%;
+          height: 88px;
+          fill: #e6e1d6; /* sand — matches lifestyle section */
+        }
+
+        /* ━━ Section header — centered editorial intro ━━━━━━━━━━━━━━━━━ */
+        .ex-header {
+          text-align: center;
+          max-width: 640px;
+          margin: 0 auto 3.5rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1.25rem;
+        }
+
+        .ex-eyebrow {
+          font-size: 0.65rem;
+          letter-spacing: 0.3em;
+          margin: 0;
+        }
+
+        .ex-heading {
+          font-size: clamp(3rem, 5vw, 5.5rem);
+          line-height: 1.0;
+          letter-spacing: -0.015em;
+          margin: 0;
+        }
+
+        .ex-subtext {
+          font-size: 0.9375rem;
+          line-height: 1.85;
+          color: rgba(244, 241, 234, 0.48);
+          margin: 0;
+        }
+
+        /* ━━ Cluster ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .ex-cluster {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          gap: 1.125rem;
+        }
+
+        /* ━━ ROW 1 — Hero card (Surf Lessons) ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .ex-hero-card {
+          position: relative;
+          height: 540px;
+          border-radius: 1.75rem;
+          overflow: hidden;
+          cursor: pointer;
+        }
+
+        .ex-hero-img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center 28%;
+          display: block;
+          transition: transform 1.2s cubic-bezier(0.25, 0, 0.1, 1);
+        }
+
+        .ex-hero-card:hover .ex-hero-img {
+          transform: scale(1.04);
+        }
+
+        .ex-hero-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            to top,
+            rgba(8, 16, 12, 0.92) 0%,
+            rgba(8, 16, 12, 0.55) 38%,
+            rgba(8, 16, 12, 0.15) 65%,
+            transparent 100%
+          );
+        }
+
+        /* Floating content panel at bottom-left */
+        .ex-hero-panel {
+          position: absolute;
+          bottom: 2.75rem;
+          left: 2.75rem;
+          max-width: 460px;
+          display: flex;
+          flex-direction: column;
+          gap: 0.85rem;
+        }
+
+        .ex-panel-title {
+          font-size: clamp(2.5rem, 4vw, 4.25rem);
+          line-height: 1.0;
+          letter-spacing: -0.02em;
+          color: #f4f1ea;
+          margin: 0;
+        }
+
+        .ex-panel-body {
+          font-size: 0.9375rem;
+          line-height: 1.8;
+          color: rgba(244, 241, 234, 0.65);
+          margin: 0;
+          max-width: 380px;
+        }
+
+        /* Badge — top right */
+        .ex-badge {
+          position: absolute;
+          top: 1.75rem;
+          right: 1.75rem;
+          background: rgba(184, 92, 58, 0.88);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          color: #f4f1ea;
+          font-size: 0.6rem;
+          letter-spacing: 0.24em;
+          text-transform: uppercase;
+          padding: 0.5rem 1.1rem;
+          border-radius: 9999px;
+          border: 1px solid rgba(244, 241, 234, 0.15);
+        }
+
+        /* ━━ ROW 2 — two-up: 57 / 41 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .ex-row-2 {
+          display: grid;
+          grid-template-columns: 57fr 41fr;
+          gap: 1.125rem;
+          height: 420px;
+        }
+
+        /* ━━ ROW 3 — two-up: 41 / 57 (reversed for rhythm) ━━━━━━━━━━━━ */
+        .ex-row-3 {
+          display: grid;
+          grid-template-columns: 41fr 57fr;
+          gap: 1.125rem;
+          height: 420px;
+        }
+
+        /* ━━ Individual experience cards ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .ex-card {
+          position: relative;
+          border-radius: 1.5rem;
+          overflow: hidden;
+          cursor: pointer;
+        }
+
+        .ex-card > img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center 40%;
+          display: block;
+          transition: transform 1s cubic-bezier(0.25, 0, 0.1, 1);
+        }
+
+        .ex-card:hover > img {
+          transform: scale(1.04);
+        }
+
+        /* Cinematic bottom gradient */
+        .ex-card-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            to top,
+            rgba(8, 16, 12, 0.88) 0%,
+            rgba(8, 16, 12, 0.45) 42%,
+            transparent 72%
+          );
+        }
+
+        /* Waterfalls — warm colour block, no photo */
+        .ex-card--warm {
+          background: #1a0a04;
+        }
+
+        .ex-warm-bg {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            145deg,
+            #6b2e18 0%,
+            #a84c2e 35%,
+            #c8663c 60%,
+            #b05530 85%,
+            #7a3520 100%
+          );
+        }
+
+        /* Ghost watermark text — large, low-opacity behind content */
+        .ex-ghost {
+          position: absolute;
+          bottom: -0.5rem;
+          right: -1rem;
+          font-size: clamp(5rem, 12vw, 10rem);
+          line-height: 1;
+          color: rgba(244, 230, 210, 0.12);
+          white-space: nowrap;
+          pointer-events: none;
+          user-select: none;
+          letter-spacing: -0.03em;
+        }
+
+        /* ━━ Card content ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .ex-card-content {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          padding: 2rem 2.25rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.65rem;
+        }
+
+        .ex-card-content--warm {
+          height: 100%;
+          justify-content: flex-end;
+        }
+
+        /* ━━ Card number accents ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .ex-num {
+          position: absolute;
+          top: 1.5rem;
+          left: 2rem;
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 0.75rem;
+          letter-spacing: 0.18em;
+          color: rgba(244, 241, 234, 0.22);
+          pointer-events: none;
+          user-select: none;
+        }
+
+        .ex-num--dark {
+          color: rgba(14, 26, 20, 0.22);
+        }
+
+        /* ━━ Shared type styles ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .ex-cat {
+          font-size: 0.6rem;
+          letter-spacing: 0.28em;
+          text-transform: uppercase;
+          color: #b85c3a;
+          margin: 0;
+        }
+
+        .ex-cat--dark {
+          color: rgba(80, 30, 12, 0.65);
+        }
+
+        .ex-card-title {
+          font-size: clamp(1.5rem, 2.2vw, 2.15rem);
+          line-height: 1.06;
+          letter-spacing: -0.01em;
+          color: #f4f1ea;
+          margin: 0;
+        }
+
+        .ex-card-title--dark {
+          color: rgba(14, 10, 6, 0.88);
+        }
+
+        .ex-card-body {
+          font-size: 0.875rem;
+          line-height: 1.75;
+          color: rgba(244, 241, 234, 0.6);
+          margin: 0;
+          max-width: 320px;
+        }
+
+        .ex-card-body--dark {
+          color: rgba(20, 10, 4, 0.6);
+        }
+
+        .ex-tag {
+          font-size: 0.58rem;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: rgba(244, 241, 234, 0.35);
+          margin: 0;
+        }
+
+        .ex-tag--dark {
+          color: rgba(14, 10, 4, 0.42);
+        }
+
+        /* ━━ CTA strip ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .ex-cta-strip {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 2rem;
+          background: rgba(244, 241, 234, 0.04);
+          border: 1px solid rgba(244, 241, 234, 0.08);
+          border-radius: 1.5rem;
+          padding: 2rem 2.75rem;
+          margin-top: 0.25rem;
+        }
+
+        .ex-cta-copy {
+          font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+          font-style: italic;
+          color: rgba(244, 241, 234, 0.78);
+          margin: 0;
+          letter-spacing: -0.01em;
+        }
+
+        .ex-cta-btn {
+          flex-shrink: 0;
+          font-size: 0.72rem;
+          letter-spacing: 0.2em;
+          color: #f4f1ea;
+          border: 1.5px solid rgba(244, 241, 234, 0.32);
+          border-radius: 9999px;
+          padding: 0.875rem 2rem;
+          transition: border-color 0.22s, background 0.22s, color 0.22s;
+          white-space: nowrap;
+          display: inline-block;
+        }
+
+        .ex-cta-btn:hover {
+          border-color: #f4f1ea;
+          background: #f4f1ea;
+          color: #0d1f18;
+        }
+
+        /* ━━ Bottom wave — dark → cream for rooms section ━━━━━━━━━━━━━━ */
+        .ex-bottom-wave {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 100vw;
+          height: 88px;
+          overflow: hidden;
+          line-height: 0;
+          pointer-events: none;
+        }
+
+        .ex-bottom-wave svg {
+          display: block;
+          width: 100%;
+          height: 88px;
+          transform: scaleY(-1); /* rises from bottom */
+          fill: #f4f1ea; /* cream — matches rooms section */
+        }
+
+        /* ━━ Tablet (768 – 1023px) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        @media (max-width: 1023px) {
+          .ex-section {
+            padding: 6rem clamp(1.5rem, 5vw, 3.5rem) 7rem;
+          }
+
+          .ex-hero-card {
+            height: 480px;
+          }
+
+          .ex-row-2,
+          .ex-row-3 {
+            grid-template-columns: 1fr;
+            height: auto;
+          }
+
+          .ex-row-2 .ex-card,
+          .ex-row-3 .ex-card {
+            height: 360px;
+          }
+
+          .ex-card--warm {
+            height: 320px;
+          }
+
+          .ex-cta-strip {
+            flex-direction: column;
+            text-align: center;
+            gap: 1.5rem;
+          }
+        }
+
+        /* ━━ Mobile (< 640px) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        @media (max-width: 639px) {
+          .ex-section {
+            padding: 5rem 1.25rem 7rem;
+          }
+
+          .ex-hero-card {
+            height: 400px;
+            border-radius: 1.25rem;
+          }
+
+          .ex-hero-panel {
+            left: 1.5rem;
+            bottom: 1.75rem;
+            right: 1.5rem;
+            max-width: 100%;
+          }
+
+          .ex-badge {
+            top: 1.25rem;
+            right: 1.25rem;
+          }
+
+          .ex-row-2 .ex-card,
+          .ex-row-3 .ex-card {
+            height: 300px;
+            border-radius: 1.25rem;
+          }
+
+          .ex-card--warm {
+            height: 280px;
+            border-radius: 1.25rem;
+          }
+
+          .ex-card-content {
+            padding: 1.5rem 1.75rem;
+          }
+
+          .ex-cta-strip {
+            padding: 1.75rem;
+            border-radius: 1.25rem;
+          }
+
+          .ex-ghost {
+            font-size: 5rem;
+          }
+        }
+      `}</style>
+    </section>
+  )
+}

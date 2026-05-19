@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import type { BookingRoom } from '../../data/bookingRooms'
@@ -12,31 +13,93 @@ type Props = {
 }
 
 export function RoomCard({ room, searchQuery }: Props) {
-  const coverImg = room.images[0] ?? GECKO_DORM_PLACEHOLDER
+  const [imgIdx, setImgIdx] = useState(0)
+
+  const images = room.images.length > 0 ? room.images : [GECKO_DORM_PLACEHOLDER]
+  const hasMultiple = images.length > 1
   const bookHref = `/booking/${room.id}${searchQuery}`
+
+  function prev(e: React.MouseEvent) {
+    e.preventDefault()
+    setImgIdx((i) => (i - 1 + images.length) % images.length)
+  }
+  function next(e: React.MouseEvent) {
+    e.preventDefault()
+    setImgIdx((i) => (i + 1) % images.length)
+  }
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-[1.35rem] border border-gecko-sand/90 bg-white shadow-[0_1px_0_rgba(30,61,50,0.04),0_20px_50px_-28px_rgba(20,41,35,0.12)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_-26px_rgba(20,41,35,0.18)]">
 
-      {/* ── Photo ─────────────────────────────────────────────────────── */}
+      {/* ── Photo carousel ────────────────────────────────────────────── */}
       <div className="relative aspect-[16/10] overflow-hidden">
-        <img
-          src={coverImg}
-          alt={room.name}
-          className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.04]"
-          loading="lazy"
-        />
+
+        {/* Inner wrapper — only the photos scale on card hover, not the UI */}
+        <div className="absolute inset-0 transition duration-700 ease-out group-hover:scale-[1.04]">
+          {images.map((src, i) => (
+            <img
+              key={src}
+              src={src}
+              alt={`${room.name} — photo ${i + 1} of ${images.length}`}
+              loading="lazy"
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+                i === imgIdx ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Gradient overlay */}
         <div
           className="absolute inset-0 bg-gradient-to-t from-gecko-forestDeep/70 via-gecko-forest/10 to-transparent"
           aria-hidden
         />
-        <div className="absolute bottom-3.5 left-3.5 right-3.5 flex flex-wrap items-end justify-between gap-2">
-          <span className="rounded-full bg-gecko-cream/95 px-3 py-1.5 text-xs font-semibold text-gecko-forest shadow-sm backdrop-blur-sm">
-            {room.type}
-          </span>
-          <span className="rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
-            {room.size} m² · {room.bathroom === 'private' ? 'Private bath' : 'Shared bath'}
-          </span>
+
+        {/* Prev / Next arrows — appear on card hover */}
+        {hasMultiple && (
+          <>
+            <button
+              onClick={prev}
+              aria-label="Previous photo"
+              className="absolute left-2.5 top-1/2 z-10 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-black/35 text-lg text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 hover:bg-black/55 group-hover:opacity-100 focus-visible:opacity-100"
+            >
+              ‹
+            </button>
+            <button
+              onClick={next}
+              aria-label="Next photo"
+              className="absolute right-2.5 top-1/2 z-10 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-black/35 text-lg text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 hover:bg-black/55 group-hover:opacity-100 focus-visible:opacity-100"
+            >
+              ›
+            </button>
+          </>
+        )}
+
+        {/* Bottom bar: badges (left) + dots (right) */}
+        <div className="absolute bottom-3.5 left-3.5 right-3.5 z-10 flex flex-wrap items-end justify-between gap-2">
+          <div className="flex flex-wrap gap-2">
+            <span className="rounded-full bg-gecko-cream/95 px-3 py-1.5 text-xs font-semibold text-gecko-forest shadow-sm backdrop-blur-sm">
+              {room.type}
+            </span>
+            <span className="rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
+              {room.size} m² · {room.bathroom === 'private' ? 'Private bath' : 'Shared bath'}
+            </span>
+          </div>
+
+          {hasMultiple && (
+            <div className="flex shrink-0 items-center gap-1.5">
+              {images.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={(e) => { e.preventDefault(); setImgIdx(i) }}
+                  aria-label={`Photo ${i + 1}`}
+                  className={`rounded-full transition-all duration-300 ${
+                    i === imgIdx ? 'h-1.5 w-4 bg-white' : 'h-1.5 w-1.5 bg-white/50 hover:bg-white/80'
+                  }`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
@@ -46,6 +109,9 @@ export function RoomCard({ room, searchQuery }: Props) {
           {room.name}
         </h2>
         <p className="mt-1 text-sm text-gecko-sage">{room.beds}</p>
+        <p className="mt-0.5 text-sm text-gecko-sage">
+          Up to {room.capacity} guest{room.capacity !== 1 ? 's' : ''}
+        </p>
         <p className="mt-3 flex-1 text-sm leading-relaxed text-gecko-forest/70">
           {room.description}
         </p>

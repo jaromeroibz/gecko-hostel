@@ -1,9 +1,365 @@
+import { Link } from 'react-router-dom'
+
+const LOGO =
+  'https://res.cloudinary.com/doow0mhrm/image/upload/v1779032984/Untitled_xbxmok.png'
+
+const NAV_LINKS = [
+  { label: 'Home',       to: '/'         },
+  { label: 'Rooms',      to: '/#rooms'   },
+  { label: 'Location',   to: '/location' },
+  { label: 'Contact Us', to: '/contact'  },
+]
+
+const SOCIAL_LINKS = [
+  { label: 'Instagram',    href: '#' },
+  { label: 'Airbnb',       href: '#' },
+  { label: 'Booking.com',  href: '#' },
+]
+
 export function Footer() {
   return (
-    <footer className="border-t border-gecko-sand/90 bg-gecko-cream">
-      <div className="mx-auto max-w-6xl px-5 py-6 text-sm text-gecko-forest/55 sm:px-6">
-        <p>© {new Date().getFullYear()} Gecko Hostel. All rights reserved.</p>
+    <footer className="footer-root">
+
+      {/* ── Ghost "GECKO" watermark ──────────────────────────────────── */}
+      <span className="footer-ghost font-display" aria-hidden>GECKO</span>
+
+      <div className="footer-inner">
+
+        {/* ── Masthead — logo + editorial tagline ─────────────────────── */}
+        <div className="footer-masthead">
+          <img
+            src={LOGO}
+            alt="Gecko Surf House"
+            className="footer-logo"
+          />
+          <p className="footer-tagline font-display">
+            Follow<br />
+            <em>the swell.</em>
+          </p>
+        </div>
+
+        {/* ── Terracotta separator ─────────────────────────────────────── */}
+        <div className="footer-sep-clay" aria-hidden />
+
+        {/* ── Main grid ───────────────────────────────────────────────── */}
+        <div className="footer-grid">
+
+          {/* Column 1 — Navigate */}
+          <div className="footer-col">
+            <p className="footer-col-label font-label uppercase">Explore</p>
+            <nav aria-label="Footer navigation">
+              <ul className="footer-link-list">
+                {NAV_LINKS.map((link) => (
+                  <li key={link.label}>
+                    <Link to={link.to} className="footer-link font-label">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <Link to="/booking" className="footer-link footer-link--cta font-label">
+                    Book Now →
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          {/* Column 2 — Visit Us */}
+          <div className="footer-col">
+            <p className="footer-col-label font-label uppercase">Visit Us</p>
+            <address className="footer-address font-label">
+              <p>Santa Teresa</p>
+              <p>Puntarenas Province</p>
+              <p>Costa Rica</p>
+            </address>
+            <div className="footer-hours font-label">
+              <div className="footer-hours-row">
+                <span className="footer-hours-key">Check-in</span>
+                <span className="footer-hours-val">2:00 pm</span>
+              </div>
+              <div className="footer-hours-row">
+                <span className="footer-hours-key">Check-out</span>
+                <span className="footer-hours-val">11:00 am</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Column 3 — Follow */}
+          <div className="footer-col">
+            <p className="footer-col-label font-label uppercase">Follow</p>
+            <ul className="footer-link-list">
+              {SOCIAL_LINKS.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-link font-label"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </div>
+
+        {/* ── Bottom bar ──────────────────────────────────────────────── */}
+        <div className="footer-sep-hair" aria-hidden />
+
+        <div className="footer-bottom">
+          <p className="footer-copy font-label">
+            © {new Date().getFullYear()} Gecko Surf House. All rights reserved.
+          </p>
+          <p className="footer-locale font-label uppercase">
+            Santa Teresa · Costa Rica
+          </p>
+        </div>
+
       </div>
+
+      <style>{`
+
+        /* ━━ Root ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .footer-root {
+          background: #142923;
+          width: 100%;
+          position: relative;
+          overflow: hidden;
+          /* No border-top — divider lives at the bottom of the CTA section above */
+        }
+
+        /* ━━ Ghost watermark ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .footer-ghost {
+          position: absolute;
+          bottom: -2.5rem;
+          left: 50%;
+          transform: translateX(-50%);
+          font-size: clamp(7rem, 18vw, 20rem);
+          line-height: 1;
+          color: rgba(244, 241, 234, 0.03);
+          pointer-events: none;
+          user-select: none;
+          white-space: nowrap;
+          letter-spacing: 0.06em;
+          z-index: 0;
+        }
+
+        /* ━━ Inner container ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .footer-inner {
+          position: relative;
+          z-index: 1;
+          max-width: 1080px;
+          margin: 0 auto;
+          padding: clamp(3.5rem, 6vw, 5rem) clamp(1.5rem, 6vw, 6rem) clamp(2rem, 4vw, 3rem);
+        }
+
+        /* ━━ Masthead ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .footer-masthead {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          gap: 2rem;
+          margin-bottom: 2.75rem;
+        }
+
+        .footer-logo {
+          width: clamp(100px, 14vw, 160px);
+          height: auto;
+          display: block;
+          /* Make logo white on dark background */
+          filter: brightness(0) invert(1);
+          opacity: 0.88;
+          flex-shrink: 0;
+        }
+
+        .footer-tagline {
+          font-size: clamp(2.75rem, 5vw, 5.5rem);
+          line-height: 0.95;
+          letter-spacing: -0.035em;
+          color: #f4f1ea;
+          text-align: right;
+          margin: 0;
+        }
+
+        .footer-tagline em {
+          font-style: italic;
+          color: rgba(244, 241, 234, 0.42);
+        }
+
+        /* ━━ Separators ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .footer-sep-clay {
+          height: 1.5px;
+          background: linear-gradient(
+            to right,
+            rgba(184, 92, 58, 0.55),
+            rgba(184, 92, 58, 0.15) 60%,
+            rgba(184, 92, 58, 0)
+          );
+          margin-bottom: 3rem;
+          border-radius: 100px;
+        }
+
+        .footer-sep-hair {
+          height: 1px;
+          background: rgba(244, 241, 234, 0.07);
+          margin-bottom: 1.75rem;
+        }
+
+        /* ━━ Main link grid ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .footer-grid {
+          display: grid;
+          grid-template-columns: 1.1fr 1.1fr 0.8fr;
+          gap: 3rem;
+          margin-bottom: 3rem;
+        }
+
+        /* ━━ Column ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .footer-col-label {
+          font-size: 0.52rem;
+          letter-spacing: 0.28em;
+          color: #b85c3a;
+          margin: 0 0 1.25rem;
+        }
+
+        /* ━━ Link lists ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .footer-link-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+
+        .footer-link {
+          font-size: 0.9rem;
+          font-weight: 400;
+          color: rgba(244, 241, 234, 0.5);
+          text-decoration: none;
+          transition: color 0.2s ease;
+          display: inline-block;
+        }
+
+        .footer-link:hover {
+          color: #f4f1ea;
+        }
+
+        .footer-link--cta {
+          color: #b85c3a;
+          font-weight: 600;
+          margin-top: 0.4rem;
+        }
+
+        .footer-link--cta:hover {
+          color: #c9683f;
+        }
+
+        /* ━━ Address ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .footer-address {
+          font-style: normal;
+          display: flex;
+          flex-direction: column;
+          gap: 0.3rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .footer-address p {
+          font-size: 0.9rem;
+          color: rgba(244, 241, 234, 0.5);
+          margin: 0;
+        }
+
+        /* ━━ Hours ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .footer-hours {
+          display: flex;
+          flex-direction: column;
+          gap: 0.4rem;
+          border-left: 1.5px solid rgba(184, 92, 58, 0.25);
+          padding-left: 0.85rem;
+        }
+
+        .footer-hours-row {
+          display: flex;
+          align-items: baseline;
+          gap: 0.75rem;
+        }
+
+        .footer-hours-key {
+          font-size: 0.5rem;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: rgba(244, 241, 234, 0.3);
+          min-width: 5rem;
+        }
+
+        .footer-hours-val {
+          font-size: 0.825rem;
+          color: rgba(244, 241, 234, 0.55);
+        }
+
+        /* ━━ Bottom bar ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .footer-bottom {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+
+        .footer-copy {
+          font-size: 0.75rem;
+          color: rgba(244, 241, 234, 0.28);
+          margin: 0;
+        }
+
+        .footer-locale {
+          font-size: 0.48rem;
+          letter-spacing: 0.22em;
+          color: rgba(244, 241, 234, 0.22);
+          margin: 0;
+        }
+
+        /* ━━ Tablet (< 1024 px) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        @media (max-width: 1023px) {
+          .footer-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem 3rem;
+          }
+        }
+
+        /* ━━ Mobile (< 640 px) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        @media (max-width: 639px) {
+          .footer-masthead {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2.25rem;
+          }
+
+          .footer-tagline {
+            text-align: left;
+            font-size: 2.75rem;
+          }
+
+          .footer-grid {
+            grid-template-columns: 1fr;
+            gap: 2.25rem;
+          }
+
+          .footer-bottom {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+          }
+
+          .footer-ghost {
+            font-size: 5.5rem;
+          }
+        }
+      `}</style>
     </footer>
   )
 }

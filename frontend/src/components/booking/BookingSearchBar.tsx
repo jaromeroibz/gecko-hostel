@@ -65,6 +65,15 @@ export function BookingSearchBar({
 
   const today = todayHtml()
 
+  // Night count between the two selected dates
+  const nights: number | null = (() => {
+    if (!arrival || !departure) return null
+    const diff = Math.round(
+      (new Date(departure).getTime() - new Date(arrival).getTime()) / 86400000,
+    )
+    return diff > 0 ? diff : null
+  })()
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -88,6 +97,17 @@ export function BookingSearchBar({
           required
           className="rounded-xl border border-gecko-sand bg-gecko-cream/60 px-3 py-2.5 text-sm font-medium text-gecko-forestDeep focus:border-gecko-forest focus:outline-none focus:ring-1 focus:ring-gecko-forest"
         />
+      </div>
+
+      {/* ── Night count separator ──────────────────────────── */}
+      <div className="flex items-center justify-center sm:self-end sm:pb-[9px]">
+        {nights !== null ? (
+          <span className="rounded-full bg-gecko-mist px-2.5 py-1 text-[11px] font-semibold text-gecko-forest">
+            {nights} night{nights !== 1 ? 's' : ''}
+          </span>
+        ) : (
+          <span className="hidden text-gecko-forest/30 sm:block">→</span>
+        )}
       </div>
 
       {/* ── Check-out ─────────────────────────────────────── */}

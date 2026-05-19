@@ -4,8 +4,12 @@ import { useLocation } from 'react-router-dom'
 import {
   HomeBookingCtaSection,
   HomeEditorialSection,
+  HomeExperiencesSection,
   HomeHero,
+  HomeLifestyleSection,
   HomeRoomsSection,
+  HomeTestimonialsSection,
+  HomeWhySection,
 } from '../components/home'
 
 export function HomePage() {
@@ -25,7 +29,11 @@ export function HomePage() {
     <div className="space-y-0">
       <HomeHero />
       <HomeEditorialSection />
+      <HomeLifestyleSection />
+      <HomeExperiencesSection />
       <HomeRoomsSection />
+      <HomeWhySection />
+      <HomeTestimonialsSection />
       <HomeBookingCtaSection />
     </div>
   )

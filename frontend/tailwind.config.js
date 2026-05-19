@@ -21,8 +21,9 @@ export default {
       fontFamily: {
         /** Nav / caps: closest free match to logo’s bold condensed “woodblock” feel */
         nav: ['"Bebas Neue"', 'Impact', 'Haettenschweiler', 'sans-serif'],
-        display: ['Fraunces', 'Georgia', 'ui-serif', 'serif'],
+        display: ['Comfortaa', 'cursive', 'sans-serif'],
         sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+        label: ['Nunito', 'sans-serif'],
       },
     },
   },

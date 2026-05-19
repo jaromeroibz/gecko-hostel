@@ -89,14 +89,16 @@ export function Navbar() {
                 key={`${item.label}-${item.hash ?? 'root'}`}
                 to={to}
                 style={{
+                  position: 'relative',
                   fontSize: '0.9rem',
                   letterSpacing: '0.2em',
                   color: active ? '#142923' : '#1e3d32',
                   textTransform: 'uppercase',
                   fontWeight: 500,
                   transition: 'color 0.2s',
+                  paddingBottom: '2px',
                 }}
-                className="font-nav"
+                className={`font-nav navbar-link${active ? ' navbar-link--active' : ''}`}
               >
                 {item.label}
               </NavLink>

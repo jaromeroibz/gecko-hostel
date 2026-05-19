@@ -1,13 +1,15 @@
 import { WaveButton } from '../ui/WaveButton'
 
+// Golden-hour surfer riding the wave — warm, lifestyle
 const IMAGE_1 =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/v1778627977/frames-for-your-heart-eBSKJJuPeO8-unsplash_uc6ksc.jpg'
+  'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_7689_wollqs.jpg'
+// Aerial cutback, turquoise spray — energy + action
 const IMAGE_2 =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/v1778627973/lisa-van-vliet-vpsnM6zxrkc-unsplash_spsmme.jpg'
+  'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_1348_ucphi8.jpg'
 
 export function HomeEditorialSection() {
   return (
-    <section className="editorial-section">
+    <section className="editorial-section relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2">
       {/* ── Shape divider ─────────────────────────────────────────── */}
       <div className="custom-shape-divider-top-1778816122">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -19,15 +21,15 @@ export function HomeEditorialSection() {
 
         {/* ── LEFT: Text content ───────────────────────────────────── */}
         <div className="editorial-text">
-          <p className="editorial-tagline font-nav font-medium uppercase text-gecko-clay">
+          <p className="editorial-tagline font-label font-medium uppercase text-gecko-clay">
             Waves in front. Jungle behind. Sunsets everywhere.
           </p>
 
-          <h2 className="editorial-heading font-display font-medium tracking-tight text-gecko-forestDeep">
+          <h2 className="editorial-heading font-display font-medium tracking-tight text-gecko-cream">
             Welcome to<br />Gecko Surf House
           </h2>
 
-          <div className="editorial-body text-gecko-forest">
+          <div className="editorial-body">
             <p>
               A laid-back backpacker hostel in the heart of Santa Teresa, Costa Rica. Surf
               world-class waves just steps away, explore tropical nature, watch incredible
@@ -39,11 +41,11 @@ export function HomeEditorialSection() {
             </p>
           </div>
 
-          <p className="editorial-closer font-display text-gecko-forest">
+          <p className="editorial-closer font-display">
             Stay close to the ocean. Stay close to nature.
           </p>
 
-          <WaveButton to="/booking" className="editorial-cta font-nav font-medium uppercase">
+          <WaveButton to="/booking" className="editorial-cta font-label font-medium uppercase">
             Book your next adventure
           </WaveButton>
         </div>
@@ -63,7 +65,7 @@ export function HomeEditorialSection() {
       </div>
 
       <style>{`
-        /* ── Shape divider ────────────────────────────────── */
+        /* ── Shape divider — cream wave peeling away to reveal dark section ── */
         .custom-shape-divider-top-1778816122 {
           position: absolute;
           top: 0;
@@ -82,12 +84,13 @@ export function HomeEditorialSection() {
         }
 
         .custom-shape-divider-top-1778816122 .shape-fill {
-          fill: #4D6433;
+          fill: #f4f1ea;
         }
 
-        /* ── Section ──────────────────────────────────────── */
+        /* ── Section — dark full-width immersive ─────────── */
         .editorial-section {
           position: relative;
+          background: #142923;
           padding: 9rem clamp(2rem, 8vw, 7rem) 10rem;
         }
 
@@ -111,14 +114,16 @@ export function HomeEditorialSection() {
 
         .editorial-tagline {
           font-size: 0.7rem;
-          letter-spacing: 0.28em;
+          letter-spacing: 0.3em;
           margin: 0;
+          /* clay sits beautifully against the dark forest bg */
         }
 
         .editorial-heading {
           font-size: clamp(2rem, 3vw, 3rem);
-          line-height: 1.08;
+          line-height: 1.06;
           margin: 0;
+          /* color controlled by Tailwind text-gecko-cream */
         }
 
         .editorial-body {
@@ -126,31 +131,56 @@ export function HomeEditorialSection() {
           flex-direction: column;
           gap: 1rem;
           font-size: 1rem;
-          line-height: 1.8;
-          opacity: 0.75;
+          line-height: 1.9;
+          color: rgba(244, 241, 234, 0.65);
         }
 
         .editorial-body p { margin: 0; }
 
         .editorial-closer {
-          font-size: 1.05rem;
+          font-size: 1.1rem;
           font-style: italic;
-          line-height: 1.5;
-          opacity: 0.85;
+          line-height: 1.55;
+          color: rgba(244, 241, 234, 0.78);
           margin: 0;
         }
 
+        /* ── CTA — cream pill on dark bg ─────────────────── */
         .editorial-cta {
           align-self: flex-start;
-          background: #ffffff;
-          color: #1e3d32;
-          border: 1px solid #1e3d32;
-          border-radius: 0.75rem;
-          padding: 0.875rem 1.75rem;
-          font-size: 0.8rem;
-          letter-spacing: 0.16em;
-          transition: background 0.2s, color 0.2s;
+          background: transparent;
+          color: #f4f1ea;
+          border: 1.5px solid rgba(244, 241, 234, 0.6);
+          border-radius: 9999px;
+          padding: 0.875rem 2rem;
+          font-size: 0.75rem;
+          letter-spacing: 0.18em;
+          transition: border-color 0.2s;
           margin-top: 0.5rem;
+        }
+
+        .editorial-cta:hover {
+          border-color: #f4f1ea;
+        }
+
+        /* ── Invert the wave animation for dark context ───── */
+        /* Fill with cream instead of forest green */
+        .editorial-cta .gecko-wave-fill {
+          background: #f4f1ea;
+        }
+
+        /* Text starts cream (visible on dark), ends dark (on cream fill) */
+        .editorial-cta .gecko-wave-text {
+          color: #f4f1ea;
+        }
+
+        .editorial-cta.gecko-wave-btn:hover .gecko-wave-text {
+          animation: editorial-wave-reveal 1s forwards;
+        }
+
+        @keyframes editorial-wave-reveal {
+          0%, 78% { color: #f4f1ea; }
+          100%     { color: #142923; }
         }
 
 
@@ -163,7 +193,7 @@ export function HomeEditorialSection() {
         .img-wrap {
           position: absolute;
           overflow: hidden;
-          border-radius: 12px;
+          border-radius: 1.5rem;
         }
 
         .img-wrap img {
@@ -171,6 +201,11 @@ export function HomeEditorialSection() {
           height: 100%;
           object-fit: cover;
           display: block;
+          transition: transform 0.7s ease;
+        }
+
+        .img-wrap:hover img {
+          transform: scale(1.04);
         }
 
         /* Image 1 — upper left, slightly taller/narrower */
@@ -180,7 +215,7 @@ export function HomeEditorialSection() {
           width: 52%;
           height: 60%;
           z-index: 1;
-          box-shadow: 0 8px 32px rgba(20, 41, 35, 0.13);
+          box-shadow: 0 12px 48px rgba(0, 0, 0, 0.55);
         }
 
         /* Image 2 — lower right, larger, overlaps image 1 */
@@ -190,7 +225,7 @@ export function HomeEditorialSection() {
           width: 64%;
           height: 72%;
           z-index: 2;
-          box-shadow: 0 12px 40px rgba(20, 41, 35, 0.18);
+          box-shadow: 0 20px 64px rgba(0, 0, 0, 0.65);
         }
 
         /* ── Tablet (768–1023px) ──────────────────────────── */
