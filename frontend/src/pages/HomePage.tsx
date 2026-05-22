@@ -6,12 +6,10 @@ import {
   HomeEditorialSection,
   HomeExperiencesSection,
   HomeHero,
-  HomeLogoDivider,
   HomePackagesSection,
   HomeRoomsSection,
   HomeSurfServicesSection,
   HomeTestimonialsSection,
-  HomeWhySection,
 } from '../components/home'
 
 export function HomePage() {
@@ -35,9 +33,6 @@ export function HomePage() {
       <HomeExperiencesSection />
       <HomePackagesSection />
       <HomeRoomsSection />
-      <HomeLogoDivider />
-      <HomeWhySection />
-      <HomeLogoDivider />
       <HomeTestimonialsSection />
       <HomeBookingCtaSection />
     </div>

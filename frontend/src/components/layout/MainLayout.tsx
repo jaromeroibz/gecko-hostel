@@ -13,7 +13,7 @@ export function MainLayout() {
       {/* Fixed navbar takes no space in flow — add spacer on inner pages */}
       {!isHome && <div className="h-[108px] flex-shrink-0" aria-hidden />}
       <main
-        className={`mx-auto w-full max-w-6xl flex-1 px-5 sm:px-6 ${isHome ? '' : 'py-10 sm:py-12'}`}
+        className={`mx-auto w-full max-w-6xl flex-1 px-5 sm:px-6 ${isHome ? '' : 'pt-10 sm:pt-12'}`}
       >
         <Outlet />
       </main>

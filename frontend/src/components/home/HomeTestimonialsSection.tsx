@@ -49,12 +49,26 @@ function Avatar({ initial }: { initial: string }) {
 export function HomeTestimonialsSection() {
   const [hero, right1, right2, statement] = REVIEWS
 
+  const GECKO_ICON = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1778622715/background-removed_kzu281.png'
+  const DIVIDER_COUNT = 20
+
   return (
     <section
       id="testimonials"
       className="tr-section relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2"
       aria-labelledby="tr-heading"
     >
+      {/* ── Gecko logo divider strip ─────────────────────────────────── */}
+      <div className="tr-divider" aria-hidden>
+        <div className="tr-divider-track">
+          {Array.from({ length: DIVIDER_COUNT }).map((_, i) => (
+            <div key={i} className="tr-divider-cell">
+              <img src={GECKO_ICON} alt="" className="tr-divider-icon" />
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className="tr-inner">
 
         {/* ── Header ──────────────────────────────────────────────────── */}
@@ -170,13 +184,40 @@ export function HomeTestimonialsSection() {
         /* ━━ Section ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .tr-section {
           background: #F9FDF9;
-          padding: 6rem 0 0;
+          padding: 0 0 0;
+        }
+
+        /* ━━ Gecko logo divider ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .tr-divider {
+          background: #F9FDF9;
+          overflow: hidden;
+        }
+        .tr-divider-track {
+          display: grid;
+          grid-template-columns: repeat(20, 1fr);
+          width: 100%;
+          padding: 0.65rem 0;
+        }
+        .tr-divider-cell {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          padding: 0 1px;
+        }
+        .tr-divider-icon {
+          height: clamp(28px, 3.8vw, 54px);
+          width: 100%;
+          object-fit: contain;
+          object-position: center;
+          opacity: 0.42;
+          display: block;
         }
 
         .tr-inner {
           max-width: 1080px;
           margin: 0 auto;
-          padding: 0 clamp(1.5rem, 6vw, 6rem);
+          padding: 6rem clamp(1.5rem, 6vw, 6rem) 0;
         }
 
         /* ━━ Header ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */

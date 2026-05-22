@@ -286,6 +286,7 @@ export function HomeBookingCtaSection() {
           display: flex;
           align-items: center;
           justify-content: center;
+          width: 100%;
           background: #F97316;
           color: #F9FDF9;
           border-radius: 1.25rem;
@@ -329,14 +330,8 @@ export function HomeBookingCtaSection() {
           );
         }
 
-        /* ━━ Tablet (768–1023 px) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━ Shared — tablet + mobile (≤ 1023px) ━━━━━━━━━━━━━━━━━━━━━━ */
         @media (max-width: 1023px) {
-          .cta-section {
-            min-height: 75vh;
-            padding-bottom: 5rem;
-          }
-
-          /* Stack vertically — left on top, panel below */
           .cta-inner {
             flex-direction: column;
             justify-content: flex-end;
@@ -351,17 +346,38 @@ export function HomeBookingCtaSection() {
             max-width: 100%;
           }
 
-          .cta-heading {
-            font-size: clamp(3rem, 8vw, 5.5rem);
+          .cta-overlay-sides {
+            display: none;
+          }
+        }
+
+        /* ━━ Tablet only (640–1023 px) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        @media (min-width: 640px) and (max-width: 1023px) {
+          .cta-section {
+            min-height: 110vh;
+            padding-bottom: 0;
+            align-items: stretch;
+          }
+
+          .cta-inner {
+            align-items: center;
+            justify-content: space-between;
+            align-self: stretch;
+            padding: 4rem clamp(2rem, 5vw, 5.5rem) 5rem;
+            gap: 0;
           }
 
           .cta-body {
-            max-width: 540px;
+            display: none;
           }
 
-          /* Restore even gradient on smaller screens */
-          .cta-overlay-sides {
-            display: none;
+          .cta-panel {
+            max-width: 480px;
+            width: 100%;
+          }
+
+          .cta-heading {
+            font-size: clamp(3rem, 8vw, 5.5rem);
           }
         }
 
@@ -387,12 +403,29 @@ export function HomeBookingCtaSection() {
           }
 
           .cta-panel {
-            padding: 2.25rem 1.75rem 2.5rem;
+            padding: 1.25rem 1.5rem 1.5rem;
           }
 
           .cta-panel-bar {
-            left: 1.75rem;
-            right: 1.75rem;
+            left: 1.5rem;
+            right: 1.5rem;
+          }
+
+          .cta-panel-eyebrow {
+            margin-bottom: 0.625rem;
+          }
+
+          .cta-panel-heading {
+            font-size: 1.25rem;
+            margin-bottom: 0.875rem;
+          }
+
+          .cta-panel-divider {
+            margin-bottom: 0.75rem;
+          }
+
+          .cta-panel-note {
+            margin-bottom: 1rem;
           }
 
           .cta-ghost {
