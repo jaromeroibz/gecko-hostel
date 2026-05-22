@@ -7,10 +7,10 @@ from flask import jsonify, request
 from app.api import api_bp
 
 # The "from" address must belong to a domain verified in your Resend dashboard.
-# Go to resend.com/domains and add geckohostel.com, then set the RESEND_FROM_EMAIL
-# env var (or leave it as the default below).
-_FROM_EMAIL = os.getenv("RESEND_FROM_EMAIL", "Gecko Hostel <hello@geckohostel.com>")
-_TO_EMAIL   = os.getenv("CONTACT_TO_EMAIL",  "hello@geckohostel.com")
+# The "from" address must belong to a domain verified in your Resend dashboard,
+# or use the Resend sandbox address for testing.
+_FROM_EMAIL = os.getenv("RESEND_FROM_EMAIL", "Gecko Surf House <onboarding@resend.dev>")
+_TO_EMAIL   = os.getenv("CONTACT_TO_EMAIL",  "geckosurfhousecr@gmail.com")
 
 _EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
