@@ -1,12 +1,6 @@
 // ── Experience images ──────────────────────────────────────────────────────
-// Sunrise surf session — warm, immersive, golden hour
-const IMG_SURF     = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036019/AZC_9979_gzhuvd.jpg'
-// Golden-hour longboard — warmth + flow for ATV adventure feel
-const IMG_ATV      = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_7689_wollqs.jpg'
-// Jungle / raw terrain reference
-const IMG_JUNGLE   = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_8778_qyo4bt.jpg'
-// Aerial cutback — technical, cinematic surf video analysis
-const IMG_ANALYSIS = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_1348_ucphi8.jpg'
+const IMG_ATV       = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779215038/pexels-srkportraits-8310033_cka0zv.jpg'
+const IMG_TIDEPOOLS = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_8778_qyo4bt.jpg'
 
 export function HomeExperiencesSection() {
   return (
@@ -31,7 +25,7 @@ export function HomeExperiencesSection() {
         </h2>
         <p className="ex-subtext">
           Santa Teresa doesn't start and end in the water.<br />
-          Jungle, rivers, hidden falls, open roads —<br />
+          Jungle trails, hidden falls, secret coastlines —<br />
           there's a whole world between sessions.
         </p>
       </header>
@@ -39,74 +33,48 @@ export function HomeExperiencesSection() {
       {/* ── Main cluster ──────────────────────────────────────────────────── */}
       <div className="ex-cluster">
 
-        {/* ─── ROW 1 — Hero card: Surf Lessons ─────────────────────────── */}
+        {/* ─── ROW 1 — Hero card: ATV Tours ────────────────────────────── */}
         <div className="ex-hero-card">
           <img
-            src={IMG_SURF}
-            alt="Surf session in Santa Teresa, Costa Rica"
+            src={IMG_ATV}
+            alt="ATV tour through the jungle in Santa Teresa, Costa Rica"
             loading="lazy"
             className="ex-hero-img"
           />
-          {/* cinematic bottom gradient */}
           <div className="ex-hero-overlay" aria-hidden />
 
           {/* Floating content panel — bottom left */}
           <div className="ex-hero-panel">
-            <span className="ex-cat font-label">On the water</span>
+            <span className="ex-cat font-label">Off-road · Guided & rentals</span>
             <h3 className="ex-panel-title font-display">
-              Read the<br />wave.
+              Rip through<br />the jungle.
             </h3>
             <p className="ex-panel-body">
-              From your first pop-up to your first green wave —
-              our coaches meet you where you are.
-              No shame, no rush, just progress.
+              Coastal cliffs, hidden lookouts, jungle trails.
+              Book a guided ATV tour or rent one and carve your own path —
+              Santa Teresa's wildest terrain is yours.
             </p>
             <span className="ex-tag font-label">
-              Surf Lessons · All levels · Daily sessions
+              ATV Tours · Half day · Guided or self-guided
             </span>
           </div>
 
-          {/* Popularity badge — top right */}
+          {/* Badge — top right */}
           <div className="ex-badge font-label" aria-label="Most popular experience">
             ★ Most popular
           </div>
 
-          {/* Card number — top left accent */}
           <span className="ex-num" aria-hidden>01</span>
         </div>
 
-        {/* ─── ROW 2 — ATV + Waterfalls ────────────────────────────────── */}
+        {/* ─── ROW 2 — Waterfalls + Tide Pools ────────────────────────── */}
         <div className="ex-row-2">
 
-          {/* ATV Tours */}
-          <div className="ex-card">
-            <img
-              src={IMG_ATV}
-              alt="ATV adventure through Costa Rica jungle"
-              loading="lazy"
-            />
-            <div className="ex-card-overlay" aria-hidden />
-            <span className="ex-num" aria-hidden>02</span>
-            <div className="ex-card-content">
-              <span className="ex-cat font-label">Off-road</span>
-              <h3 className="ex-card-title font-display">
-                Rip through<br />the jungle.
-              </h3>
-              <p className="ex-card-body">
-                Coastal cliffs, hidden lookouts, jungle trails.
-                A guided ATV ride through Santa Teresa's wildest terrain.
-              </p>
-              <span className="ex-tag font-label">ATV Tours · Half day · Guided</span>
-            </div>
-          </div>
-
-          {/* Waterfalls — warm colour block, no photo */}
+          {/* Waterfalls — warm sun-yellow colour block */}
           <div className="ex-card ex-card--warm">
-            {/* Layered warm gradient background */}
             <div className="ex-warm-bg" aria-hidden />
-            {/* Ghost watermark heading */}
             <span className="ex-ghost font-display" aria-hidden>Falls</span>
-            <span className="ex-num ex-num--dark" aria-hidden>03</span>
+            <span className="ex-num ex-num--dark" aria-hidden>02</span>
             <div className="ex-card-content ex-card-content--warm">
               <span className="ex-cat ex-cat--dark font-label">Into the wild</span>
               <h3 className="ex-card-title ex-card-title--dark font-display">
@@ -117,60 +85,31 @@ export function HomeExperiencesSection() {
                 they feel like secrets. Cold water, warm light, zero crowds.
               </p>
               <span className="ex-tag ex-tag--dark font-label">
-                Waterfall Hikes · Full day · Guided
+                Waterfall Tours · Full day · Guided
               </span>
             </div>
           </div>
 
-        </div>
-
-        {/* ─── ROW 3 — Jungle + Video Analysis ─────────────────────────── */}
-        <div className="ex-row-3">
-
-          {/* Jungle Adventures */}
+          {/* Tide Pools & Hidden Beaches */}
           <div className="ex-card">
             <img
-              src={IMG_JUNGLE}
-              alt="Jungle adventure in Costa Rica"
+              src={IMG_TIDEPOOLS}
+              alt="Tide pools and hidden beaches along the Costa Rica coastline"
               loading="lazy"
             />
             <div className="ex-card-overlay" aria-hidden />
-            <span className="ex-num" aria-hidden>04</span>
+            <span className="ex-num" aria-hidden>03</span>
             <div className="ex-card-content">
-              <span className="ex-cat font-label">Deep jungle</span>
+              <span className="ex-cat font-label">Coast & ocean</span>
               <h3 className="ex-card-title font-display">
-                The jungle<br />goes deep.
+                The coast<br />hides its<br />best secrets.
               </h3>
               <p className="ex-card-body">
-                Zip lines, river crossings, wildlife spotting — a full
-                immersion in the Costa Rican wild with guides who know every trail.
+                Tide pools teeming with life, hidden coves only locals know.
+                A guided walk along the raw coastline between sessions.
               </p>
               <span className="ex-tag font-label">
-                Jungle Adventure · Full day · Expert guides
-              </span>
-            </div>
-          </div>
-
-          {/* Surf Video Analysis */}
-          <div className="ex-card">
-            <img
-              src={IMG_ANALYSIS}
-              alt="Aerial surf footage for video analysis"
-              loading="lazy"
-            />
-            <div className="ex-card-overlay" aria-hidden />
-            <span className="ex-num" aria-hidden>05</span>
-            <div className="ex-card-content">
-              <span className="ex-cat font-label">Level up</span>
-              <h3 className="ex-card-title font-display">
-                See what<br />you're missing.
-              </h3>
-              <p className="ex-card-body">
-                Your session, captured and analyzed. Watch the footage,
-                fix the fundamentals, and progress faster than you thought possible.
-              </p>
-              <span className="ex-tag font-label">
-                Surf Video Analysis · All levels · On-demand
+                Tide Pools · Hidden Beaches · Guided walk
               </span>
             </div>
           </div>
@@ -222,7 +161,7 @@ export function HomeExperiencesSection() {
           display: block;
           width: 100%;
           height: 88px;
-          fill: #ECFDF5; /* barely-mint — matches lifestyle section */
+          fill: #F4F1EA;
         }
 
         /* ━━ Section header — centered editorial intro ━━━━━━━━━━━━━━━━━ */
@@ -248,7 +187,6 @@ export function HomeExperiencesSection() {
           margin: 0;
         }
 
-        /* Eyebrow + heading color overrides (Tailwind text-gecko-clay/cream → Jungle Rip) */
         .ex-eyebrow { color: #34D399; }
         .ex-heading  { color: #F9FDF9; }
 
@@ -268,7 +206,7 @@ export function HomeExperiencesSection() {
           gap: 1.125rem;
         }
 
-        /* ━━ ROW 1 — Hero card (Surf Lessons) ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━ ROW 1 — Hero card ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .ex-hero-card {
           position: relative;
           height: 540px;
@@ -304,12 +242,11 @@ export function HomeExperiencesSection() {
           );
         }
 
-        /* Floating content panel at bottom-left */
         .ex-hero-panel {
           position: absolute;
           bottom: 2.75rem;
           left: 2.75rem;
-          max-width: 460px;
+          max-width: 480px;
           display: flex;
           flex-direction: column;
           gap: 0.85rem;
@@ -328,10 +265,9 @@ export function HomeExperiencesSection() {
           line-height: 1.8;
           color: rgba(249, 253, 249, 0.65);
           margin: 0;
-          max-width: 380px;
+          max-width: 400px;
         }
 
-        /* Badge — top right */
         .ex-badge {
           position: absolute;
           top: 1.75rem;
@@ -348,16 +284,8 @@ export function HomeExperiencesSection() {
           border: 1px solid rgba(249, 253, 249, 0.18);
         }
 
-        /* ━━ ROW 2 — two-up: 57 / 41 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━ ROW 2 — 41 / 57 split ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .ex-row-2 {
-          display: grid;
-          grid-template-columns: 57fr 41fr;
-          gap: 1.125rem;
-          height: 420px;
-        }
-
-        /* ━━ ROW 3 — two-up: 41 / 57 (reversed for rhythm) ━━━━━━━━━━━━ */
-        .ex-row-3 {
           display: grid;
           grid-template-columns: 41fr 57fr;
           gap: 1.125rem;
@@ -387,7 +315,6 @@ export function HomeExperiencesSection() {
           transform: scale(1.04);
         }
 
-        /* Cinematic bottom gradient */
         .ex-card-overlay {
           position: absolute;
           inset: 0;
@@ -399,7 +326,7 @@ export function HomeExperiencesSection() {
           );
         }
 
-        /* Waterfalls — sun yellow colour block, no photo */
+        /* Waterfalls — sun yellow colour block */
         .ex-card--warm {
           background: #FCD34D;
         }
@@ -554,7 +481,7 @@ export function HomeExperiencesSection() {
           color: #064E3B;
         }
 
-        /* ━━ Bottom wave — dark → cream for rooms section ━━━━━━━━━━━━━━ */
+        /* ━━ Bottom wave ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .ex-bottom-wave {
           position: absolute;
           bottom: 0;
@@ -571,8 +498,8 @@ export function HomeExperiencesSection() {
           display: block;
           width: 100%;
           height: 88px;
-          transform: scaleY(-1); /* rises from bottom */
-          fill: #F9FDF9; /* near-white — matches rooms section */
+          transform: scaleY(-1);
+          fill: #F9FDF9;
         }
 
         /* ━━ Tablet (768 – 1023px) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -585,14 +512,12 @@ export function HomeExperiencesSection() {
             height: 480px;
           }
 
-          .ex-row-2,
-          .ex-row-3 {
+          .ex-row-2 {
             grid-template-columns: 1fr;
             height: auto;
           }
 
-          .ex-row-2 .ex-card,
-          .ex-row-3 .ex-card {
+          .ex-row-2 .ex-card {
             height: 360px;
           }
 
@@ -630,8 +555,7 @@ export function HomeExperiencesSection() {
             right: 1.25rem;
           }
 
-          .ex-row-2 .ex-card,
-          .ex-row-3 .ex-card {
+          .ex-row-2 .ex-card {
             height: 300px;
             border-radius: 1.25rem;
           }

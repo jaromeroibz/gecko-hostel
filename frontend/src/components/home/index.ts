@@ -1,6 +1,7 @@
 export { HomeHero } from './HomeHero'
 export { HomeEditorialSection } from './HomeEditorialSection'
 export { HomeLifestyleSection } from './HomeLifestyleSection'
+export { HomeSurfServicesSection } from './HomeSurfServicesSection'
 export { HomeRoomsSection } from './HomeRoomsSection'
 export { HomeBookingCtaSection } from './HomeBookingCtaSection'
 export { HomeExperiencesSection } from './HomeExperiencesSection'

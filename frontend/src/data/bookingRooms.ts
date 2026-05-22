@@ -25,7 +25,13 @@ export const BOOKING_ROOMS: BookingRoom[] = [
     description:
       'Our largest unit — a spacious shared dorm built for the surf traveler. Private kitchen, outdoor patio, and all the essentials for an easy surf trip. 3 minutes from Carmen Beach.',
     highlights: ['Free WiFi', 'AC', 'Shared kitchen', 'Patio', 'Coffee machine', 'Bicycle parking'],
-    images: [],
+    images: [
+      'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779470181/trpavi8zpjdcrjisycz3.webp',
+      'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779470183/xq9r3gcqkqscihxwqy9n.webp',
+      'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779470181/dkdnlbj9ikf3bx9fcbk7.webp',
+      'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779470181/to7w0yfexhshxzva3m7o.webp',
+      'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779470181/ic8ullvk0lmbspi7oei1.webp',
+    ],
   },
   {
     id: 'la-lora',

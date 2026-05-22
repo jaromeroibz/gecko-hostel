@@ -6,10 +6,10 @@ import {
   HomeEditorialSection,
   HomeExperiencesSection,
   HomeHero,
-  HomeLifestyleSection,
   HomeLogoDivider,
   HomePackagesSection,
   HomeRoomsSection,
+  HomeSurfServicesSection,
   HomeTestimonialsSection,
   HomeWhySection,
 } from '../components/home'
@@ -31,7 +31,7 @@ export function HomePage() {
     <div className="space-y-0">
       <HomeHero />
       <HomeEditorialSection />
-      <HomeLifestyleSection />
+      <HomeSurfServicesSection />
       <HomeExperiencesSection />
       <HomePackagesSection />
       <HomeRoomsSection />

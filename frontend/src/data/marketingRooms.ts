@@ -26,7 +26,7 @@ export const MARKETING_ROOMS: MarketingRoom[] = [
     roomType: 'Shared dorm',
     fromPriceUsd: 45,
     imageSrc:
-      'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1200&q=80',
+      'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779470181/trpavi8zpjdcrjisycz3.webp',
     imageAlt: 'Spacious shared dorm at Gecko Surf House',
     highlights: ['Lockers', 'Shared lounge', 'Surf rinse area nearby'],
   },

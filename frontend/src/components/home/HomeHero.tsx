@@ -5,9 +5,9 @@ import { WaveButton } from '../ui/WaveButton'
 const LOGO_URL =
   'https://res.cloudinary.com/doow0mhrm/image/upload/v1778622715/background-removed_kzu281.png'
 
-// Ambient background — surf lesson on golden beach under palms
+// Ambient background — hero full viewport
 const HERO_BG =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036019/AZC_9979_gzhuvd.jpg'
+  'https://res.cloudinary.com/doow0mhrm/image/upload/v1778627977/frames-for-your-heart-eBSKJJuPeO8-unsplash_uc6ksc.jpg'
 
 const HERO_NAV = [
   { label: 'Home', to: '/' },
