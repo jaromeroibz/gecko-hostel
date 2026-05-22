@@ -10,13 +10,6 @@ const IMAGE_2 =
 export function HomeEditorialSection() {
   return (
     <section className="editorial-section relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2">
-      {/* ── Shape divider ─────────────────────────────────────────── */}
-      <div className="custom-shape-divider-top-1778816122">
-        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="shape-fill"></path>
-        </svg>
-      </div>
-
       <div className="editorial-grid">
 
         {/* ── LEFT: Text content ───────────────────────────────────── */}
@@ -65,28 +58,6 @@ export function HomeEditorialSection() {
       </div>
 
       <style>{`
-        /* ── Shape divider — cream wave peeling away to reveal dark section ── */
-        .custom-shape-divider-top-1778816122 {
-          position: absolute;
-          top: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 100vw;
-          overflow: hidden;
-          line-height: 0;
-        }
-
-        .custom-shape-divider-top-1778816122 svg {
-          position: relative;
-          display: block;
-          width: 100%;
-          height: 147px;
-        }
-
-        .custom-shape-divider-top-1778816122 .shape-fill {
-          fill: #F9FDF9;
-        }
-
         /* ── Section — dark full-width immersive ─────────── */
         .editorial-section {
           position: relative;
