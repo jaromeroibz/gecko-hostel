@@ -10,9 +10,17 @@ type Props = {
   room: BookingRoom
   /** Full query string to preserve dates when navigating to the room page */
   searchQuery: string
+  /**
+   * Package context: called instead of navigating when the user wants to
+   * check availability. When provided the CTA label changes to
+   * "Check availability →" and no page navigation occurs.
+   */
+  onSelect?: () => void
+  /** Highlights the card with a mint ring when it's the active selection */
+  isSelected?: boolean
 }
 
-export function RoomCard({ room, searchQuery }: Props) {
+export function RoomCard({ room, searchQuery, onSelect, isSelected }: Props) {
   const [imgIdx, setImgIdx] = useState(0)
 
   const images = room.images.length > 0 ? room.images : [GECKO_DORM_PLACEHOLDER]
@@ -29,113 +37,256 @@ export function RoomCard({ room, searchQuery }: Props) {
   }
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[1.35rem] border border-gecko-sand/90 bg-white shadow-[0_1px_0_rgba(30,61,50,0.04),0_20px_50px_-28px_rgba(20,41,35,0.12)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_-26px_rgba(20,41,35,0.18)]">
+    <>
+      <article className={`rc-card group${isSelected ? ' rc-card--selected' : ''}`}>
 
-      {/* ── Photo carousel ────────────────────────────────────────────── */}
-      <div className="relative aspect-[16/10] overflow-hidden">
+        {/* ── Photo carousel ──────────────────────────────────────────── */}
+        <div className="relative aspect-[16/10] overflow-hidden">
 
-        {/* Inner wrapper — only the photos scale on card hover, not the UI */}
-        <div className="absolute inset-0 transition duration-700 ease-out group-hover:scale-[1.04]">
-          {images.map((src, i) => (
-            <img
-              key={src}
-              src={src}
-              alt={`${room.name} — photo ${i + 1} of ${images.length}`}
-              loading="lazy"
-              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
-                i === imgIdx ? 'opacity-100' : 'opacity-0 pointer-events-none'
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* Gradient overlay */}
-        <div
-          className="absolute inset-0 bg-gradient-to-t from-gecko-forestDeep/70 via-gecko-forest/10 to-transparent"
-          aria-hidden
-        />
-
-        {/* Prev / Next arrows — appear on card hover */}
-        {hasMultiple && (
-          <>
-            <button
-              onClick={prev}
-              aria-label="Previous photo"
-              className="absolute left-2.5 top-1/2 z-10 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-black/35 text-lg text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 hover:bg-black/55 group-hover:opacity-100 focus-visible:opacity-100"
-            >
-              ‹
-            </button>
-            <button
-              onClick={next}
-              aria-label="Next photo"
-              className="absolute right-2.5 top-1/2 z-10 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-black/35 text-lg text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 hover:bg-black/55 group-hover:opacity-100 focus-visible:opacity-100"
-            >
-              ›
-            </button>
-          </>
-        )}
-
-        {/* Bottom bar: badges (left) + dots (right) */}
-        <div className="absolute bottom-3.5 left-3.5 right-3.5 z-10 flex flex-wrap items-end justify-between gap-2">
-          <div className="flex flex-wrap gap-2">
-            <span className="rounded-full bg-gecko-cream/95 px-3 py-1.5 text-xs font-semibold text-gecko-forest shadow-sm backdrop-blur-sm">
-              {room.type}
-            </span>
-            <span className="rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
-              {room.size} m² · {room.bathroom === 'private' ? 'Private bath' : 'Shared bath'}
-            </span>
+          {/* Inner wrapper — only photos scale on hover, not the UI */}
+          <div className="absolute inset-0 transition duration-700 ease-out group-hover:scale-[1.04]">
+            {images.map((src, i) => (
+              <img
+                key={src}
+                src={src}
+                alt={`${room.name} — photo ${i + 1} of ${images.length}`}
+                loading="lazy"
+                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+                  i === imgIdx ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                }`}
+              />
+            ))}
           </div>
 
+          {/* Gradient overlay */}
+          <div className="rc-photo-gradient absolute inset-0" aria-hidden />
+
+          {/* Prev / Next arrows */}
           {hasMultiple && (
-            <div className="flex shrink-0 items-center gap-1.5">
-              {images.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={(e) => { e.preventDefault(); setImgIdx(i) }}
-                  aria-label={`Photo ${i + 1}`}
-                  className={`rounded-full transition-all duration-300 ${
-                    i === imgIdx ? 'h-1.5 w-4 bg-white' : 'h-1.5 w-1.5 bg-white/50 hover:bg-white/80'
-                  }`}
-                />
-              ))}
+            <>
+              <button
+                onClick={prev}
+                aria-label="Previous photo"
+                className="absolute left-2.5 top-1/2 z-10 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-black/35 text-lg text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 hover:bg-black/55 group-hover:opacity-100 focus-visible:opacity-100"
+              >
+                ‹
+              </button>
+              <button
+                onClick={next}
+                aria-label="Next photo"
+                className="absolute right-2.5 top-1/2 z-10 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-black/35 text-lg text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 hover:bg-black/55 group-hover:opacity-100 focus-visible:opacity-100"
+              >
+                ›
+              </button>
+            </>
+          )}
+
+          {/* Bottom bar: badges (left) + dots (right) */}
+          <div className="absolute bottom-3.5 left-3.5 right-3.5 z-10 flex flex-wrap items-end justify-between gap-2">
+            <div className="flex flex-wrap gap-2">
+              <span className="rc-badge-type font-label">{room.type}</span>
+              <span className="rc-badge-meta font-label">
+                {room.size} m² · {room.bathroom === 'private' ? 'Private bath' : 'Shared bath'}
+              </span>
             </div>
+
+            {hasMultiple && (
+              <div className="flex shrink-0 items-center gap-1.5">
+                {images.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={(e) => { e.preventDefault(); setImgIdx(i) }}
+                    aria-label={`Photo ${i + 1}`}
+                    className={`rounded-full transition-all duration-300 ${
+                      i === imgIdx ? 'h-1.5 w-4 bg-white' : 'h-1.5 w-1.5 bg-white/50 hover:bg-white/80'
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* ── Info ────────────────────────────────────────────────────── */}
+        <div className="flex flex-1 flex-col p-6 sm:p-7">
+          <h2 className="rc-name font-display">{room.name}</h2>
+          <p className="rc-meta mt-1">{room.beds}</p>
+          <p className="rc-meta mt-0.5">
+            Up to {room.capacity} guest{room.capacity !== 1 ? 's' : ''}
+          </p>
+          <p className="rc-desc mt-3 flex-1">{room.description}</p>
+          <ul className="mt-4 flex flex-wrap gap-2" aria-label="Amenities">
+            {room.highlights.map((item) => (
+              <li key={item} className="rc-highlight font-label">{item}</li>
+            ))}
+          </ul>
+        </div>
+
+        {/* ── CTA ─────────────────────────────────────────────────────── */}
+        <div className="rc-cta-wrap px-6 pb-6 pt-5 sm:px-7 sm:pb-7">
+          {onSelect ? (
+            <button
+              type="button"
+              onClick={onSelect}
+              className={`rc-cta-btn font-label${isSelected ? ' rc-cta-btn--active' : ''}`}
+            >
+              {isSelected ? 'Availability shown below ↓' : 'Check availability →'}
+            </button>
+          ) : (
+            <Link to={bookHref} className="rc-cta-btn font-label">
+              Book this room →
+            </Link>
           )}
         </div>
-      </div>
 
-      {/* ── Info ──────────────────────────────────────────────────────── */}
-      <div className="flex flex-1 flex-col p-6 sm:p-7">
-        <h2 className="font-display text-xl font-medium text-gecko-forestDeep sm:text-2xl">
-          {room.name}
-        </h2>
-        <p className="mt-1 text-sm text-gecko-sage">{room.beds}</p>
-        <p className="mt-0.5 text-sm text-gecko-sage">
-          Up to {room.capacity} guest{room.capacity !== 1 ? 's' : ''}
-        </p>
-        <p className="mt-3 flex-1 text-sm leading-relaxed text-gecko-forest/70">
-          {room.description}
-        </p>
-        <ul className="mt-4 flex flex-wrap gap-2" aria-label="Amenities">
-          {room.highlights.map((item) => (
-            <li
-              key={item}
-              className="rounded-full border border-gecko-mist bg-gecko-cream/80 px-3 py-1 text-xs font-medium text-gecko-forest/85"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
+      </article>
 
-      {/* ── CTA ───────────────────────────────────────────────────────── */}
-      <div className="border-t border-gecko-sand/60 px-6 pb-6 pt-5 sm:px-7 sm:pb-7">
-        <Link
-          to={bookHref}
-          className="flex w-full items-center justify-center rounded-xl bg-gecko-forest px-5 py-3 text-sm font-semibold text-gecko-cream shadow-sm transition hover:bg-gecko-forestDeep"
-        >
-          Book this room →
-        </Link>
-      </div>
-    </article>
+      <style>{`
+        /* ━━ Card shell ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .rc-card {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          overflow: hidden;
+          border-radius: 1.35rem;
+          border: 1px solid rgba(6, 78, 59, 0.09);
+          background: #ffffff;
+          box-shadow:
+            0 1px 0 rgba(6, 78, 59, 0.03),
+            0 20px 50px -28px rgba(6, 78, 59, 0.14);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .rc-card:hover {
+          transform: translateY(-3px);
+          box-shadow:
+            0 1px 0 rgba(6, 78, 59, 0.03),
+            0 28px 60px -26px rgba(6, 78, 59, 0.22);
+        }
+
+        .rc-card--selected {
+          box-shadow:
+            0 0 0 2.5px #34D399,
+            0 20px 50px -20px rgba(6, 78, 59, 0.2);
+        }
+
+        /* ━━ Photo gradient ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .rc-photo-gradient {
+          background: linear-gradient(
+            to top,
+            rgba(6, 78, 59, 0.72) 0%,
+            rgba(6, 78, 59, 0.1) 40%,
+            transparent 65%
+          );
+          pointer-events: none;
+        }
+
+        /* ━━ Photo badges ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .rc-badge-type {
+          display: inline-flex;
+          align-items: center;
+          background: #34D399;
+          color: #064E3B;
+          border-radius: 100px;
+          padding: 0.3rem 0.875rem;
+          font-size: 0.55rem;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          font-weight: 700;
+        }
+
+        .rc-badge-meta {
+          display: inline-flex;
+          align-items: center;
+          background: rgba(255, 255, 255, 0.18);
+          color: #ffffff;
+          border-radius: 100px;
+          padding: 0.3rem 0.875rem;
+          font-size: 0.55rem;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          font-weight: 600;
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+        }
+
+        /* ━━ Info text ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .rc-name {
+          font-size: 1.25rem;
+          font-weight: 500;
+          color: #064E3B;
+        }
+
+        @media (min-width: 640px) {
+          .rc-name { font-size: 1.4rem; }
+        }
+
+        .rc-meta {
+          font-size: 0.8125rem;
+          color: rgba(6, 78, 59, 0.48);
+        }
+
+        .rc-desc {
+          font-size: 0.875rem;
+          line-height: 1.7;
+          color: rgba(6, 78, 59, 0.62);
+        }
+
+        /* ━━ Highlight pills ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .rc-highlight {
+          display: inline-flex;
+          align-items: center;
+          border-radius: 100px;
+          border: 1px solid rgba(6, 78, 59, 0.12);
+          background: #ECFDF5;
+          padding: 0.28rem 0.75rem;
+          font-size: 0.6rem;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          font-weight: 600;
+          color: rgba(6, 78, 59, 0.7);
+        }
+
+        /* ━━ CTA ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .rc-cta-wrap {
+          border-top: 1px solid rgba(6, 78, 59, 0.07);
+        }
+
+        .rc-cta-btn {
+          display: flex;
+          width: 100%;
+          align-items: center;
+          justify-content: center;
+          border-radius: 0.875rem;
+          background: #064E3B;
+          padding: 0.8rem 1.25rem;
+          font-size: 0.72rem;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          font-weight: 600;
+          color: #F9FDF9;
+          transition: background 0.22s ease, color 0.22s ease;
+          text-decoration: none;
+        }
+
+        .rc-cta-btn:hover {
+          background: #F97316;
+          color: #F9FDF9;
+        }
+
+        /* Active state — room is selected, widget is open */
+        .rc-cta-btn--active {
+          background: #ECFDF5;
+          border: 1.5px solid rgba(52, 211, 153, 0.5);
+          color: #064E3B;
+          cursor: default;
+        }
+
+        .rc-cta-btn--active:hover {
+          background: #ECFDF5;
+          color: #064E3B;
+        }
+      `}</style>
+    </>
   )
 }

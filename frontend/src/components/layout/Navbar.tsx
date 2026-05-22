@@ -98,7 +98,7 @@ export function Navbar() {
                   transition: 'color 0.2s',
                   paddingBottom: '2px',
                 }}
-                className={`font-nav navbar-link${active ? ' navbar-link--active' : ''}`}
+                className={`font-label navbar-link${active ? ' navbar-link--active' : ''}`}
               >
                 {item.label}
               </NavLink>
@@ -115,7 +115,7 @@ export function Navbar() {
               padding: '0.75rem 1.75rem',
               fontWeight: 500,
             }}
-            className="font-nav"
+            className="font-label"
           >
             Book Now
           </WaveButton>

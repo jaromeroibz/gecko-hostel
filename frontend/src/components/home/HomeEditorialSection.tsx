@@ -84,13 +84,13 @@ export function HomeEditorialSection() {
         }
 
         .custom-shape-divider-top-1778816122 .shape-fill {
-          fill: #f4f1ea;
+          fill: #F9FDF9;
         }
 
         /* ── Section — dark full-width immersive ─────────── */
         .editorial-section {
           position: relative;
-          background: #142923;
+          background: #064E3B;
           padding: 9rem clamp(2rem, 8vw, 7rem) 10rem;
         }
 
@@ -116,7 +116,7 @@ export function HomeEditorialSection() {
           font-size: 0.7rem;
           letter-spacing: 0.3em;
           margin: 0;
-          /* clay sits beautifully against the dark forest bg */
+          color: #34D399; /* electric mint — pops on deep jungle */
         }
 
         .editorial-heading {
@@ -132,7 +132,7 @@ export function HomeEditorialSection() {
           gap: 1rem;
           font-size: 1rem;
           line-height: 1.9;
-          color: rgba(244, 241, 234, 0.65);
+          color: rgba(240, 253, 244, 0.62);
         }
 
         .editorial-body p { margin: 0; }
@@ -141,16 +141,16 @@ export function HomeEditorialSection() {
           font-size: 1.1rem;
           font-style: italic;
           line-height: 1.55;
-          color: rgba(244, 241, 234, 0.78);
+          color: rgba(240, 253, 244, 0.8);
           margin: 0;
         }
 
-        /* ── CTA — cream pill on dark bg ─────────────────── */
+        /* ── CTA — mint-bordered pill, orange wave on hover ── */
         .editorial-cta {
           align-self: flex-start;
           background: transparent;
-          color: #f4f1ea;
-          border: 1.5px solid rgba(244, 241, 234, 0.6);
+          color: #F9FDF9;
+          border: 1.5px solid rgba(52, 211, 153, 0.55);
           border-radius: 9999px;
           padding: 0.875rem 2rem;
           font-size: 0.75rem;
@@ -160,18 +160,17 @@ export function HomeEditorialSection() {
         }
 
         .editorial-cta:hover {
-          border-color: #f4f1ea;
+          border-color: #F97316;
         }
 
-        /* ── Invert the wave animation for dark context ───── */
-        /* Fill with cream instead of forest green */
+        /* Orange wave floods in on hover */
         .editorial-cta .gecko-wave-fill {
-          background: #f4f1ea;
+          background: #F97316;
         }
 
-        /* Text starts cream (visible on dark), ends dark (on cream fill) */
+        /* Text starts near-white (on jungle), ends deep jungle (on orange) */
         .editorial-cta .gecko-wave-text {
-          color: #f4f1ea;
+          color: #F9FDF9;
         }
 
         .editorial-cta.gecko-wave-btn:hover .gecko-wave-text {
@@ -179,8 +178,8 @@ export function HomeEditorialSection() {
         }
 
         @keyframes editorial-wave-reveal {
-          0%, 78% { color: #f4f1ea; }
-          100%     { color: #142923; }
+          0%, 78% { color: #F9FDF9; }
+          100%     { color: #064E3B; }
         }
 
 

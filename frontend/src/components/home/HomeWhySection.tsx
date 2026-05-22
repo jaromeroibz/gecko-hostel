@@ -35,12 +35,6 @@ export function HomeWhySection() {
               className="why-hero-img"
             />
             <div className="why-hero-overlay" aria-hidden />
-
-            {/* Floating badge — terracotta, bottom-left */}
-            <div className="why-badge">
-              <span className="why-badge-num font-display">3</span>
-              <span className="why-badge-label font-label">minutes to Carmen Beach</span>
-            </div>
           </div>
 
           {/* Right: dark manifesto panel */}
@@ -119,7 +113,7 @@ export function HomeWhySection() {
 
         /* ━━ Section ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .why-section {
-          background: #e6e1d6;
+          background: #ECFDF5;
           padding: 6rem 0 7rem;
         }
 
@@ -137,7 +131,7 @@ export function HomeWhySection() {
         .why-eyebrow {
           font-size: 0.62rem;
           letter-spacing: 0.28em;
-          color: #b85c3a;
+          color: #F97316;
           margin: 0 0 1.1rem;
         }
 
@@ -145,7 +139,7 @@ export function HomeWhySection() {
           font-size: clamp(3rem, 4.5vw, 5.5rem);
           line-height: 1.0;
           letter-spacing: -0.03em;
-          color: #142923;
+          color: #064E3B;
           margin: 0;
         }
 
@@ -188,52 +182,24 @@ export function HomeWhySection() {
           );
         }
 
-        /* Floating terracotta badge */
-        .why-badge {
-          position: absolute;
-          bottom: 2rem;
-          left: 2rem;
-          background: #b85c3a;
-          border-radius: 1.25rem;
-          padding: 1.25rem 1.75rem;
-          z-index: 2;
-          box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.12),
-            0 12px 40px rgba(184, 92, 58, 0.4);
-        }
-
-        .why-badge-num {
-          display: block;
-          font-size: 2.75rem;
-          line-height: 1;
-          color: #f4f1ea;
-        }
-
-        .why-badge-label {
-          display: block;
-          font-size: 0.5rem;
-          letter-spacing: 0.2em;
-          color: rgba(244, 241, 234, 0.7);
-          margin-top: 0.3rem;
-        }
 
         /* Dark manifesto panel */
         .why-panel {
-          background: #142923;
+          background: #064E3B;
           border-radius: 1.75rem;
           padding: 3rem 2.75rem 3.5rem;
           display: flex;
           flex-direction: column;
           box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.04),
-            0 24px 80px rgba(20, 41, 35, 0.2);
+            inset 0 1px 0 rgba(255, 255, 255, 0.06),
+            0 24px 80px rgba(6, 78, 59, 0.28);
           overflow: hidden;
         }
 
         .why-panel-eyebrow {
           font-size: 0.58rem;
           letter-spacing: 0.25em;
-          color: #b85c3a;
+          color: #34D399;
           margin: 0 0 1.75rem;
         }
 
@@ -319,7 +285,7 @@ export function HomeWhySection() {
         .why-community-label {
           font-size: 0.5rem;
           letter-spacing: 0.22em;
-          color: #b85c3a;
+          color: #34D399;
           margin: 0 0 0.65rem;
         }
 
@@ -337,24 +303,24 @@ export function HomeWhySection() {
           margin: 0;
         }
 
-        /* Stat card — terracotta */
+        /* Stat card — sun yellow */
         .why-stat {
-          background: #b85c3a;
+          background: #FCD34D;
           border-radius: 1.75rem;
           padding: 2.5rem 1.75rem 2.25rem;
           display: flex;
           flex-direction: column;
           justify-content: flex-end;
           box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.12),
-            0 24px 80px rgba(184, 92, 58, 0.28);
+            inset 0 1px 0 rgba(255, 255, 255, 0.35),
+            0 24px 80px rgba(252, 211, 77, 0.4);
         }
 
         .why-stat-num {
           display: block;
           font-size: clamp(4rem, 5.5vw, 6.5rem);
           line-height: 1;
-          color: #f4f1ea;
+          color: #064E3B;
           margin-bottom: 0.3rem;
         }
 
@@ -362,20 +328,20 @@ export function HomeWhySection() {
           display: block;
           font-size: 0.5rem;
           letter-spacing: 0.2em;
-          color: rgba(244, 241, 234, 0.62);
+          color: rgba(6, 78, 59, 0.5);
           margin-bottom: 1.25rem;
         }
 
         .why-stat-copy {
           font-size: 0.85rem;
           line-height: 1.65;
-          color: rgba(244, 241, 234, 0.78);
+          color: rgba(6, 78, 59, 0.7);
           margin: 0;
         }
 
-        /* Soul card — dark with ghost watermark */
+        /* Soul card — deep jungle with mint ghost watermark */
         .why-soul {
-          background: #142923;
+          background: #064E3B;
           border-radius: 1.75rem;
           padding: 2.5rem 2.25rem 2.25rem;
           display: flex;
@@ -384,18 +350,18 @@ export function HomeWhySection() {
           position: relative;
           overflow: hidden;
           box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.04),
-            0 24px 80px rgba(20, 41, 35, 0.18);
+            inset 0 1px 0 rgba(255, 255, 255, 0.06),
+            0 24px 80px rgba(6, 78, 59, 0.22);
         }
 
-        /* Ghost watermark */
+        /* Ghost watermark — mint tint on jungle */
         .why-soul-ghost {
           position: absolute;
           top: -0.5rem;
           left: -0.5rem;
           font-size: clamp(5rem, 7vw, 9rem);
           line-height: 1;
-          color: rgba(244, 241, 234, 0.045);
+          color: rgba(52, 211, 153, 0.1);
           pointer-events: none;
           user-select: none;
           white-space: nowrap;
@@ -458,6 +424,7 @@ export function HomeWhySection() {
         @media (max-width: 639px) {
           .why-section {
             padding: 5rem 0 6rem;
+            background: #ECFDF5;
           }
 
           .why-heading {

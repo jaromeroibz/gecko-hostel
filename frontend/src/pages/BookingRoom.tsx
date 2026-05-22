@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
 
 import { BookingSearchBar } from '../components/booking/BookingSearchBar'
 import { BOOKING_ROOMS } from '../data/bookingRooms'
@@ -13,6 +13,8 @@ const PLACEHOLDER_IMG =
 export function BookingRoom() {
   const { roomId } = useParams<{ roomId: string }>()
   const search = useLodgifySearchFromRoute()
+  const [searchParams] = useSearchParams()
+  const packageId = searchParams.get('package')
 
   // ── All hooks must be declared before any early return ───────────────────
   const [iframeHeight, setIframeHeight]     = useState(420)
@@ -70,7 +72,9 @@ export function BookingRoom() {
 
   const images      = room.images.length > 0 ? room.images : [PLACEHOLDER_IMG]
   const hasMultiple = images.length > 1
-  const backHref    = `/booking?arrival=${search.arrivalYmd}&departure=${search.departureYmd}&adults=${search.adults}`
+  const backHref    =
+    `/booking?arrival=${search.arrivalYmd}&departure=${search.departureYmd}&adults=${search.adults}` +
+    (packageId ? `&package=${packageId}` : '')
 
   function prevImg() { setImgIdx((i) => (i - 1 + images.length) % images.length) }
   function nextImg() { setImgIdx((i) => (i + 1) % images.length) }

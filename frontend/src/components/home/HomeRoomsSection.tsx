@@ -70,7 +70,7 @@ export function HomeRoomsSection() {
               Ready when you are — lock in dates and see real pricing in seconds.
             </p>
           </div>
-          <a href="#plan-your-stay" className="rs-cta-btn font-label">
+          <a href="/booking" className="rs-cta-btn font-label">
             Search availability →
           </a>
         </div>
@@ -81,7 +81,7 @@ export function HomeRoomsSection() {
 
         /* ━━ Section ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .rs-section {
-          background: #f4f1ea;
+          background: #F9FDF9;
           padding: 5rem 0 6rem;
         }
 
@@ -100,7 +100,7 @@ export function HomeRoomsSection() {
           font-size: 0.62rem;
           letter-spacing: 0.28em;
           text-transform: uppercase;
-          color: #b7a07a;
+          color: #F97316;
           margin: 0 0 1rem;
         }
 
@@ -108,14 +108,14 @@ export function HomeRoomsSection() {
           font-size: clamp(2.5rem, 3.5vw, 4rem);
           line-height: 1.04;
           letter-spacing: -0.02em;
-          color: #142923;
+          color: #064E3B;
           margin: 0 0 1.25rem;
         }
 
         .rs-subtext {
           font-size: 0.9375rem;
           line-height: 1.8;
-          color: rgba(30, 61, 50, 0.6);
+          color: rgba(6, 78, 59, 0.6);
           max-width: 500px;
           margin: 0;
         }
@@ -192,13 +192,13 @@ export function HomeRoomsSection() {
         }
 
         .room-type {
-          background: #b7a07a;
-          color: #142923;
+          background: #34D399;
+          color: #064E3B;
         }
 
         .room-price {
-          background: rgba(244, 241, 234, 0.92);
-          color: #142923;
+          background: rgba(249, 253, 249, 0.92);
+          color: #064E3B;
         }
 
         .room-price-unit {
@@ -229,7 +229,7 @@ export function HomeRoomsSection() {
         .room-item--gecko-dorm .room-card {
           display: flex;
           flex-direction: column;
-          background: #142923;
+          background: #064E3B;
         }
 
         .room-item--gecko-dorm .room-img-wrap {
@@ -240,7 +240,7 @@ export function HomeRoomsSection() {
           background: linear-gradient(
             to bottom,
             transparent 55%,
-            rgba(14, 26, 20, 0.5) 100%
+            rgba(6, 78, 59, 0.5) 100%
           );
         }
 
@@ -256,7 +256,7 @@ export function HomeRoomsSection() {
         .room-item--gecko-dorm .room-name {
           font-size: clamp(1.75rem, 2vw, 2.25rem);
           line-height: 1.1;
-          color: #f4f1ea;
+          color: #F9FDF9;
           margin: 0.25rem 0 0;
         }
 
@@ -264,29 +264,29 @@ export function HomeRoomsSection() {
           font-size: 0.57rem;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: #b7a07a;
+          color: #34D399;
           margin: 0;
         }
 
         .room-item--gecko-dorm .room-desc {
           font-size: 0.875rem;
           line-height: 1.7;
-          color: rgba(244, 241, 234, 0.52);
+          color: rgba(249, 253, 249, 0.52);
           margin: 0;
           flex: 1;
         }
 
         .room-item--gecko-dorm .room-highlight {
-          border-color: rgba(244, 241, 234, 0.14);
-          color: rgba(244, 241, 234, 0.58);
-          background: rgba(244, 241, 234, 0.06);
+          border-color: rgba(249, 253, 249, 0.14);
+          color: rgba(249, 253, 249, 0.58);
+          background: rgba(249, 253, 249, 0.06);
         }
 
         .room-item--gecko-dorm .room-capacity {
           font-size: 0.5rem;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: rgba(244, 241, 234, 0.28);
+          color: rgba(249, 253, 249, 0.28);
           margin: 0;
         }
 
@@ -324,7 +324,7 @@ export function HomeRoomsSection() {
         .room-item--la-lora .room-name {
           font-size: clamp(1.6rem, 2.2vw, 2rem);
           line-height: 1.1;
-          color: #f4f1ea;
+          color: #F9FDF9;
           margin: 0.25rem 0 0;
         }
 
@@ -332,14 +332,14 @@ export function HomeRoomsSection() {
           font-size: 0.57rem;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: #b7a07a;
+          color: #34D399;
           margin: 0;
         }
 
         .room-item--la-lora .room-desc {
           font-size: 0.8125rem;
           line-height: 1.65;
-          color: rgba(244, 241, 234, 0.6);
+          color: rgba(249, 253, 249, 0.6);
           margin: 0;
           display: -webkit-box;
           -webkit-line-clamp: 2;
@@ -348,9 +348,9 @@ export function HomeRoomsSection() {
         }
 
         .room-item--la-lora .room-highlight {
-          border-color: rgba(244, 241, 234, 0.2);
-          color: rgba(244, 241, 234, 0.72);
-          background: rgba(8, 15, 12, 0.4);
+          border-color: rgba(249, 253, 249, 0.2);
+          color: rgba(249, 253, 249, 0.72);
+          background: rgba(2, 20, 12, 0.4);
           backdrop-filter: blur(6px);
           -webkit-backdrop-filter: blur(6px);
         }
@@ -359,7 +359,7 @@ export function HomeRoomsSection() {
           font-size: 0.5rem;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: rgba(244, 241, 234, 0.35);
+          color: rgba(249, 253, 249, 0.35);
           margin: 0;
         }
 
@@ -397,7 +397,7 @@ export function HomeRoomsSection() {
         .room-item--rocamar .room-name {
           font-size: clamp(1.6rem, 2.2vw, 2rem);
           line-height: 1.1;
-          color: #f4f1ea;
+          color: #F9FDF9;
           margin: 0.25rem 0 0;
         }
 
@@ -405,14 +405,14 @@ export function HomeRoomsSection() {
           font-size: 0.57rem;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: #b7a07a;
+          color: #34D399;
           margin: 0;
         }
 
         .room-item--rocamar .room-desc {
           font-size: 0.8125rem;
           line-height: 1.65;
-          color: rgba(244, 241, 234, 0.6);
+          color: rgba(249, 253, 249, 0.6);
           margin: 0;
           display: -webkit-box;
           -webkit-line-clamp: 2;
@@ -421,9 +421,9 @@ export function HomeRoomsSection() {
         }
 
         .room-item--rocamar .room-highlight {
-          border-color: rgba(244, 241, 234, 0.2);
-          color: rgba(244, 241, 234, 0.72);
-          background: rgba(8, 15, 12, 0.4);
+          border-color: rgba(249, 253, 249, 0.2);
+          color: rgba(249, 253, 249, 0.72);
+          background: rgba(2, 20, 12, 0.4);
           backdrop-filter: blur(6px);
           -webkit-backdrop-filter: blur(6px);
         }
@@ -432,15 +432,15 @@ export function HomeRoomsSection() {
           font-size: 0.5rem;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: rgba(244, 241, 234, 0.35);
+          color: rgba(249, 253, 249, 0.35);
           margin: 0;
         }
 
-        /* ━━ CARD 4 — paraiso: sand frame, inset image, dark panel ━━━━ */
+        /* ━━ CARD 4 — paraiso: mint frame, inset image, dark panel ━━━━ */
         .room-item--paraiso .room-card {
           display: flex;
           flex-direction: column;
-          background: #e6e1d6;
+          background: #ECFDF5;
         }
 
         .room-item--paraiso .room-img-wrap {
@@ -460,7 +460,7 @@ export function HomeRoomsSection() {
 
         .room-item--paraiso .room-content {
           flex: 1;
-          background: #142923;
+          background: #064E3B;
           padding: 1.75rem 2rem 2.25rem;
           display: flex;
           flex-direction: column;
@@ -473,7 +473,7 @@ export function HomeRoomsSection() {
         .room-item--paraiso .room-name {
           font-size: clamp(1.6rem, 2vw, 2rem);
           line-height: 1.1;
-          color: #f4f1ea;
+          color: #F9FDF9;
           margin: 0.25rem 0 0;
         }
 
@@ -481,35 +481,35 @@ export function HomeRoomsSection() {
           font-size: 0.57rem;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: #b7a07a;
+          color: #34D399;
           margin: 0;
         }
 
         .room-item--paraiso .room-desc {
           font-size: 0.875rem;
           line-height: 1.7;
-          color: rgba(244, 241, 234, 0.52);
+          color: rgba(249, 253, 249, 0.52);
           margin: 0;
           flex: 1;
         }
 
         .room-item--paraiso .room-highlight {
-          border-color: rgba(244, 241, 234, 0.14);
-          color: rgba(244, 241, 234, 0.58);
-          background: rgba(244, 241, 234, 0.06);
+          border-color: rgba(249, 253, 249, 0.14);
+          color: rgba(249, 253, 249, 0.58);
+          background: rgba(249, 253, 249, 0.06);
         }
 
         .room-item--paraiso .room-capacity {
           font-size: 0.5rem;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: rgba(244, 241, 234, 0.28);
+          color: rgba(249, 253, 249, 0.28);
           margin: 0;
         }
 
         /* ━━ CTA strip ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .rs-cta {
-          background: #142923;
+          background: #064E3B;
           border-radius: 1.5rem;
           padding: 2rem 2.75rem;
           display: flex;
@@ -518,22 +518,22 @@ export function HomeRoomsSection() {
           gap: 2rem;
           flex-wrap: wrap;
           box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.04),
-            0 20px 60px rgba(20, 41, 35, 0.14);
+            inset 0 1px 0 rgba(255, 255, 255, 0.06),
+            0 20px 60px rgba(6, 78, 59, 0.18);
         }
 
         .rs-cta-eyebrow {
           font-size: 0.58rem;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: rgba(244, 241, 234, 0.38);
+          color: rgba(249, 253, 249, 0.38);
           margin: 0 0 0.35rem;
         }
 
         .rs-cta-body {
           font-size: 0.9375rem;
           line-height: 1.6;
-          color: rgba(244, 241, 234, 0.88);
+          color: rgba(249, 253, 249, 0.88);
           margin: 0;
         }
 
@@ -542,9 +542,9 @@ export function HomeRoomsSection() {
           align-items: center;
           padding: 0.85rem 2rem;
           border-radius: 100px;
-          border: 1.5px solid rgba(244, 241, 234, 0.28);
-          background: rgba(244, 241, 234, 0.08);
-          color: #f4f1ea;
+          border: 1.5px solid rgba(52, 211, 153, 0.4);
+          background: rgba(52, 211, 153, 0.08);
+          color: #F9FDF9;
           font-size: 0.6rem;
           letter-spacing: 0.18em;
           text-transform: uppercase;
@@ -556,9 +556,9 @@ export function HomeRoomsSection() {
         }
 
         .rs-cta-btn:hover {
-          background: #f4f1ea;
-          color: #142923;
-          border-color: #f4f1ea;
+          background: #34D399;
+          color: #064E3B;
+          border-color: #34D399;
         }
 
         /* ━━ Tablet (768–1023 px) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */

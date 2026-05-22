@@ -39,16 +39,16 @@ export function HomeHero() {
           backgroundImage: `url('${HERO_BG}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center 30%',
-          backgroundColor: '#f4f1ea',
+          backgroundColor: '#F9FDF9',
         }}
       >
-        {/* Cream veil — lets the beach texture breathe without competing with the logo */}
+        {/* Barely-mint veil — lets the beach texture breathe without competing with the logo */}
         <div
           aria-hidden
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'rgba(244, 241, 234, 0.88)',
+            background: 'rgba(249, 253, 249, 0.88)',
           }}
         />
         <div className="hero-content">
@@ -78,12 +78,12 @@ export function HomeHero() {
               <Link
                 key={label}
                 to={to}
-                className="hero-nav-link font-nav font-medium uppercase text-gecko-forest hover:text-gecko-forestDeep"
+                className="hero-nav-link font-label font-medium uppercase text-gecko-forest hover:text-gecko-forestDeep"
               >
                 {label}
               </Link>
             ))}
-            <WaveButton to="/booking" className="hero-book-btn font-nav font-medium uppercase">
+            <WaveButton to="/booking" className="hero-book-btn font-label font-medium uppercase">
               Book Now
             </WaveButton>
           </nav>
@@ -121,13 +121,13 @@ export function HomeHero() {
             <Link
               key={label}
               to={to}
-              className="drawer-link font-nav font-medium uppercase text-gecko-forest hover:text-gecko-forestDeep"
+              className="drawer-link font-label font-medium uppercase text-gecko-forest hover:text-gecko-forestDeep"
               onClick={close}
             >
               {label}
             </Link>
           ))}
-          <WaveButton to="/booking" className="drawer-book font-nav font-medium uppercase" onClick={close}>
+          <WaveButton to="/booking" className="drawer-book font-label font-medium uppercase" onClick={close}>
             Book Now
           </WaveButton>
         </nav>
@@ -205,13 +205,31 @@ export function HomeHero() {
           width: 100%;
         }
 
+        /* Heading color override (Tailwind text-gecko-forestDeep → jungle green) */
+        .hero-heading { color: #064E3B; }
+
+        /* Nav link color overrides */
+        .hero-nav-link { color: #064E3B; }
+        .hero-nav-link:hover { color: #042e24; }
+
         .hero-book-btn {
           font-size: 0.9rem;
           letter-spacing: 0.16em;
-          border: 1px solid #1e3d32;
+          border: 1px solid #064E3B;
           border-radius: 9999px;
           padding: 0.75rem 1.75rem;
-          transition: background 0.2s, color 0.2s;
+          transition: border-color 0.2s;
+        }
+
+        /* Orange wave floods in on hover */
+        .hero-book-btn .gecko-wave-fill { background: #F97316; }
+        .hero-book-btn .gecko-wave-text { color: #064E3B; }
+        .hero-book-btn.gecko-wave-btn:hover .gecko-wave-text {
+          animation: hero-wave-reveal 1s forwards;
+        }
+        @keyframes hero-wave-reveal {
+          0%, 78% { color: #064E3B; }
+          100%     { color: #F9FDF9; }
         }
 
         /* ── Burger — hidden on desktop ────────────────── */
@@ -231,7 +249,7 @@ export function HomeHero() {
           display: block;
           width: 26px;
           height: 2px;
-          background: #1e3d32;
+          background: #064E3B;
           border-radius: 2px;
         }
 
@@ -239,7 +257,7 @@ export function HomeHero() {
         .drawer-backdrop {
           position: fixed;
           inset: 0;
-          background: rgba(20, 41, 35, 0.35);
+          background: rgba(6, 78, 59, 0.35);
           z-index: 90;
           transition: opacity 0.3s ease;
         }
@@ -251,13 +269,13 @@ export function HomeHero() {
           right: 0;
           height: 100dvh;
           width: 280px;
-          background: #f4f1ea;
+          background: #F9FDF9;
           z-index: 100;
           display: flex;
           flex-direction: column;
           padding: 2rem 2rem 3rem;
           transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-          box-shadow: -4px 0 24px rgba(20, 41, 35, 0.12);
+          box-shadow: -4px 0 24px rgba(6, 78, 59, 0.12);
         }
 
         .drawer-close {
@@ -266,7 +284,7 @@ export function HomeHero() {
           border: none;
           cursor: pointer;
           font-size: 1.25rem;
-          color: #1e3d32;
+          color: #064E3B;
           padding: 4px 8px;
           margin-bottom: 2.5rem;
         }
@@ -282,6 +300,7 @@ export function HomeHero() {
           font-size: 1.1rem;
           letter-spacing: 0.2em;
           padding-bottom: 2px;
+          color: #064E3B;
         }
 
         .drawer-link::after {
@@ -291,7 +310,7 @@ export function HomeHero() {
           left: 0;
           width: 0;
           height: 1px;
-          background: #1e3d32;
+          background: #064E3B;
           transition: width 0.25s ease;
         }
 
@@ -302,12 +321,22 @@ export function HomeHero() {
         .drawer-book {
           font-size: 1rem;
           letter-spacing: 0.16em;
-          border: 1px solid #1e3d32;
+          border: 1px solid #064E3B;
           border-radius: 9999px;
           padding: 0.875rem 2rem;
           text-align: center;
-          transition: background 0.2s, color 0.2s;
           margin-top: 0.5rem;
+        }
+
+        /* Orange wave in drawer button */
+        .drawer-book .gecko-wave-fill { background: #F97316; }
+        .drawer-book .gecko-wave-text { color: #064E3B; }
+        .drawer-book.gecko-wave-btn:hover .gecko-wave-text {
+          animation: drawer-wave-reveal 1s forwards;
+        }
+        @keyframes drawer-wave-reveal {
+          0%, 78% { color: #064E3B; }
+          100%     { color: #F9FDF9; }
         }
 
         /* ── Tablet (768–1023px) ───────────────────────── */

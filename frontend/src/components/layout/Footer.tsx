@@ -11,9 +11,7 @@ const NAV_LINKS = [
 ]
 
 const SOCIAL_LINKS = [
-  { label: 'Instagram',    href: '#' },
-  { label: 'Airbnb',       href: '#' },
-  { label: 'Booking.com',  href: '#' },
+  { label: 'Instagram', href: 'https://www.instagram.com/gecko_surfhouse/' },
 ]
 
 export function Footer() {
@@ -76,7 +74,7 @@ export function Footer() {
             <div className="footer-hours font-label">
               <div className="footer-hours-row">
                 <span className="footer-hours-key">Check-in</span>
-                <span className="footer-hours-val">2:00 pm</span>
+                <span className="footer-hours-val">3:00 pm</span>
               </div>
               <div className="footer-hours-row">
                 <span className="footer-hours-key">Check-out</span>
@@ -102,6 +100,10 @@ export function Footer() {
                 </li>
               ))}
             </ul>
+            <p className="footer-social-tag font-label">
+              Caught a wave? Tag us.<br />
+              <span className="footer-social-handle">#GeckoSurfHouse</span>
+            </p>
           </div>
 
         </div>
@@ -115,6 +117,17 @@ export function Footer() {
           </p>
           <p className="footer-locale font-label uppercase">
             Santa Teresa · Costa Rica
+          </p>
+          <p className="footer-dev font-label">
+            Developed by{' '}
+            <a
+              href="https://jaromeroibz.github.io/porftolio/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-dev-link"
+            >
+              Sunlight Dev
+            </a>
           </p>
         </div>
 
@@ -257,6 +270,21 @@ export function Footer() {
           color: #c9683f;
         }
 
+        /* ━━ Social tagline ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .footer-social-tag {
+          margin-top: 1.5rem;
+          font-size: 0.8rem;
+          line-height: 1.7;
+          color: rgba(244, 241, 234, 0.3);
+          margin-bottom: 0;
+        }
+
+        .footer-social-handle {
+          color: #b85c3a;
+          font-weight: 500;
+          letter-spacing: 0.04em;
+        }
+
         /* ━━ Address ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .footer-address {
           font-style: normal;
@@ -320,6 +348,22 @@ export function Footer() {
           letter-spacing: 0.22em;
           color: rgba(244, 241, 234, 0.22);
           margin: 0;
+        }
+
+        .footer-dev {
+          font-size: 0.75rem;
+          color: rgba(244, 241, 234, 0.28);
+          margin: 0;
+        }
+
+        .footer-dev-link {
+          color: rgba(244, 241, 234, 0.42);
+          text-decoration: none;
+          transition: color 0.2s ease;
+        }
+
+        .footer-dev-link:hover {
+          color: #f4f1ea;
         }
 
         /* ━━ Tablet (< 1024 px) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */

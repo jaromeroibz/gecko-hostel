@@ -7,6 +7,8 @@ import {
   HomeExperiencesSection,
   HomeHero,
   HomeLifestyleSection,
+  HomeLogoDivider,
+  HomePackagesSection,
   HomeRoomsSection,
   HomeTestimonialsSection,
   HomeWhySection,
@@ -31,8 +33,11 @@ export function HomePage() {
       <HomeEditorialSection />
       <HomeLifestyleSection />
       <HomeExperiencesSection />
+      <HomePackagesSection />
       <HomeRoomsSection />
+      <HomeLogoDivider />
       <HomeWhySection />
+      <HomeLogoDivider />
       <HomeTestimonialsSection />
       <HomeBookingCtaSection />
     </div>

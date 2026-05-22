@@ -15,9 +15,9 @@ export function HomeBookingCtaSection() {
       {/* ── Cinematic background ─────────────────────────────────────── */}
       <div className="cta-backdrop" aria-hidden>
         <img src={CTA_BG} alt="" className="cta-bg-img" />
-        {/* Heavy dark gradient — light at sky, deep at ground */}
+        {/* Dark jungle gradient — sky open, ground deepens */}
         <div className="cta-overlay" />
-        {/* Warm amber bloom — evokes golden hour over water */}
+        {/* Mint bloom — cool electric glow at the horizon */}
         <div className="cta-overlay-warm" />
         {/* Side vignettes — darken edges where content lives, keep center open */}
         <div className="cta-overlay-sides" />
@@ -26,7 +26,7 @@ export function HomeBookingCtaSection() {
       {/* ── Ghost watermark ──────────────────────────────────────────── */}
       <span className="cta-ghost font-display" aria-hidden>surf</span>
 
-      {/* ── Bottom divider — same terracotta gradient used across sections */}
+      {/* ── Bottom divider — mint hairline separating CTA from footer */}
       <div className="cta-divider" aria-hidden />
 
       {/* ── Bottom content grid ──────────────────────────────────────── */}
@@ -51,10 +51,10 @@ export function HomeBookingCtaSection() {
           </p>
         </div>
 
-        {/* Right — floating cream booking panel */}
+        {/* Right — floating near-white booking panel */}
         <div className="cta-panel">
 
-          {/* Terracotta top accent */}
+          {/* Mint top accent */}
           <div className="cta-panel-bar" aria-hidden />
 
           <p className="cta-panel-eyebrow font-label uppercase">
@@ -86,7 +86,7 @@ export function HomeBookingCtaSection() {
 
         /* ━━ Section ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .cta-section {
-          background: #0c1e18;
+          background: #021a11;
           min-height: 90vh;
           display: flex;
           align-items: flex-end;
@@ -115,26 +115,26 @@ export function HomeBookingCtaSection() {
           transform: scale(1.07);
         }
 
-        /* Gradient: sky open, ground deepens — lighter overall to let surfer breathe */
+        /* Gradient: sky open, ground deepens — jungle-green base */
         .cta-overlay {
           position: absolute;
           inset: 0;
           background: linear-gradient(
             to bottom,
-            rgba(12, 30, 24, 0.12)  0%,
-            rgba(12, 30, 24, 0.35) 38%,
-            rgba(12, 30, 24, 0.78) 72%,
-            rgba(12, 30, 24, 0.96) 100%
+            rgba(2, 26, 17, 0.10)  0%,
+            rgba(2, 26, 17, 0.32) 38%,
+            rgba(2, 26, 17, 0.80) 72%,
+            rgba(2, 26, 17, 0.97) 100%
           );
         }
 
-        /* Warm radial glow — golden hour at the horizon */
+        /* Mint bloom — cool electric glow at the horizon */
         .cta-overlay-warm {
           position: absolute;
           inset: 0;
           background: radial-gradient(
             ellipse at 62% 18%,
-            rgba(184, 92, 58, 0.16) 0%,
+            rgba(52, 211, 153, 0.10) 0%,
             transparent 52%
           );
         }
@@ -146,10 +146,10 @@ export function HomeBookingCtaSection() {
           inset: 0;
           background: linear-gradient(
             to right,
-            rgba(12, 30, 24, 0.72) 0%,
-            rgba(12, 30, 24, 0.0)  28%,
-            rgba(12, 30, 24, 0.0)  72%,
-            rgba(12, 30, 24, 0.72) 100%
+            rgba(2, 26, 17, 0.72) 0%,
+            rgba(2, 26, 17, 0.0)  28%,
+            rgba(2, 26, 17, 0.0)  72%,
+            rgba(2, 26, 17, 0.72) 100%
           );
         }
 
@@ -160,7 +160,7 @@ export function HomeBookingCtaSection() {
           right: -2rem;
           font-size: clamp(8rem, 18vw, 21rem);
           line-height: 1;
-          color: rgba(244, 241, 234, 0.028);
+          color: rgba(52, 211, 153, 0.04);
           pointer-events: none;
           user-select: none;
           font-style: italic;
@@ -190,7 +190,7 @@ export function HomeBookingCtaSection() {
         .cta-eyebrow {
           font-size: 0.58rem;
           letter-spacing: 0.3em;
-          color: #b85c3a;
+          color: #34D399;
           margin: 0 0 2rem;
         }
 
@@ -198,29 +198,29 @@ export function HomeBookingCtaSection() {
           font-size: clamp(3.5rem, 6.2vw, 7.75rem);
           line-height: 0.92;
           letter-spacing: -0.04em;
-          color: #f4f1ea;
+          color: #F9FDF9;
           margin: 0 0 2.25rem;
         }
 
         .cta-heading em {
           font-style: italic;
-          color: rgba(244, 241, 234, 0.52);
+          color: rgba(249, 253, 249, 0.48);
         }
 
         .cta-body {
           font-size: 1rem;
           line-height: 1.9;
-          color: rgba(244, 241, 234, 0.42);
+          color: rgba(249, 253, 249, 0.42);
           max-width: 380px;
           margin: 0;
         }
 
-        /* ━━ Floating cream panel ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━ Floating near-white panel ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .cta-panel {
           max-width: 360px;
           width: 100%;
           flex-shrink: 0;
-          background: #f4f1ea;
+          background: #F9FDF9;
           border-radius: 2rem;
           padding: 3rem 2.75rem 3.25rem;
           position: relative;
@@ -231,7 +231,7 @@ export function HomeBookingCtaSection() {
             0 0 0 1px rgba(0, 0, 0, 0.06);
         }
 
-        /* Terracotta top accent bar */
+        /* Mint top accent bar */
         .cta-panel-bar {
           position: absolute;
           top: 0;
@@ -240,8 +240,8 @@ export function HomeBookingCtaSection() {
           height: 2.5px;
           background: linear-gradient(
             to right,
-            #b85c3a,
-            rgba(184, 92, 58, 0)
+            #34D399,
+            rgba(52, 211, 153, 0)
           );
           border-radius: 100px;
         }
@@ -249,45 +249,45 @@ export function HomeBookingCtaSection() {
         .cta-panel-eyebrow {
           font-size: 0.52rem;
           letter-spacing: 0.28em;
-          color: #b85c3a;
+          color: #F97316;
           margin: 0 0 1.25rem;
         }
 
         .cta-panel-heading {
           font-size: clamp(1.6rem, 2.4vw, 2.1rem);
           line-height: 1.15;
-          color: #142923;
+          color: #064E3B;
           margin: 0 0 1.75rem;
           font-family: 'Comfortaa', cursive, sans-serif;
         }
 
         .cta-panel-heading em {
           font-style: italic;
-          color: rgba(20, 41, 35, 0.4);
+          color: rgba(6, 78, 59, 0.4);
         }
 
         .cta-panel-divider {
           height: 1px;
-          background: rgba(20, 41, 35, 0.09);
+          background: rgba(6, 78, 59, 0.09);
           margin-bottom: 1.25rem;
         }
 
         .cta-panel-note {
           font-size: 0.5rem;
           letter-spacing: 0.16em;
-          color: rgba(20, 41, 35, 0.32);
+          color: rgba(6, 78, 59, 0.32);
           text-transform: uppercase;
           margin: 0 0 1.75rem;
         }
 
         /* ━━ Button ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        /* Primary — terracotta solid */
+        /* Primary — vivid orange solid */
         .cta-btn-primary {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: #b85c3a;
-          color: #f4f1ea;
+          background: #F97316;
+          color: #F9FDF9;
           border-radius: 1.25rem;
           padding: 1.1rem 2rem;
           font-size: 0.72rem;
@@ -300,16 +300,16 @@ export function HomeBookingCtaSection() {
             transform 0.25s cubic-bezier(0.25, 0, 0.1, 1),
             box-shadow 0.25s ease;
           box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.14),
-            0 8px 28px rgba(184, 92, 58, 0.42);
+            inset 0 1px 0 rgba(255, 255, 255, 0.16),
+            0 8px 28px rgba(249, 115, 22, 0.42);
         }
 
         .cta-btn-primary:hover {
-          background: #c96940;
+          background: #ea6a0e;
           transform: translateY(-2px);
           box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.18),
-            0 16px 48px rgba(184, 92, 58, 0.54);
+            inset 0 1px 0 rgba(255, 255, 255, 0.2),
+            0 16px 48px rgba(249, 115, 22, 0.56);
         }
 
         /* ━━ Bottom divider ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -322,10 +322,10 @@ export function HomeBookingCtaSection() {
           z-index: 4;
           background: linear-gradient(
             to right,
-            rgba(184, 92, 58, 0)    0%,
-            rgba(184, 92, 58, 0.65) 22%,
-            rgba(184, 92, 58, 0.65) 78%,
-            rgba(184, 92, 58, 0)    100%
+            rgba(52, 211, 153, 0)    0%,
+            rgba(52, 211, 153, 0.55) 22%,
+            rgba(52, 211, 153, 0.55) 78%,
+            rgba(52, 211, 153, 0)    100%
           );
         }
 

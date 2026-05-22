@@ -70,9 +70,19 @@
     const departure= params.get('departure')?? ''   // YYYYMMDD
     const adults   = parseInt(params.get('adults') ?? '1', 10)
 
-    // Stamp rental-id onto the widget div before the script runs
-    if (rentalId) {
-      document.getElementById('lodgify-book-now-box').setAttribute('data-rental-id', rentalId)
+    // Stamp attributes onto the widget div BEFORE renderBookNowBox.js runs
+    // (it's defer, so our inline script always wins the race).
+    const _box = document.getElementById('lodgify-book-now-box')
+    if (rentalId) _box.setAttribute('data-rental-id', rentalId)
+
+    // ── Native guests pre-fill ───────────────────────────────────────────────
+    // Lodgify's script reads these attributes during initialisation.
+    // Setting them here means the widget boots with the correct count so no
+    // click-automation is needed for guests in most cases.
+    if (adults > 1) {
+      _box.setAttribute('data-adults',           String(adults))
+      _box.setAttribute('data-number-of-adults', String(adults))
+      _box.setAttribute('data-guests',           String(adults))
     }
 
     // ── Height reporter ──────────────────────────────────────────────────────
@@ -116,6 +126,32 @@
     ]
 
     function sleep(ms) { return new Promise(r => setTimeout(r, ms)) }
+
+    // Invoke a React element's onClick handler directly via the internal
+    // __reactProps key — this bypasses DOM event delegation entirely and is
+    // the only approach that reliably works inside React portals (dialogs).
+    function reactClick(el) {
+      const propsKey = Object.keys(el).find(k => k.startsWith('__reactProps'))
+      if (propsKey && el[propsKey]?.onClick) {
+        el[propsKey].onClick({
+          type: 'click', bubbles: true, cancelable: true,
+          target: el, currentTarget: el,
+          preventDefault:        () => {},
+          stopPropagation:       () => {},
+          isDefaultPrevented:    () => false,
+          isPropagationStopped:  () => false,
+          persist:               () => {},
+          nativeEvent: new MouseEvent('click', { bubbles: true }),
+        })
+        return
+      }
+      // Fallback: full pointer + mouse sequence for non-React or older React
+      el.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true }))
+      el.dispatchEvent(new PointerEvent('pointerup',   { bubbles: true, cancelable: true, pointerId: 1, isPrimary: true }))
+      el.dispatchEvent(new MouseEvent('mousedown',     { bubbles: true, cancelable: true, view: window }))
+      el.dispatchEvent(new MouseEvent('mouseup',       { bubbles: true, cancelable: true, view: window }))
+      el.dispatchEvent(new MouseEvent('click',         { bubbles: true, cancelable: true, view: window }))
+    }
 
     function getVisibleCalendarMonth() {
       // Try scoped containers first (dialog, presentation), then the whole body.
@@ -219,34 +255,43 @@
         return
       }
       depCell.click()
-      await sleep(400)
+      await sleep(300)
 
-      // ── 4. Pre-fill guests if more than the default 1 adult ─────────────
+      // ── 4. Wait for the calendar dialog to fully close ───────────────────
+      // Without this wait the calendar is still in the DOM when we look for
+      // the guests trigger — it never finds it and returns early.
+      const calCloseDeadline = Date.now() + 2500
+      while (Date.now() < calCloseDeadline) {
+        if (!document.querySelector('[role="dialog"]')) break
+        await sleep(100)
+      }
+      await sleep(350) // extra settle so Lodgify finishes its close animation
+
+      // ── 5. Pre-fill guests ───────────────────────────────────────────────
+      // Uses exact data-testid selectors confirmed from live DOM inspection.
+      // Re-queries the add button on every iteration because React re-renders
+      // the dialog after each state update, which can replace the DOM node.
       if (adults > 1) {
         const guestsTrigger = container.querySelector('[data-testid="guests-breakdown-trigger"]')
-        if (!guestsTrigger) return
-        guestsTrigger.click()
-        await sleep(400)
+        if (guestsTrigger) {
+          reactClick(guestsTrigger)
+          await sleep(700)
 
-        const dialog = document.querySelector('[role="dialog"]')
-        if (!dialog) return
-
-        const incrementBtn =
-          dialog.querySelector('[data-testid*="adults"][data-testid*="increment"]') ??
-          dialog.querySelector('[data-testid*="adult"][data-testid*="add"]') ??
-          Array.from(dialog.querySelectorAll('button')).find(b => b.textContent?.trim() === '+')
-
-        if (incrementBtn) {
+          // Lodgify starts at 1 adult — click Add (adults − 1) times
           for (let i = 1; i < adults; i++) {
-            incrementBtn.click()
-            await sleep(150)
+            const addBtn = document.querySelector('[data-testid="adults-add-button"]')
+            if (!addBtn) { console.warn('[ldg-prefill] add button gone after click', i); break }
+            reactClick(addBtn)
+            await sleep(350)
+          }
+          await sleep(200)
+
+          const doneBtn = document.querySelector('[data-testid="book-now-box.guests-breakdown-done-cta"]')
+          if (doneBtn) {
+            reactClick(doneBtn)
+            await sleep(400)
           }
         }
-
-        const doneBtn = Array.from(dialog.querySelectorAll('button')).find(b =>
-          /done|apply|confirm/i.test(b.textContent ?? ''),
-        )
-        doneBtn?.click()
       }
     }
 

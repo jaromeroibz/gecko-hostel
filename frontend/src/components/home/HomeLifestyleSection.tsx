@@ -79,9 +79,9 @@ export function HomeLifestyleSection() {
 
       <style>{`
 
-        /* ━━ Section — warm sand canvas, full-width ━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━ Section — barely-mint canvas, full-width ━━━━━━━━━━━━━━━━━━━ */
         .ls-section {
-          background: #e6e1d6;
+          background: #ECFDF5;
           padding: 5rem clamp(1.5rem, 6vw, 6rem) 11rem;
         }
 
@@ -99,15 +99,15 @@ export function HomeLifestyleSection() {
           z-index: 1;
           width: 62%;
           min-height: 480px;
-          background: #142923;
+          background: #064E3B;
           border-radius: 2rem;
           padding: 4rem 3.25rem 5rem;
           display: flex;
           flex-direction: column;
           gap: 1.75rem;
           box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.04),
-            0 24px 80px rgba(20, 41, 35, 0.22);
+            inset 0 1px 0 rgba(255, 255, 255, 0.06),
+            0 24px 80px rgba(6, 78, 59, 0.28);
         }
 
         /* ━━ Eyebrow ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -115,6 +115,7 @@ export function HomeLifestyleSection() {
           font-size: 0.65rem;
           letter-spacing: 0.3em;
           margin: 0;
+          color: #34D399; /* override text-gecko-clay → electric mint on dark */
         }
 
         /* ━━ Heading ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -133,7 +134,7 @@ export function HomeLifestyleSection() {
           gap: 1rem;
           font-size: 0.9375rem;
           line-height: 1.85;
-          color: rgba(244, 241, 234, 0.58);
+          color: rgba(249, 253, 249, 0.58);
           max-width: 300px;
         }
         .ls-body p { margin: 0; }
@@ -155,13 +156,14 @@ export function HomeLifestyleSection() {
         .ls-stat-num {
           font-size: clamp(1.75rem, 2.2vw, 2.25rem);
           line-height: 1;
+          color: #F9FDF9; /* override text-gecko-cream */
         }
 
         .ls-stat-label {
           font-size: 0.58rem;
           letter-spacing: 0.24em;
           text-transform: uppercase;
-          color: rgba(244, 241, 234, 0.4);
+          color: rgba(249, 253, 249, 0.42);
         }
 
         /* ━━ LAYER 2 — Bonfire image card ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -212,11 +214,11 @@ export function HomeLifestyleSection() {
           right: 1.25rem;
           margin: 0;
           padding: 1.5rem 1.75rem;
-          background: rgba(14, 26, 20, 0.72);
+          background: rgba(2, 20, 12, 0.72);
           backdrop-filter: blur(14px);
           -webkit-backdrop-filter: blur(14px);
           border-radius: 1.25rem;
-          border: 1px solid rgba(244, 241, 234, 0.09);
+          border: 1px solid rgba(249, 253, 249, 0.09);
           box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
@@ -224,7 +226,7 @@ export function HomeLifestyleSection() {
           font-size: 1rem;
           font-style: italic;
           line-height: 1.55;
-          color: #f4f1ea;
+          color: #F9FDF9;
           margin: 0 0 0.85rem;
         }
 
@@ -233,7 +235,7 @@ export function HomeLifestyleSection() {
           font-size: 0.58rem;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: rgba(244, 241, 234, 0.45);
+          color: rgba(249, 253, 249, 0.45);
           font-style: normal;
         }
 
@@ -270,7 +272,7 @@ export function HomeLifestyleSection() {
           font-size: 0.58rem;
           letter-spacing: 0.24em;
           text-transform: uppercase;
-          color: rgba(20, 41, 35, 0.45);
+          color: rgba(6, 78, 59, 0.45);
           text-align: center;
         }
 

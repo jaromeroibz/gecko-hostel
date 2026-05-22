@@ -14,7 +14,7 @@ export function HomeExperiencesSection() {
       className="ex-section relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2"
       aria-label="Experiences at Gecko"
     >
-      {/* ── Top wave — sand (#e6e1d6) peeling into dark section ── */}
+      {/* ── Top wave — barely-mint peeling into dark section ── */}
       <div className="ex-top-wave" aria-hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
           <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" />
@@ -200,12 +200,12 @@ export function HomeExperiencesSection() {
 
         /* ━━ Section — deep jungle canvas ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .ex-section {
-          background: #0d1f18;
+          background: #064E3B;
           padding: 7rem clamp(1.5rem, 6vw, 5rem) 9rem;
           position: relative;
         }
 
-        /* ━━ Top wave — sand peeling into dark ━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━ Top wave — barely-mint peeling into dark ━━━━━━━━━━━━━━━━━━ */
         .ex-top-wave {
           position: absolute;
           top: 0;
@@ -222,7 +222,7 @@ export function HomeExperiencesSection() {
           display: block;
           width: 100%;
           height: 88px;
-          fill: #e6e1d6; /* sand — matches lifestyle section */
+          fill: #ECFDF5; /* barely-mint — matches lifestyle section */
         }
 
         /* ━━ Section header — centered editorial intro ━━━━━━━━━━━━━━━━━ */
@@ -248,10 +248,14 @@ export function HomeExperiencesSection() {
           margin: 0;
         }
 
+        /* Eyebrow + heading color overrides (Tailwind text-gecko-clay/cream → Jungle Rip) */
+        .ex-eyebrow { color: #34D399; }
+        .ex-heading  { color: #F9FDF9; }
+
         .ex-subtext {
           font-size: 0.9375rem;
           line-height: 1.85;
-          color: rgba(244, 241, 234, 0.48);
+          color: rgba(249, 253, 249, 0.48);
           margin: 0;
         }
 
@@ -315,14 +319,14 @@ export function HomeExperiencesSection() {
           font-size: clamp(2.5rem, 4vw, 4.25rem);
           line-height: 1.0;
           letter-spacing: -0.02em;
-          color: #f4f1ea;
+          color: #F9FDF9;
           margin: 0;
         }
 
         .ex-panel-body {
           font-size: 0.9375rem;
           line-height: 1.8;
-          color: rgba(244, 241, 234, 0.65);
+          color: rgba(249, 253, 249, 0.65);
           margin: 0;
           max-width: 380px;
         }
@@ -332,16 +336,16 @@ export function HomeExperiencesSection() {
           position: absolute;
           top: 1.75rem;
           right: 1.75rem;
-          background: rgba(184, 92, 58, 0.88);
+          background: rgba(249, 115, 22, 0.88);
           backdrop-filter: blur(8px);
           -webkit-backdrop-filter: blur(8px);
-          color: #f4f1ea;
+          color: #F9FDF9;
           font-size: 0.6rem;
           letter-spacing: 0.24em;
           text-transform: uppercase;
           padding: 0.5rem 1.1rem;
           border-radius: 9999px;
-          border: 1px solid rgba(244, 241, 234, 0.15);
+          border: 1px solid rgba(249, 253, 249, 0.18);
         }
 
         /* ━━ ROW 2 — two-up: 57 / 41 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -395,9 +399,9 @@ export function HomeExperiencesSection() {
           );
         }
 
-        /* Waterfalls — warm colour block, no photo */
+        /* Waterfalls — sun yellow colour block, no photo */
         .ex-card--warm {
-          background: #1a0a04;
+          background: #FCD34D;
         }
 
         .ex-warm-bg {
@@ -405,22 +409,22 @@ export function HomeExperiencesSection() {
           inset: 0;
           background: linear-gradient(
             145deg,
-            #6b2e18 0%,
-            #a84c2e 35%,
-            #c8663c 60%,
-            #b05530 85%,
-            #7a3520 100%
+            #f5c518 0%,
+            #FCD34D 40%,
+            #fde47a 65%,
+            #FCD34D 85%,
+            #e8b800 100%
           );
         }
 
-        /* Ghost watermark text — large, low-opacity behind content */
+        /* Ghost watermark text — jungle tint on yellow */
         .ex-ghost {
           position: absolute;
           bottom: -0.5rem;
           right: -1rem;
           font-size: clamp(5rem, 12vw, 10rem);
           line-height: 1;
-          color: rgba(244, 230, 210, 0.12);
+          color: rgba(6, 78, 59, 0.1);
           white-space: nowrap;
           pointer-events: none;
           user-select: none;
@@ -458,7 +462,7 @@ export function HomeExperiencesSection() {
         }
 
         .ex-num--dark {
-          color: rgba(14, 26, 20, 0.22);
+          color: rgba(6, 78, 59, 0.22);
         }
 
         /* ━━ Shared type styles ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -466,48 +470,48 @@ export function HomeExperiencesSection() {
           font-size: 0.6rem;
           letter-spacing: 0.28em;
           text-transform: uppercase;
-          color: #b85c3a;
+          color: #34D399;
           margin: 0;
         }
 
         .ex-cat--dark {
-          color: rgba(80, 30, 12, 0.65);
+          color: rgba(6, 78, 59, 0.62);
         }
 
         .ex-card-title {
           font-size: clamp(1.5rem, 2.2vw, 2.15rem);
           line-height: 1.06;
           letter-spacing: -0.01em;
-          color: #f4f1ea;
+          color: #F9FDF9;
           margin: 0;
         }
 
         .ex-card-title--dark {
-          color: rgba(14, 10, 6, 0.88);
+          color: #064E3B;
         }
 
         .ex-card-body {
           font-size: 0.875rem;
           line-height: 1.75;
-          color: rgba(244, 241, 234, 0.6);
+          color: rgba(249, 253, 249, 0.6);
           margin: 0;
           max-width: 320px;
         }
 
         .ex-card-body--dark {
-          color: rgba(20, 10, 4, 0.6);
+          color: rgba(6, 78, 59, 0.62);
         }
 
         .ex-tag {
           font-size: 0.58rem;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: rgba(244, 241, 234, 0.35);
+          color: rgba(249, 253, 249, 0.35);
           margin: 0;
         }
 
         .ex-tag--dark {
-          color: rgba(14, 10, 4, 0.42);
+          color: rgba(6, 78, 59, 0.48);
         }
 
         /* ━━ CTA strip ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -516,8 +520,8 @@ export function HomeExperiencesSection() {
           align-items: center;
           justify-content: space-between;
           gap: 2rem;
-          background: rgba(244, 241, 234, 0.04);
-          border: 1px solid rgba(244, 241, 234, 0.08);
+          background: rgba(52, 211, 153, 0.06);
+          border: 1px solid rgba(52, 211, 153, 0.14);
           border-radius: 1.5rem;
           padding: 2rem 2.75rem;
           margin-top: 0.25rem;
@@ -526,7 +530,7 @@ export function HomeExperiencesSection() {
         .ex-cta-copy {
           font-size: clamp(1.1rem, 1.8vw, 1.6rem);
           font-style: italic;
-          color: rgba(244, 241, 234, 0.78);
+          color: rgba(249, 253, 249, 0.78);
           margin: 0;
           letter-spacing: -0.01em;
         }
@@ -535,8 +539,8 @@ export function HomeExperiencesSection() {
           flex-shrink: 0;
           font-size: 0.72rem;
           letter-spacing: 0.2em;
-          color: #f4f1ea;
-          border: 1.5px solid rgba(244, 241, 234, 0.32);
+          color: #F9FDF9;
+          border: 1.5px solid rgba(52, 211, 153, 0.45);
           border-radius: 9999px;
           padding: 0.875rem 2rem;
           transition: border-color 0.22s, background 0.22s, color 0.22s;
@@ -545,9 +549,9 @@ export function HomeExperiencesSection() {
         }
 
         .ex-cta-btn:hover {
-          border-color: #f4f1ea;
-          background: #f4f1ea;
-          color: #0d1f18;
+          border-color: #34D399;
+          background: #34D399;
+          color: #064E3B;
         }
 
         /* ━━ Bottom wave — dark → cream for rooms section ━━━━━━━━━━━━━━ */
@@ -568,7 +572,7 @@ export function HomeExperiencesSection() {
           width: 100%;
           height: 88px;
           transform: scaleY(-1); /* rises from bottom */
-          fill: #f4f1ea; /* cream — matches rooms section */
+          fill: #F9FDF9; /* near-white — matches rooms section */
         }
 
         /* ━━ Tablet (768 – 1023px) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */

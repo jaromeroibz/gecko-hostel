@@ -169,7 +169,7 @@ export function HomeTestimonialsSection() {
 
         /* ━━ Section ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .tr-section {
-          background: #f4f1ea;
+          background: #F9FDF9;
           padding: 6rem 0 0;
         }
 
@@ -191,7 +191,7 @@ export function HomeTestimonialsSection() {
         .tr-eyebrow {
           font-size: 0.62rem;
           letter-spacing: 0.28em;
-          color: #b85c3a;
+          color: #F97316;
           margin: 0 0 1.1rem;
         }
 
@@ -199,33 +199,33 @@ export function HomeTestimonialsSection() {
           font-size: clamp(2.75rem, 4vw, 5rem);
           line-height: 1.0;
           letter-spacing: -0.03em;
-          color: #142923;
+          color: #064E3B;
           margin: 0 0 1.1rem;
         }
 
         .tr-subtext {
           font-size: 0.9375rem;
           line-height: 1.8;
-          color: rgba(20, 41, 35, 0.55);
+          color: rgba(6, 78, 59, 0.55);
           max-width: 420px;
           margin: 0;
         }
 
         /* Rating callout card */
         .tr-rating-card {
-          background: #142923;
+          background: #064E3B;
           border-radius: 1.5rem;
           padding: 1.75rem 2rem 2rem;
           text-align: center;
           min-width: 190px;
           box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.04),
-            0 20px 60px rgba(20,41,35,0.16);
+            inset 0 1px 0 rgba(255,255,255,0.06),
+            0 20px 60px rgba(6,78,59,0.22);
         }
 
         .tr-rating-stars {
           font-size: 1.1rem;
-          color: #b85c3a;
+          color: #34D399;
           letter-spacing: 0.1em;
           margin-bottom: 0.65rem;
         }
@@ -233,7 +233,7 @@ export function HomeTestimonialsSection() {
         .tr-rating-score {
           font-size: 1.35rem;
           line-height: 1.1;
-          color: #f4f1ea;
+          color: #F9FDF9;
           margin: 0 0 0.6rem;
           font-style: italic;
         }
@@ -241,7 +241,7 @@ export function HomeTestimonialsSection() {
         .tr-rating-source {
           font-size: 0.48rem;
           letter-spacing: 0.18em;
-          color: rgba(244,241,234,0.38);
+          color: rgba(249,253,249,0.42);
           margin: 0;
           line-height: 1.7;
         }
@@ -256,7 +256,7 @@ export function HomeTestimonialsSection() {
 
         /* ━━ Hero card ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .tr-hero {
-          background: #142923;
+          background: #064E3B;
           border-radius: 1.75rem;
           padding: 3rem 3.25rem 3rem;
           display: flex;
@@ -264,15 +264,15 @@ export function HomeTestimonialsSection() {
           position: relative;
           overflow: hidden;
           box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.04),
-            0 32px 80px rgba(20,41,35,0.22);
+            inset 0 1px 0 rgba(255,255,255,0.06),
+            0 32px 80px rgba(6,78,59,0.28);
           transition: box-shadow 0.3s ease;
         }
 
         .tr-hero:hover {
           box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.06),
-            0 40px 100px rgba(20,41,35,0.3);
+            inset 0 1px 0 rgba(255,255,255,0.08),
+            0 40px 100px rgba(6,78,59,0.36);
         }
 
         /* Oversized decorative quote mark */
@@ -282,7 +282,7 @@ export function HomeTestimonialsSection() {
           left: 2.5rem;
           font-size: 10rem;
           line-height: 1;
-          color: rgba(184, 92, 58, 0.18);
+          color: rgba(52, 211, 153, 0.15);
           pointer-events: none;
           user-select: none;
           font-style: italic;
@@ -292,7 +292,7 @@ export function HomeTestimonialsSection() {
           font-size: clamp(1.15rem, 1.6vw, 1.5rem);
           font-style: italic;
           line-height: 1.55;
-          color: #f4f1ea;
+          color: #F9FDF9;
           margin: 2.5rem 0 0;
           flex: 1;
           position: relative;
@@ -301,7 +301,7 @@ export function HomeTestimonialsSection() {
 
         .tr-hero-divider {
           height: 1px;
-          background: rgba(244,241,234,0.1);
+          background: rgba(249,253,249,0.12);
           margin: 2rem 0 1.75rem;
         }
 
@@ -321,14 +321,14 @@ export function HomeTestimonialsSection() {
         .tr-reviewer-name {
           font-size: 0.9rem;
           font-weight: 500;
-          color: #f4f1ea;
+          color: #F9FDF9;
           margin: 0.3rem 0 0.2rem;
         }
 
         .tr-reviewer-detail {
           font-size: 0.48rem;
           letter-spacing: 0.2em;
-          color: rgba(244,241,234,0.42);
+          color: rgba(249,253,249,0.42);
           margin: 0;
         }
 
@@ -336,7 +336,7 @@ export function HomeTestimonialsSection() {
         .tr-stars {
           display: block;
           font-size: 0.7rem;
-          color: #b85c3a;
+          color: #34D399;
           letter-spacing: 0.1em;
           margin-bottom: 0.15rem;
         }
@@ -346,9 +346,9 @@ export function HomeTestimonialsSection() {
           width: 2.75rem;
           height: 2.75rem;
           border-radius: 50%;
-          background: rgba(184,92,58,0.18);
-          border: 1px solid rgba(184,92,58,0.3);
-          color: #b85c3a;
+          background: rgba(52,211,153,0.15);
+          border: 1px solid rgba(52,211,153,0.3);
+          color: #34D399;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -361,9 +361,9 @@ export function HomeTestimonialsSection() {
         .tr-source-badge {
           font-size: 0.44rem;
           letter-spacing: 0.15em;
-          color: rgba(244,241,234,0.3);
-          background: rgba(244,241,234,0.06);
-          border: 1px solid rgba(244,241,234,0.1);
+          color: rgba(249,253,249,0.35);
+          background: rgba(249,253,249,0.07);
+          border: 1px solid rgba(249,253,249,0.12);
           padding: 0.3rem 0.7rem;
           border-radius: 100px;
           align-self: flex-start;
@@ -393,68 +393,68 @@ export function HomeTestimonialsSection() {
           transform: translateY(-3px);
         }
 
-        /* Sand card */
+        /* Mint-white card (was sand) */
         .tr-card--sand {
-          background: #e6e1d6;
-          box-shadow: 0 12px 40px rgba(20,41,35,0.08);
+          background: #ECFDF5;
+          box-shadow: 0 12px 40px rgba(6,78,59,0.08);
         }
 
         .tr-card--sand:hover {
-          box-shadow: 0 20px 60px rgba(20,41,35,0.13);
+          box-shadow: 0 20px 60px rgba(6,78,59,0.13);
         }
 
         .tr-card--sand .tr-card-quote {
-          color: #142923;
+          color: #064E3B;
         }
 
         .tr-card--sand .tr-stars {
-          color: #b85c3a;
+          color: #F97316;
         }
 
         .tr-card--sand .tr-card-name {
-          color: #142923;
+          color: #064E3B;
         }
 
         .tr-card--sand .tr-card-origin {
-          color: rgba(20,41,35,0.45);
+          color: rgba(6,78,59,0.45);
         }
 
         .tr-card--sand .tr-avatar {
-          background: rgba(20,41,35,0.08);
-          border-color: rgba(20,41,35,0.15);
-          color: #142923;
+          background: rgba(6,78,59,0.08);
+          border-color: rgba(6,78,59,0.15);
+          color: #064E3B;
         }
 
-        /* Terracotta card */
+        /* Mint card (was terracotta) */
         .tr-card--clay {
-          background: #b85c3a;
-          box-shadow: 0 12px 40px rgba(184,92,58,0.25);
+          background: #34D399;
+          box-shadow: 0 12px 40px rgba(52,211,153,0.3);
         }
 
         .tr-card--clay:hover {
-          box-shadow: 0 20px 60px rgba(184,92,58,0.35);
+          box-shadow: 0 20px 60px rgba(52,211,153,0.42);
         }
 
         .tr-card--clay .tr-card-quote {
-          color: #f4f1ea;
+          color: #064E3B;
         }
 
         .tr-card--clay .tr-stars {
-          color: rgba(244,241,234,0.85);
+          color: rgba(6,78,59,0.75);
         }
 
         .tr-card--clay .tr-card-name {
-          color: #f4f1ea;
+          color: #064E3B;
         }
 
         .tr-card--clay .tr-card-origin {
-          color: rgba(244,241,234,0.55);
+          color: rgba(6,78,59,0.55);
         }
 
         .tr-card--clay .tr-avatar {
-          background: rgba(244,241,234,0.15);
-          border-color: rgba(244,241,234,0.25);
-          color: #f4f1ea;
+          background: rgba(6,78,59,0.1);
+          border-color: rgba(6,78,59,0.18);
+          color: #064E3B;
         }
 
         /* Card content */
@@ -485,7 +485,7 @@ export function HomeTestimonialsSection() {
 
         /* ━━ Statement strip ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .tr-statement {
-          background: #142923;
+          background: #064E3B;
           margin-top: 1.25rem;
           padding: 5rem clamp(1.5rem, 6vw, 6rem) 5.5rem;
           position: relative;
@@ -501,7 +501,7 @@ export function HomeTestimonialsSection() {
           font-family: 'Comfortaa', cursive, sans-serif;
           font-size: 28rem;
           line-height: 1;
-          color: rgba(244,241,234,0.025);
+          color: rgba(52,211,153,0.05);
           pointer-events: none;
           user-select: none;
         }
@@ -518,17 +518,17 @@ export function HomeTestimonialsSection() {
           display: block;
           font-size: 4rem;
           line-height: 0.8;
-          color: #b85c3a;
+          color: #FCD34D;
           font-style: italic;
           margin-bottom: 1rem;
-          opacity: 0.7;
+          opacity: 0.85;
         }
 
         .tr-statement-quote {
           font-size: clamp(1.75rem, 3vw, 3rem);
           font-style: italic;
           line-height: 1.25;
-          color: #f4f1ea;
+          color: #F9FDF9;
           margin: 0 0 2rem;
           letter-spacing: -0.01em;
         }
@@ -542,7 +542,7 @@ export function HomeTestimonialsSection() {
 
         .tr-statement-byline .tr-stars {
           display: inline;
-          color: #b85c3a;
+          color: #34D399;
           font-size: 0.65rem;
           letter-spacing: 0.12em;
         }
@@ -550,7 +550,7 @@ export function HomeTestimonialsSection() {
         .tr-statement-name {
           font-size: 0.5rem;
           letter-spacing: 0.22em;
-          color: rgba(244,241,234,0.42);
+          color: rgba(249,253,249,0.45);
           margin: 0;
         }
 
