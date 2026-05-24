@@ -1,6 +1,8 @@
 import { useState, useId } from 'react'
 import { Link } from 'react-router-dom'
 
+import { useInView } from '../hooks/useInView'
+
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://127.0.0.1:5000/api'
 
 type FormState = 'idle' | 'sending' | 'success' | 'error'
@@ -115,6 +117,7 @@ export function ContactPage() {
   }
 
   const sending = status === 'sending'
+  const [bodyRef, bodyInView] = useInView<HTMLDivElement>({ threshold: 0.06 })
 
   return (
     <>
@@ -480,9 +483,9 @@ export function ContactPage() {
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
       <div className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 -mt-10 sm:-mt-12">
         <div className="cp-hero">
-          <p className="cp-hero-eyebrow">We'd love to hear from you</p>
-          <h1>Get in touch</h1>
-          <p>
+          <p className="cp-hero-eyebrow" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s both' }}>We'd love to hear from you</p>
+          <h1 style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.3s both' }}>Get in touch</h1>
+          <p style={{ animation: 'hero-enter 0.85s cubic-bezier(0.22,1,0.36,1) 0.45s both' }}>
             Questions about a stay, a surf lesson, or just curious what the vibe is like?
             Drop us a note — we usually reply within a few hours.
           </p>
@@ -490,10 +493,10 @@ export function ContactPage() {
       </div>
 
       {/* ── Body ─────────────────────────────────────────────────────────── */}
-      <div className="cp-body">
+      <div ref={bodyRef} className={`cp-body${bodyInView ? ' in-view' : ''}`}>
 
         {/* ── Contact form ──────────────────────────────────────────────── */}
-        <div>
+        <div className="reveal-from-left">
           {status === 'success' ? (
             <div className="cp-success">
               <div className="cp-success-icon">
@@ -629,7 +632,7 @@ export function ContactPage() {
         </div>
 
         {/* ── Sidebar ───────────────────────────────────────────────────── */}
-        <div className="cp-sidebar">
+        <div className="cp-sidebar reveal-from-right stagger-2">
           <div className="cp-detail-card">
             <h3>Find us</h3>
             {CONTACT_DETAILS.map(d => (

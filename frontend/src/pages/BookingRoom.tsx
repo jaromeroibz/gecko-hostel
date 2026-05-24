@@ -106,12 +106,13 @@ export function BookingRoom() {
       <Link
         to={backHref}
         className="inline-flex items-center gap-1.5 text-sm font-medium text-gecko-forest/70 hover:text-gecko-forest"
+        style={{ animation: 'hero-enter 0.7s cubic-bezier(0.22,1,0.36,1) 0.1s both' }}
       >
         ← All rooms
       </Link>
 
       {/* ── Hero photo carousel ─────────────────────────────────────── */}
-      <div className="group relative aspect-[21/9] overflow-hidden rounded-2xl">
+      <div className="group relative aspect-[21/9] overflow-hidden rounded-2xl" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.22s both' }}>
 
         {/* Crossfading images */}
         {images.map((src, i) => (
@@ -181,7 +182,7 @@ export function BookingRoom() {
       </div>
 
       {/* ── Room info + Booking Box ──────────────────────────────────── */}
-      <div className="grid gap-8 lg:grid-cols-[1fr_420px]">
+      <div className="grid gap-8 lg:grid-cols-[1fr_420px]" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.38s both' }}>
 
         {/* Left: description + amenities */}
         <div className="space-y-5">

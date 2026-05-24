@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 
+import { useInView } from '../hooks/useInView'
+
 import { BookingSearchBar } from '../components/booking/BookingSearchBar'
 import { LodgifyWidget } from '../components/booking/LodgifyWidget'
 import { RoomCard } from '../components/booking/RoomCard'
@@ -26,6 +28,9 @@ export function Booking() {
   const widgetRef  = useRef<HTMLDivElement>(null)
 
   const [selectedRoomId, setSelectedRoomId] = useState<string | null>(null)
+
+  const [trustRef, trustInView] = useInView<HTMLDivElement>({ threshold: 0.1 })
+  const [gridRef,  gridInView]  = useInView<HTMLDivElement>({ threshold: 0.06 })
 
   // Tracks the guest count in real-time (updates on every +/− tap, not just
   // on search-submit), so the Lodgify widget always prices for the right
@@ -69,15 +74,15 @@ export function Booking() {
         />
         <div className="bk-hero-overlay" aria-hidden />
         <div className="bk-hero-inner">
-          <p className="bk-eyebrow font-label">Live Availability</p>
-          <h1 className="bk-heading font-display">
+          <p className="bk-eyebrow font-label" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s both' }}>Live Availability</p>
+          <h1 className="bk-heading font-display" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.3s both' }}>
             {activePackage ? (
               <>Book your<br />package.</>
             ) : (
               <>Find your<br />perfect room.</>
             )}
           </h1>
-          <p className="bk-subtext font-label">
+          <p className="bk-subtext font-label" style={{ animation: 'hero-enter 0.8s cubic-bezier(0.22,1,0.36,1) 0.48s both' }}>
             Real-time pricing · confirmed at checkout
           </p>
         </div>
@@ -139,9 +144,9 @@ export function Booking() {
 
       {/* ── Trust micro-strip (shown only without a package filter) ──── */}
       {!activePackage && (
-        <div className="bk-trust-strip">
+        <div ref={trustRef} className={`bk-trust-strip${trustInView ? ' in-view' : ''}`}>
           {TRUST_ITEMS.map(({ icon, label }, i) => (
-            <span key={label} className="bk-trust-item font-label">
+            <span key={label} className={`bk-trust-item font-label reveal stagger-${i + 1}`}>
               <span className="bk-trust-icon">{icon}</span>
               {label}
               {i < TRUST_ITEMS.length - 1 && (
@@ -153,22 +158,24 @@ export function Booking() {
       )}
 
       {/* ── Room cards ───────────────────────────────────────────────── */}
-      <ul
-        ref={roomsRef}
-        className={`bk-grid${visibleRooms.length === 1 ? ' bk-grid--single' : ''}`}
-        role="list"
-      >
-        {visibleRooms.map((room) => (
-          <li key={room.id}>
-            <RoomCard
-              room={room}
-              searchQuery={searchQuery}
-              onSelect={activePackage ? () => handleSelectRoom(room.id) : undefined}
-              isSelected={selectedRoomId === room.id}
-            />
-          </li>
-        ))}
-      </ul>
+      <div ref={gridRef} className={gridInView ? 'in-view' : ''}>
+        <ul
+          ref={roomsRef}
+          className={`bk-grid${visibleRooms.length === 1 ? ' bk-grid--single' : ''}`}
+          role="list"
+        >
+          {visibleRooms.map((room, i) => (
+            <li key={room.id} className={`reveal stagger-${Math.min(i + 1, 5)}`}>
+              <RoomCard
+                room={room}
+                searchQuery={searchQuery}
+                onSelect={activePackage ? () => handleSelectRoom(room.id) : undefined}
+                isSelected={selectedRoomId === room.id}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
 
       {/* ── Inline Lodgify widget (package context only) ─────────────── */}
       {activePackage && selectedRoomId && (() => {

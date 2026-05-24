@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 
+import { useInView } from '../hooks/useInView'
+
 // ── Images (swap for your own Cloudinary URLs when ready) ─────────────────────
 const HERO_IMG = 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=2000&q=80'
 const SURF_IMG = 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=1400&q=80'
@@ -53,6 +55,13 @@ const FACTS = [
 ]
 
 export function LocationPage() {
+  const [statementRef, statementInView] = useInView<HTMLDivElement>({ threshold: 0.15 })
+  const [surfRef,      surfInView]      = useInView<HTMLDivElement>({ threshold: 0.08 })
+  const [expRef,       expInView]       = useInView<HTMLDivElement>({ threshold: 0.06 })
+  const [factsRef,     factsInView]     = useInView<HTMLDivElement>({ threshold: 0.15 })
+  const [gtRef,        gtInView]        = useInView<HTMLDivElement>({ threshold: 0.1  })
+  const [ctaRef,       ctaInView]       = useInView<HTMLDivElement>({ threshold: 0.15 })
+
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────── */}
@@ -64,16 +73,16 @@ export function LocationPage() {
         />
         <div className="lc-hero-overlay absolute inset-0" aria-hidden />
         <div className="lc-hero-inner">
-          <p className="lc-eyebrow font-label">Nicoya Peninsula · Costa Rica</p>
-          <h1 className="lc-hero-heading font-display">
+          <p className="lc-eyebrow font-label" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s both' }}>Nicoya Peninsula · Costa Rica</p>
+          <h1 className="lc-hero-heading font-display" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.32s both' }}>
             Santa Teresa<br />
             doesn't let<br />
             you leave.
           </h1>
-          <p className="lc-hero-sub font-label">
+          <p className="lc-hero-sub font-label" style={{ animation: 'hero-enter 0.85s cubic-bezier(0.22,1,0.36,1) 0.5s both' }}>
             Where the jungle meets the ocean — the Pacific's best-kept secret.
           </p>
-          <Link to="/booking" className="lc-hero-cta font-label">
+          <Link to="/booking" className="lc-hero-cta font-label" style={{ animation: 'hero-enter 0.8s cubic-bezier(0.22,1,0.36,1) 0.65s both' }}>
             Book your stay →
           </Link>
         </div>
@@ -83,8 +92,8 @@ export function LocationPage() {
       </div>
 
       {/* ── Opening statement ────────────────────────────────────────── */}
-      <div className="lc-statement">
-        <p className="lc-statement-text">
+      <div ref={statementRef} className={`lc-statement${statementInView ? ' in-view' : ''}`}>
+        <p className="lc-statement-text reveal">
           A dirt road lined with surf shops, howler monkeys overhead, scarlet
           macaws crossing the sky at dawn.{' '}
           <span className="lc-statement-accent">
@@ -95,9 +104,9 @@ export function LocationPage() {
       </div>
 
       {/* ── Surf section ─────────────────────────────────────────────── */}
-      <div className="lc-surf relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2">
+      <div ref={surfRef} className={`lc-surf relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2${surfInView ? ' in-view' : ''}`}>
         <div className="lc-surf-inner">
-          <div className="lc-surf-text">
+          <div className="lc-surf-text reveal-from-left">
             <p className="lc-surf-eyebrow font-label">The main attraction</p>
             <h2 className="lc-surf-heading font-display">
               Consistent waves,<br />year-round.
@@ -111,8 +120,8 @@ export function LocationPage() {
               hunting barrels before breakfast.
             </p>
             <div className="lc-surf-stats">
-              {SURF_STATS.map(([val, label]) => (
-                <div key={label} className="lc-stat">
+              {SURF_STATS.map(([val, label], i) => (
+                <div key={label} className={`lc-stat reveal stagger-${i + 2}`}>
                   <span className="lc-stat-val font-display">{val}</span>
                   <span className="lc-stat-label font-label">{label}</span>
                 </div>
@@ -120,7 +129,7 @@ export function LocationPage() {
             </div>
           </div>
           <div
-            className="lc-surf-photo"
+            className="lc-surf-photo reveal-from-right stagger-2"
             style={{ backgroundImage: `url('${SURF_IMG}')` }}
             aria-hidden
           />
@@ -128,13 +137,13 @@ export function LocationPage() {
       </div>
 
       {/* ── Experiences mosaic ───────────────────────────────────────── */}
-      <div className="lc-experiences">
-        <div className="lc-exp-header">
+      <div ref={expRef} className={`lc-experiences${expInView ? ' in-view' : ''}`}>
+        <div className="lc-exp-header reveal">
           <p className="lc-exp-eyebrow font-label">More than just surf</p>
           <h2 className="lc-exp-heading font-display">Life in Santa Teresa</h2>
         </div>
 
-        <div className="lc-mosaic" role="list">
+        <div className="lc-mosaic reveal stagger-2" role="list">
           {TILES.map((tile) => (
             <div
               key={tile.id}
@@ -158,10 +167,10 @@ export function LocationPage() {
       </div>
 
       {/* ── Fact strip ───────────────────────────────────────────────── */}
-      <div className="lc-facts relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2">
+      <div ref={factsRef} className={`lc-facts relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2${factsInView ? ' in-view' : ''}`}>
         <div className="lc-facts-inner">
-          {FACTS.map(({ value, label }) => (
-            <div key={label} className="lc-fact">
+          {FACTS.map(({ value, label }, i) => (
+            <div key={label} className={`lc-fact reveal stagger-${i + 1}`}>
               <span className="lc-fact-val font-display">{value}</span>
               <span className="lc-fact-label font-label">{label}</span>
             </div>
@@ -170,13 +179,13 @@ export function LocationPage() {
       </div>
 
       {/* ── Getting there ────────────────────────────────────────────── */}
-      <div className="lc-getting-there">
-        <p className="lc-gt-eyebrow font-label">Getting here</p>
-        <h2 className="lc-gt-heading font-display">
+      <div ref={gtRef} className={`lc-getting-there${gtInView ? ' in-view' : ''}`}>
+        <p className="lc-gt-eyebrow font-label reveal">Getting here</p>
+        <h2 className="lc-gt-heading font-display reveal stagger-1">
           Finding paradise is easier than you think.
         </h2>
         <div className="lc-gt-cards">
-          <div className="lc-gt-card">
+          <div className="lc-gt-card reveal stagger-2">
             <div className="lc-gt-icon" aria-hidden>✈️</div>
             <h3 className="lc-gt-card-title font-display">By air</h3>
             <p className="lc-gt-card-desc">
@@ -189,7 +198,7 @@ export function LocationPage() {
             </span>
           </div>
 
-          <div className="lc-gt-card">
+          <div className="lc-gt-card reveal stagger-3">
             <div className="lc-gt-icon" aria-hidden>⛴️</div>
             <h3 className="lc-gt-card-title font-display">By bus & ferry</h3>
             <p className="lc-gt-card-desc">
@@ -205,17 +214,17 @@ export function LocationPage() {
       </div>
 
       {/* ── Final CTA ────────────────────────────────────────────────── */}
-      <div className="lc-cta relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2">
+      <div ref={ctaRef} className={`lc-cta relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2${ctaInView ? ' in-view' : ''}`}>
         <div className="lc-cta-inner">
-          <p className="lc-cta-eyebrow font-label">You've read enough</p>
-          <h2 className="lc-cta-heading font-display">
+          <p className="lc-cta-eyebrow font-label reveal">You've read enough</p>
+          <h2 className="lc-cta-heading font-display reveal stagger-1">
             Santa Teresa<br />is waiting.
           </h2>
-          <p className="lc-cta-sub font-label">
+          <p className="lc-cta-sub font-label reveal stagger-2">
             Waves every morning. Jungle at your door.<br />
             The rest figures itself out.
           </p>
-          <div className="lc-cta-btns">
+          <div className="lc-cta-btns reveal stagger-3">
             <Link to="/booking" className="lc-cta-btn-primary font-label">
               Book your stay →
             </Link>
