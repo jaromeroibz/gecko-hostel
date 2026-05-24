@@ -55,10 +55,7 @@ export function HomeRoomsSection() {
                 <div className="room-content">
                   <div className="room-badges">
                     <span className="room-type font-label">{room.roomType}</span>
-                    <span className="room-price font-label">
-                      From ${room.fromPriceUsd}
-                      <span className="room-price-unit"> / night</span>
-                    </span>
+                    <span className="room-capacity-pill font-label">{room.capacityLabel}</span>
                   </div>
                   <h3 id={`room-name-${room.id}`} className="room-name font-display">
                     {room.name}
@@ -72,7 +69,6 @@ export function HomeRoomsSection() {
                       </li>
                     ))}
                   </ul>
-                  <p className="room-capacity font-label">{room.capacityLabel}</p>
                 </div>
               </article>
             </li>
@@ -164,24 +160,23 @@ export function HomeRoomsSection() {
           margin: 0;
         }
 
-        /* ━━ Grid ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━ Grid — Z-pattern ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .rs-grid {
           list-style: none;
           padding: 0;
           margin: 0 0 1.5rem;
           display: grid;
-          grid-template-columns: 58fr 40fr;
+          grid-template-columns: repeat(10, 1fr);
           grid-template-rows: 560px 520px;
           gap: 1.25rem;
-          grid-template-areas:
-            "gecko-dorm la-lora"
-            "rocamar    paraiso";
         }
 
-        .room-item--gecko-dorm { grid-area: gecko-dorm; }
-        .room-item--la-lora    { grid-area: la-lora; }
-        .room-item--paraiso    { grid-area: paraiso; }
-        .room-item--rocamar    { grid-area: rocamar; }
+        /* Row 1: gecko-dorm wide-left (6/10), la-lora narrow-right (4/10) */
+        .room-item--gecko-dorm { grid-column: 1 / 7;  grid-row: 1; }
+        .room-item--la-lora    { grid-column: 7 / 11; grid-row: 1; }
+        /* Row 2: rocamar narrow-left (4/10), paraiso wide-right (6/10) */
+        .room-item--rocamar    { grid-column: 1 / 5;  grid-row: 2; }
+        .room-item--paraiso    { grid-column: 5 / 11; grid-row: 2; }
 
         /* ━━ Base card ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .room-card {
@@ -224,7 +219,7 @@ export function HomeRoomsSection() {
         }
 
         .room-type,
-        .room-price {
+        .room-capacity-pill {
           display: inline-flex;
           align-items: center;
           padding: 0.32rem 0.9rem;
@@ -240,13 +235,9 @@ export function HomeRoomsSection() {
           color: #064E3B;
         }
 
-        .room-price {
+        .room-capacity-pill {
           background: rgba(249, 253, 249, 0.92);
           color: #064E3B;
-        }
-
-        .room-price-unit {
-          opacity: 0.55;
         }
 
         /* ━━ Shared highlights ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -480,42 +471,39 @@ export function HomeRoomsSection() {
           margin: 0;
         }
 
-        /* ━━ CARD 4 — paraiso: mint frame, inset image, dark panel ━━━━ */
-        .room-item--paraiso .room-card {
-          display: flex;
-          flex-direction: column;
-          background: #ECFDF5;
-        }
-
+        /* ━━ CARD 4 — paraiso: full-bleed, content floats at bottom ━━━━ */
         .room-item--paraiso .room-img-wrap {
-          margin: 1.25rem 1.25rem 0;
-          border-radius: 1.25rem;
-          flex: 0 0 calc(52% - 1.25rem);
+          position: absolute;
+          inset: 0;
         }
 
         .room-item--paraiso .room-img {
           object-position: center 30%;
-          border-radius: 1.25rem; /* match wrap */
         }
 
         .room-item--paraiso .room-img-overlay {
-          display: none;
+          background: linear-gradient(
+            to top,
+            rgba(8, 15, 12, 0.94) 0%,
+            rgba(8, 15, 12, 0.48) 48%,
+            transparent 72%
+          );
         }
 
         .room-item--paraiso .room-content {
-          flex: 1;
-          background: #064E3B;
-          padding: 1.75rem 2rem 2.25rem;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          padding: 1.75rem 2rem 2rem;
           display: flex;
           flex-direction: column;
           gap: 0.6rem;
-          overflow: hidden;
-          margin-top: 0.75rem;
-          /* Outer card overflow:hidden clips bottom corners */
+          z-index: 2;
         }
 
         .room-item--paraiso .room-name {
-          font-size: clamp(1.6rem, 2vw, 2rem);
+          font-size: clamp(1.6rem, 2.2vw, 2rem);
           line-height: 1.1;
           color: #F9FDF9;
           margin: 0.25rem 0 0;
@@ -530,25 +518,22 @@ export function HomeRoomsSection() {
         }
 
         .room-item--paraiso .room-desc {
-          font-size: 0.875rem;
-          line-height: 1.7;
-          color: rgba(249, 253, 249, 0.52);
+          font-size: 0.8125rem;
+          line-height: 1.65;
+          color: rgba(249, 253, 249, 0.6);
           margin: 0;
-          flex: 1;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
 
         .room-item--paraiso .room-highlight {
-          border-color: rgba(249, 253, 249, 0.14);
-          color: rgba(249, 253, 249, 0.58);
-          background: rgba(249, 253, 249, 0.06);
-        }
-
-        .room-item--paraiso .room-capacity {
-          font-size: 0.5rem;
-          letter-spacing: 0.22em;
-          text-transform: uppercase;
-          color: rgba(249, 253, 249, 0.28);
-          margin: 0;
+          border-color: rgba(249, 253, 249, 0.2);
+          color: rgba(249, 253, 249, 0.72);
+          background: rgba(2, 20, 12, 0.4);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
         }
 
         /* ━━ CTA strip ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -608,9 +593,14 @@ export function HomeRoomsSection() {
         /* ━━ Tablet (768–1023 px) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         @media (max-width: 1023px) {
           .rs-grid {
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             grid-template-rows: 440px 440px;
           }
+
+          .room-item--gecko-dorm { grid-column: 1; grid-row: 1; }
+          .room-item--la-lora    { grid-column: 2; grid-row: 1; }
+          .room-item--rocamar    { grid-column: 1; grid-row: 2; }
+          .room-item--paraiso    { grid-column: 2; grid-row: 2; }
 
           .rs-cta {
             flex-direction: column;
@@ -631,28 +621,12 @@ export function HomeRoomsSection() {
           .rs-grid {
             grid-template-columns: 1fr;
             grid-template-rows: auto;
-            grid-template-areas:
-              "gecko-dorm"
-              "la-lora"
-              "rocamar"
-              "paraiso";
           }
 
-          .room-item--gecko-dorm,
-          .room-item--rocamar,
-          .room-item--paraiso {
-            min-height: 480px;
-          }
-
-          .room-item--la-lora {
-            min-height: 520px;
-          }
-
-          /* paraiso: reduce inset margin on mobile */
-          .room-item--paraiso .room-img-wrap {
-            margin: 1rem 1rem 0;
-            flex: 0 0 calc(48% - 1rem);
-          }
+          .room-item--gecko-dorm { grid-column: 1; grid-row: 1; min-height: 480px; }
+          .room-item--la-lora    { grid-column: 1; grid-row: 2; min-height: 520px; }
+          .room-item--rocamar    { grid-column: 1; grid-row: 3; min-height: 480px; }
+          .room-item--paraiso    { grid-column: 1; grid-row: 4; min-height: 480px; }
 
           .rs-cta {
             border-radius: 1.25rem;

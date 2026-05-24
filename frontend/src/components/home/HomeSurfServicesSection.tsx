@@ -324,7 +324,7 @@ export function HomeSurfServicesSection() {
           Leave a better surfer<br />than you arrived.
         </h2>
         <p className="ss-subline">
-          Certified coaches. Small groups. Daily sessions in some of the best
+          Experienced coaches. Small groups. Daily sessions in some of the best
           waves in Central America. From your first pop-up to reading the
           lineup — there's a session for every level.
         </p>
