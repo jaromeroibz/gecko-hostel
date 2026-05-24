@@ -135,8 +135,8 @@ export function HomeEditorialSection() {
         }
 
         .editorial-cta:hover {
-          background-color: #F97316;
-          border-color: #F97316;
+          background-color: #34D399;
+          border-color: #34D399;
           color: #064E3B;
         }
 
