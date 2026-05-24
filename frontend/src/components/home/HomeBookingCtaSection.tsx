@@ -156,6 +156,16 @@ export function HomeBookingCtaSection() {
           );
         }
 
+        /* ━━ Line-wrap clip fix ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* The global .cta-line-wrap uses overflow:hidden for the slide-up
+           animation, but that clips wide words like 'morning' on the right.
+           Replace with clip-path that only masks below the line (preserving
+           the animation) and extends freely on the sides. */
+        .cta-section .cta-line-wrap {
+          overflow: visible;
+          clip-path: inset(-0.5em -5rem 0 -5rem);
+        }
+
         /* ━━ Ghost watermark ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .cta-ghost {
           position: absolute;
