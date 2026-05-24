@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { RequireAdminAuth } from './components/auth/RequireAdminAuth'
 import { MainLayout } from './components/layout/MainLayout'
+import { ScrollToTop } from './components/utils/ScrollToTop'
 import { AdminLoginPage } from './pages/AdminLoginPage'
 import { Booking } from './pages/Booking'
 import { BookingRoom } from './pages/BookingRoom'
@@ -15,6 +16,7 @@ const AdminPage = lazy(() => import('./pages/AdminPage').then((m) => ({ default:
 function App() {
   return (
     <Routes>
+      <Route path="*" element={<ScrollToTop />} />
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/booking" element={<Booking />} />

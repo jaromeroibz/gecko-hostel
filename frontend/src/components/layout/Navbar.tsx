@@ -10,7 +10,7 @@ type NavItemConfig = {
 
 const NAV_ITEMS: NavItemConfig[] = [
   { label: 'Home', pathname: '/' },
-  { label: 'Rooms', pathname: '/', hash: 'rooms' },
+  { label: 'Rooms', pathname: '/booking' },
   { label: 'Location', pathname: '/location' },
   { label: 'Contact Us', pathname: '/contact' },
 ]
