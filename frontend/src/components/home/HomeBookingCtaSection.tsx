@@ -158,11 +158,17 @@ export function HomeBookingCtaSection() {
 
         /* ━━ Line-wrap clip fix ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         /* The global .cta-line-wrap uses overflow:hidden for the slide-up
-           animation, but that clips wide words like 'morning' on the right.
-           Replace with clip-path that only masks below the line (preserving
-           the animation) and extends freely on the sides. */
+           animation. Two issues:
+           1) Clips wide words like 'morning' on the right side.
+           2) The tight line-height (0.92) clips the bottom bowl of 'g'.
+           Fix: add padding-bottom so the element is tall enough to show
+           descenders; the clip sits at the new bottom edge, and translateY(108%)
+           still pushes the pre-animation text well below it.
+           margin-bottom cancels any layout shift from the extra padding. */
         .cta-section .cta-line-wrap {
           overflow: visible;
+          padding-bottom: 0.25em;
+          margin-bottom: -0.25em;
           clip-path: inset(-0.5em -5rem 0 -5rem);
         }
 
