@@ -1,13 +1,16 @@
+import { useInView } from '../../hooks/useInView'
 import { MARKETING_ROOMS } from '../../data/marketingRooms'
 
 const GECKO_ICON = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1778622715/background-removed_kzu281.png'
 const DIVIDER_COUNT = 20
 
 export function HomeRoomsSection() {
+  const [ref, inView] = useInView<HTMLElement>()
   return (
     <section
+      ref={ref}
       id="rooms"
-      className="rs-section scroll-mt-24 relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2"
+      className={`rs-section scroll-mt-24 relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2${inView ? ' in-view' : ''}`}
       aria-labelledby="rooms-heading"
     >
       {/* ── Gecko logo divider — separates packages from Stay With Us ── */}
@@ -24,7 +27,7 @@ export function HomeRoomsSection() {
       <div className="rs-inner">
 
         {/* ── Header ──────────────────────────────────────────────────── */}
-        <header className="rs-header">
+        <header className="rs-header reveal">
           <p className="rs-eyebrow font-label">Stay with us</p>
           <h2 id="rooms-heading" className="rs-heading font-display">
             Rooms built for<br />real travel rhythms.
@@ -37,8 +40,8 @@ export function HomeRoomsSection() {
 
         {/* ── Room grid ───────────────────────────────────────────────── */}
         <ul className="rs-grid" role="list">
-          {MARKETING_ROOMS.map((room) => (
-            <li key={room.id} className={`room-item room-item--${room.id}`}>
+          {MARKETING_ROOMS.map((room, i) => (
+            <li key={room.id} className={`room-item room-item--${room.id} reveal stagger-${Math.min(i + 2, 5)}`}>
               <article className="room-card" aria-labelledby={`room-name-${room.id}`}>
                 <div className="room-img-wrap">
                   <img

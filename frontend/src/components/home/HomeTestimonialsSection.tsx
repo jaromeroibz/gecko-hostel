@@ -1,3 +1,5 @@
+import { useInView } from '../../hooks/useInView'
+
 // ─── Testimonials data ────────────────────────────────────────────────────────
 const REVIEWS = [
   {
@@ -48,14 +50,16 @@ function Avatar({ initial }: { initial: string }) {
 
 export function HomeTestimonialsSection() {
   const [hero, right1, right2, statement] = REVIEWS
+  const [ref, inView] = useInView<HTMLElement>()
 
   const GECKO_ICON = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1778622715/background-removed_kzu281.png'
   const DIVIDER_COUNT = 20
 
   return (
     <section
+      ref={ref}
       id="testimonials"
-      className="tr-section relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2"
+      className={`tr-section relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2${inView ? ' in-view' : ''}`}
       aria-labelledby="tr-heading"
     >
       {/* ── Gecko logo divider strip ─────────────────────────────────── */}
@@ -72,7 +76,7 @@ export function HomeTestimonialsSection() {
       <div className="tr-inner">
 
         {/* ── Header ──────────────────────────────────────────────────── */}
-        <div className="tr-header">
+        <div className="tr-header reveal">
           <div className="tr-header-left">
             <p className="tr-eyebrow font-label uppercase">What guests say</p>
             <h2 id="tr-heading" className="tr-heading font-display">
@@ -98,7 +102,7 @@ export function HomeTestimonialsSection() {
         <div className="tr-cluster">
 
           {/* Left — Hero featured review */}
-          <article className="tr-hero" aria-label={`Review by ${hero.name}`}>
+          <article className="tr-hero reveal stagger-2" aria-label={`Review by ${hero.name}`}>
             {/* Decorative oversized quote mark */}
             <span className="tr-deco-quote font-display" aria-hidden>"</span>
 
@@ -127,7 +131,7 @@ export function HomeTestimonialsSection() {
           </article>
 
           {/* Right — stacked smaller reviews */}
-          <div className="tr-col">
+          <div className="tr-col reveal stagger-3">
 
             {/* Card — sand */}
             <article className="tr-card tr-card--sand" aria-label={`Review by ${right1.name}`}>

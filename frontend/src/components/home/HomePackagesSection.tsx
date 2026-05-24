@@ -1,3 +1,5 @@
+import { useInView } from '../../hooks/useInView'
+
 const PACKAGES = [
   {
     id: 'backpacker',
@@ -86,16 +88,18 @@ const PACKAGES = [
 ] as const
 
 export function HomePackagesSection() {
+  const [ref, inView] = useInView<HTMLElement>()
   return (
     <section
+      ref={ref}
       id="packages"
-      className="pk-section scroll-mt-24 relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2"
+      className={`pk-section scroll-mt-24 relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2${inView ? ' in-view' : ''}`}
       aria-labelledby="packages-heading"
     >
       <div className="pk-inner">
 
         {/* ── Header ──────────────────────────────────────────────────── */}
-        <header className="pk-header">
+        <header className="pk-header reveal">
           <p className="pk-eyebrow font-label">Surf Packages</p>
           <h2 id="packages-heading" className="pk-heading font-display">
             Surf more. Explore more.<br />All in one package.
@@ -108,8 +112,8 @@ export function HomePackagesSection() {
 
         {/* ── Package grid ────────────────────────────────────────────── */}
         <ul className="pk-grid" role="list">
-          {PACKAGES.map((pkg) => (
-            <li key={pkg.id} className={`pk-item pk-item--${pkg.cardStyle}`}>
+          {PACKAGES.map((pkg, i) => (
+            <li key={pkg.id} className={`pk-item pk-item--${pkg.cardStyle} reveal stagger-${i + 2}`}>
               <article className="pk-card" aria-labelledby={`pkg-name-${pkg.id}`}>
 
                 {/* Top: category + name + duration */}

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useInView } from '../../hooks/useInView'
 
 const IMG_GROUP   = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_9199_vecrln.jpg'
 const IMG_PRIVATE = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_8726_y1g3pn.jpg'
@@ -22,9 +23,11 @@ const INCLUDED = [
 ]
 
 export function HomeSurfServicesSection() {
+  const [ref, inView] = useInView<HTMLElement>()
   return (
     <section
-      className="ss-section relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2"
+      ref={ref}
+      className={`ss-section relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2${inView ? ' in-view' : ''}`}
       aria-label="Surf services"
     >
       <style>{`
@@ -315,7 +318,7 @@ export function HomeSurfServicesSection() {
       `}</style>
 
       {/* ── Header ──────────────────────────────────────────────────────── */}
-      <div className="ss-header">
+      <div className="ss-header reveal">
         <p className="ss-eyebrow">Earn your waves</p>
         <h2 className="ss-heading font-display">
           Leave a better surfer<br />than you arrived.
@@ -331,7 +334,7 @@ export function HomeSurfServicesSection() {
       <div className="ss-grid">
 
         {/* ── Card 1: Group Sessions ──────────────────────────────────── */}
-        <div className="ss-card">
+        <div className="ss-card reveal stagger-2">
           <img
             className="ss-card-img"
             src={IMG_GROUP}
@@ -370,7 +373,7 @@ export function HomeSurfServicesSection() {
         </div>
 
         {/* ── Card 2: Private Coaching ─────────────────────────────────── */}
-        <div className="ss-card">
+        <div className="ss-card reveal stagger-3">
           <img
             className="ss-card-img"
             src={IMG_PRIVATE}

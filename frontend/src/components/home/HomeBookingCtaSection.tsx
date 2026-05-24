@@ -1,14 +1,17 @@
 import { Link } from 'react-router-dom'
+import { useInView } from '../../hooks/useInView'
 
 // Surfer paddling at dusk — deep moody blue, cinematic
 const CTA_BG =
   'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036018/AZC_9775_bnnbdm.jpg'
 
 export function HomeBookingCtaSection() {
+  const [ref, inView] = useInView<HTMLElement>({ threshold: 0.08 })
   return (
     <section
+      ref={ref}
       id="booking-cta"
-      className="cta-section relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2"
+      className={`cta-section relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2${inView ? ' in-view' : ''}`}
       aria-labelledby="cta-heading"
     >
 
@@ -34,17 +37,17 @@ export function HomeBookingCtaSection() {
 
         {/* Left — editorial headline cluster */}
         <div className="cta-left">
-          <p className="cta-eyebrow font-label uppercase">
+          <p className="cta-eyebrow font-label uppercase reveal">
             Santa Teresa · Costa Rica
           </p>
 
           <h2 id="cta-heading" className="cta-heading font-display">
-            Your next<br />
-            morning<br />
-            <em>starts here.</em>
+            <span className="cta-line-wrap"><span className="cta-line-inner">Your next</span></span>
+            <span className="cta-line-wrap"><span className="cta-line-inner stagger-1">morning</span></span>
+            <span className="cta-line-wrap"><span className="cta-line-inner stagger-2"><em>starts here.</em></span></span>
           </h2>
 
-          <p className="cta-body">
+          <p className="cta-body reveal stagger-3">
             3 minutes from the break. Hot coffee before the crowd wakes up.
             A backyard that turns strangers into crew.
             The only thing left is your room.
@@ -52,7 +55,7 @@ export function HomeBookingCtaSection() {
         </div>
 
         {/* Right — floating near-white booking panel */}
-        <div className="cta-panel">
+        <div className="cta-panel reveal-from-right stagger-2">
 
           {/* Mint top accent */}
           <div className="cta-panel-bar" aria-hidden />

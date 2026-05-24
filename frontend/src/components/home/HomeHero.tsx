@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { WaveButton } from '../ui/WaveButton'
 
@@ -18,11 +18,20 @@ const HERO_NAV = [
 
 export function HomeHero() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrollY, setScrollY] = useState(0)
+  const heroRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
+
+  // Parallax — only while hero is in view
+  useEffect(() => {
+    const onScroll = () => setScrollY(window.scrollY)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const close = () => setMenuOpen(false)
 
@@ -30,6 +39,7 @@ export function HomeHero() {
     <>
       {/* ── Hero section ────────────────────────────────────────────── */}
       <div
+        ref={heroRef}
         className="relative left-1/2 z-0 w-screen max-w-[100vw] -translate-x-1/2"
         style={{
           height: '100svh',
@@ -38,7 +48,7 @@ export function HomeHero() {
           justifyContent: 'center',
           backgroundImage: `url('${HERO_BG}')`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center 30%',
+          backgroundPosition: `center calc(30% + ${scrollY * 0.22}px)`,
           backgroundColor: '#F9FDF9',
         }}
       >
@@ -84,7 +94,7 @@ export function HomeHero() {
           {/* ROW 1: Logo + Welcome text */}
           <div className="hero-row">
 
-            <div className="hero-logo-col">
+            <div className="hero-logo-col" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both' }}>
               <img
                 src={LOGO_URL}
                 alt="Gecko Surf House"
@@ -93,7 +103,7 @@ export function HomeHero() {
               />
             </div>
 
-            <div className="hero-text-col">
+            <div className="hero-text-col" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both' }}>
               <h1 className="hero-heading font-display font-medium tracking-tight text-gecko-forestDeep">
                 Welcome to<br />Gecko Surf House
               </h1>
@@ -101,7 +111,7 @@ export function HomeHero() {
           </div>
 
           {/* ROW 2: Desktop navbar */}
-          <nav className="hero-nav" aria-label="Hero navigation">
+          <nav className="hero-nav" aria-label="Hero navigation" style={{ animation: 'hero-enter 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both' }}>
             {HERO_NAV.map(({ label, to }) => (
               <Link
                 key={label}
@@ -117,7 +127,7 @@ export function HomeHero() {
           </nav>
 
           {/* Burger — mobile only */}
-          <div className="hero-burger-wrap">
+          <div className="hero-burger-wrap" style={{ animation: 'hero-enter 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both' }}>
             <button
               className="hero-burger"
               onClick={() => setMenuOpen(true)}

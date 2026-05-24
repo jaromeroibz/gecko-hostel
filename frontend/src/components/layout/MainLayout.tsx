@@ -43,6 +43,7 @@ export function MainLayout() {
           boxShadow: '0 4px 20px rgba(37,211,102,.45), 0 2px 8px rgba(0,0,0,.18)',
           transition: 'transform 0.2s cubic-bezier(0.25,0,0.1,1), box-shadow 0.2s ease',
           textDecoration: 'none',
+          animation: 'wa-pulse 2.5s ease-in-out 2s infinite',
         }}
         onMouseEnter={e => {
           const el = e.currentTarget as HTMLAnchorElement

@@ -1,11 +1,15 @@
+import { useInView } from '../../hooks/useInView'
+
 // ── Experience images ──────────────────────────────────────────────────────
 const IMG_ATV       = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779215038/pexels-srkportraits-8310033_cka0zv.jpg'
 const IMG_TIDEPOOLS = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_8778_qyo4bt.jpg'
 
 export function HomeExperiencesSection() {
+  const [ref, inView] = useInView<HTMLElement>()
   return (
     <section
-      className="ex-section relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2"
+      ref={ref}
+      className={`ex-section relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2${inView ? ' in-view' : ''}`}
       aria-label="Experiences at Gecko"
     >
       {/* ── Top wave — barely-mint peeling into dark section ── */}
@@ -16,7 +20,7 @@ export function HomeExperiencesSection() {
       </div>
 
       {/* ── Section header ─────────────────────────────────────────────────── */}
-      <header className="ex-header">
+      <header className="ex-header reveal">
         <p className="ex-eyebrow font-label font-medium uppercase text-gecko-clay">
           Explore with us
         </p>
@@ -34,7 +38,7 @@ export function HomeExperiencesSection() {
       <div className="ex-cluster">
 
         {/* ─── ROW 1 — Hero card: ATV Tours ────────────────────────────── */}
-        <div className="ex-hero-card">
+        <div className="ex-hero-card reveal stagger-2">
           <img
             src={IMG_ATV}
             alt="ATV tour through the jungle in Santa Teresa, Costa Rica"
@@ -71,7 +75,7 @@ export function HomeExperiencesSection() {
         <div className="ex-row-2">
 
           {/* Waterfalls — warm sun-yellow colour block */}
-          <div className="ex-card ex-card--warm">
+          <div className="ex-card ex-card--warm reveal stagger-3">
             <div className="ex-warm-bg" aria-hidden />
             <span className="ex-ghost font-display" aria-hidden>Falls</span>
             <span className="ex-num ex-num--dark" aria-hidden>02</span>
@@ -91,7 +95,7 @@ export function HomeExperiencesSection() {
           </div>
 
           {/* Tide Pools & Hidden Beaches */}
-          <div className="ex-card">
+          <div className="ex-card reveal stagger-4">
             <img
               src={IMG_TIDEPOOLS}
               alt="Tide pools and hidden beaches along the Costa Rica coastline"
@@ -117,7 +121,7 @@ export function HomeExperiencesSection() {
         </div>
 
         {/* ─── CTA strip ────────────────────────────────────────────────── */}
-        <div className="ex-cta-strip">
+        <div className="ex-cta-strip reveal stagger-5">
           <p className="ex-cta-copy font-display">
             Every day is a new adventure.
           </p>

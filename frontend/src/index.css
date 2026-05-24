@@ -165,3 +165,101 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   0%, 78% { color: #1e3d32; }
   100%     { color: #f4f1ea; }
 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Scroll-reveal utilities
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Hidden base states */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity  0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-from-left {
+  opacity: 0;
+  transform: translateX(-52px);
+  transition:
+    opacity  0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-from-right {
+  opacity: 0;
+  transform: translateX(52px);
+  transition:
+    opacity  0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Activated — parent gains .in-view, children animate in */
+.in-view .reveal        { opacity: 1; transform: translateY(0); }
+.in-view .reveal-from-left  { opacity: 1; transform: translateX(0); }
+.in-view .reveal-from-right { opacity: 1; transform: translateX(0); }
+
+/* Stagger delays */
+.stagger-1 { transition-delay: 120ms; }
+.stagger-2 { transition-delay: 240ms; }
+.stagger-3 { transition-delay: 360ms; }
+.stagger-4 { transition-delay: 480ms; }
+.stagger-5 { transition-delay: 600ms; }
+
+/* Reduced motion — skip all reveal animations */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-from-left,
+  .reveal-from-right {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Hero load sequence
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@keyframes hero-enter {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo-col,
+  .hero-text-col,
+  .hero-nav,
+  .hero-burger-wrap { animation: none !important; opacity: 1 !important; }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CTA heading line reveal  (each line slides up from a clipped container)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.cta-line-wrap {
+  display: block;
+  overflow: hidden;
+  line-height: inherit;
+}
+.cta-line-inner {
+  display: block;
+  transform: translateY(108%);
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.in-view .cta-line-inner           { transform: translateY(0); }
+.in-view .cta-line-inner.stagger-1 { transition-delay: 130ms; }
+.in-view .cta-line-inner.stagger-2 { transition-delay: 260ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-line-inner { transform: none !important; transition: none !important; }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   WhatsApp floating button pulse ring
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@keyframes wa-pulse {
+  0%   { box-shadow: 0 4px 20px rgba(37,211,102,.45), 0 2px 8px rgba(0,0,0,.18),
+                     0 0 0 0   rgba(37,211,102,.55); }
+  60%  { box-shadow: 0 4px 20px rgba(37,211,102,.45), 0 2px 8px rgba(0,0,0,.18),
+                     0 0 0 14px rgba(37,211,102,.0); }
+  100% { box-shadow: 0 4px 20px rgba(37,211,102,.45), 0 2px 8px rgba(0,0,0,.18),
+                     0 0 0 0   rgba(37,211,102,.0); }
+}

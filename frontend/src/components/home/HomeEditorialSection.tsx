@@ -1,4 +1,5 @@
 import { WaveButton } from '../ui/WaveButton'
+import { useInView } from '../../hooks/useInView'
 
 // Golden-hour surfer riding the wave — warm, lifestyle
 const IMAGE_1 =
@@ -8,12 +9,16 @@ const IMAGE_2 =
   'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_1348_ucphi8.jpg'
 
 export function HomeEditorialSection() {
+  const [ref, inView] = useInView<HTMLElement>()
   return (
-    <section className="editorial-section relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2">
+    <section
+      ref={ref}
+      className={`editorial-section relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2${inView ? ' in-view' : ''}`}
+    >
       <div className="editorial-grid">
 
         {/* ── LEFT: Text content ───────────────────────────────────── */}
-        <div className="editorial-text">
+        <div className="editorial-text reveal">
           <p className="editorial-tagline font-label font-medium uppercase text-gecko-clay">
             Waves in front. Jungle behind. Sunsets everywhere.
           </p>
@@ -46,12 +51,12 @@ export function HomeEditorialSection() {
         {/* ── RIGHT: Overlapping image composition ─────────────────── */}
         <div className="editorial-images">
           {/* Image 1 — upper left */}
-          <div className="img-wrap img-1">
+          <div className="img-wrap img-1 reveal-from-left stagger-2">
             <img src={IMAGE_1} alt="Santa Teresa, Costa Rica" loading="lazy" />
           </div>
 
           {/* Image 2 — lower right, overlapping */}
-          <div className="img-wrap img-2">
+          <div className="img-wrap img-2 reveal-from-right stagger-3">
             <img src={IMAGE_2} alt="Gecko Surf House" loading="lazy" />
           </div>
         </div>
