@@ -405,7 +405,7 @@ export function HomeRoomsSection() {
         }
 
         .room-item--rocamar .room-img {
-          object-position: right center;
+          object-position: left center;
         }
 
         .room-item--rocamar .room-img-overlay {
