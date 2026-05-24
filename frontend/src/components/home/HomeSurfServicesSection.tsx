@@ -214,8 +214,8 @@ export function HomeSurfServicesSection() {
           display: inline-flex;
           align-items: center;
           gap: 0.5rem;
-          background: #F97316;
-          color: #fff;
+          background: #F59E0B;
+          color: #064E3B;
           font-size: 0.8125rem;
           font-weight: 700;
           letter-spacing: 0.05em;
@@ -226,7 +226,7 @@ export function HomeSurfServicesSection() {
           transition: background 0.18s, transform 0.12s;
         }
         .ss-cta:hover {
-          background: #ea6500;
+          background: #D97706;
           transform: translateY(-1px);
         }
 

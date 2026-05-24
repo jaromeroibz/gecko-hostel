@@ -585,9 +585,9 @@ export function HomeRoomsSection() {
         }
 
         .rs-cta-btn:hover {
-          background: #34D399;
+          background: #F59E0B;
           color: #064E3B;
-          border-color: #34D399;
+          border-color: #F59E0B;
         }
 
         /* ━━ Tablet (768–1023 px) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */

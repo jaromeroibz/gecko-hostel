@@ -261,9 +261,9 @@ export function HomeHero() {
         }
 
         .hero-book-btn:hover {
-          background-color: #F97316;
-          border-color: #F97316;
-          color: #F9FDF9;
+          background-color: #F59E0B;
+          border-color: #F59E0B;
+          color: #064E3B;
         }
 
         /* ── Burger — hidden on desktop ────────────────── */
@@ -365,9 +365,9 @@ export function HomeHero() {
         }
 
         .drawer-book:hover {
-          background-color: #F97316;
-          border-color: #F97316;
-          color: #F9FDF9;
+          background-color: #F59E0B;
+          border-color: #F59E0B;
+          color: #064E3B;
         }
 
         /* ── Tablet (768–1023px) ───────────────────────── */

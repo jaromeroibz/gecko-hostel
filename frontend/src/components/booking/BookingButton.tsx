@@ -81,7 +81,7 @@ export function BookingButton({
         type="button"
         onClick={handleClick}
         disabled={disabled || isRedirecting}
-        className={`inline-flex items-center justify-center rounded-xl bg-teal-700 px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-teal-800 disabled:opacity-50 ${isRedirecting ? 'cursor-wait' : 'disabled:cursor-not-allowed'} ${className}`}
+        className={`inline-flex items-center justify-center rounded-xl bg-[#F59E0B] px-6 py-3 text-base font-semibold text-[#064E3B] shadow-sm transition hover:bg-[#D97706] disabled:opacity-50 ${isRedirecting ? 'cursor-wait' : 'disabled:cursor-not-allowed'} ${className}`}
       >
         {isRedirecting ? (
           <span className="flex items-center gap-2">

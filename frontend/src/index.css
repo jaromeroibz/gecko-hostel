@@ -73,9 +73,9 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 
 /* Navbar button colours (hover state set here; default via inline style) */
 .nav-book-btn:hover {
-  background-color: #F97316 !important;
-  border-color:     #F97316 !important;
-  color:            #F9FDF9 !important;
+  background-color: #F59E0B !important;
+  border-color:     #F59E0B !important;
+  color:            #064E3B !important;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

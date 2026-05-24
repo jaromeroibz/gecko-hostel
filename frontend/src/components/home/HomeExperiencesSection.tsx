@@ -480,8 +480,8 @@ export function HomeExperiencesSection() {
         }
 
         .ex-cta-btn:hover {
-          border-color: #34D399;
-          background: #34D399;
+          border-color: #F59E0B;
+          background: #F59E0B;
           color: #064E3B;
         }
 

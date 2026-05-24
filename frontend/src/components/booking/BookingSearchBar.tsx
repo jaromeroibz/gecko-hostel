@@ -356,8 +356,8 @@ export function BookingSearchBar({
         }
 
         .bsb-submit:hover {
-          background: #F97316;
-          color: #F9FDF9;
+          background: #F59E0B;
+          color: #064E3B;
         }
       `}</style>
     </>

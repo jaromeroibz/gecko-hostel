@@ -64,7 +64,7 @@ export function AdminLoginPage() {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full rounded-lg bg-teal-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-800 disabled:opacity-60"
+          className="w-full rounded-lg bg-[#F59E0B] px-4 py-2 text-sm font-semibold text-[#064E3B] transition hover:bg-[#D97706] disabled:opacity-60"
         >
           {isLoading ? 'Ingresando...' : 'Login'}
         </button>

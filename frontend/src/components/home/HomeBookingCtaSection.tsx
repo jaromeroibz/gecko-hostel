@@ -290,8 +290,8 @@ export function HomeBookingCtaSection() {
           align-items: center;
           justify-content: center;
           width: 100%;
-          background: #F97316;
-          color: #F9FDF9;
+          background: #F59E0B;
+          color: #064E3B;
           border-radius: 1.25rem;
           padding: 1.1rem 2rem;
           font-size: 0.72rem;
@@ -305,15 +305,15 @@ export function HomeBookingCtaSection() {
             box-shadow 0.25s ease;
           box-shadow:
             inset 0 1px 0 rgba(255, 255, 255, 0.16),
-            0 8px 28px rgba(249, 115, 22, 0.42);
+            0 8px 28px rgba(245, 158, 11, 0.42);
         }
 
         .cta-btn-primary:hover {
-          background: #ea6a0e;
+          background: #D97706;
           transform: translateY(-2px);
           box-shadow:
             inset 0 1px 0 rgba(255, 255, 255, 0.2),
-            0 16px 48px rgba(249, 115, 22, 0.56);
+            0 16px 48px rgba(245, 158, 11, 0.56);
         }
 
         /* ━━ Bottom divider ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */

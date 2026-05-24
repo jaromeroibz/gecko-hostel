@@ -76,7 +76,7 @@ export function ExtrasList() {
           </div>
           <Link
             to="/booking"
-            className="inline-flex justify-center rounded-md bg-teal-700 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-800"
+            className="inline-flex justify-center rounded-md bg-[#F59E0B] px-4 py-2 text-sm font-semibold text-[#064E3B] hover:bg-[#D97706]"
           >
             Continue to booking
           </Link>
@@ -111,7 +111,7 @@ export function ExtrasList() {
                 type="button"
                 onClick={() => toggleExtra(extra.id)}
                 className={`mt-4 w-full rounded-md px-3 py-2 text-sm font-semibold text-white transition ${
-                  selected ? 'bg-slate-700 hover:bg-slate-800' : 'bg-teal-700 hover:bg-teal-800'
+                  selected ? 'bg-slate-700 hover:bg-slate-800' : 'bg-[#F59E0B] hover:bg-[#D97706] text-[#064E3B]'
                 }`}
               >
                 {selected ? 'Quitar' : 'Agregar'}

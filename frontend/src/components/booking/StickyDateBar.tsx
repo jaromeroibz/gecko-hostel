@@ -95,9 +95,9 @@ export function StickyDateBar({ arrivalYmd, departureYmd, adults, onEdit }: Prop
 
         .sdb-edit-btn:active,
         .sdb-edit-btn:hover {
-          background: #064E3B;
-          color: #F9FDF9;
-          border-color: #064E3B;
+          background: #F59E0B;
+          color: #064E3B;
+          border-color: #F59E0B;
         }
       `}</style>
     </>

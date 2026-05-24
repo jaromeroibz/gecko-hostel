@@ -251,8 +251,8 @@ export function ContactPage() {
           display: inline-flex;
           align-items: center;
           gap: 0.5rem;
-          background: #064E3B;
-          color: #F4F1EA;
+          background: #F59E0B;
+          color: #064E3B;
           font-size: 0.875rem;
           font-weight: 600;
           letter-spacing: 0.04em;
@@ -263,7 +263,7 @@ export function ContactPage() {
           transition: background 0.18s, transform 0.12s, opacity 0.18s;
           margin-top: 0.5rem;
         }
-        .cp-submit:hover:not(:disabled) { background: #1a5c47; transform: translateY(-1px); }
+        .cp-submit:hover:not(:disabled) { background: #D97706; transform: translateY(-1px); }
         .cp-submit:active:not(:disabled) { transform: translateY(0); }
         .cp-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
@@ -341,7 +341,7 @@ export function ContactPage() {
           cursor: pointer;
           transition: background 0.18s, color 0.18s;
         }
-        .cp-success-btn:hover { background: #064E3B; color: #F4F1EA; }
+        .cp-success-btn:hover { background: #F59E0B; color: #064E3B; border-color: #F59E0B; }
 
         /* ── Sidebar ───────────────────────────────────────────────────── */
         .cp-sidebar {
@@ -450,7 +450,7 @@ export function ContactPage() {
         }
         .cp-cta-btn {
           display: inline-block;
-          background: #34D399;
+          background: #F59E0B;
           color: #064E3B;
           font-size: 0.8125rem;
           font-weight: 700;
@@ -460,7 +460,7 @@ export function ContactPage() {
           text-decoration: none;
           transition: background 0.18s, transform 0.12s;
         }
-        .cp-cta-btn:hover { background: #6EE7B7; transform: translateY(-1px); }
+        .cp-cta-btn:hover { background: #D97706; transform: translateY(-1px); }
         .cp-cta-btn-ghost {
           display: inline-block;
           background: transparent;

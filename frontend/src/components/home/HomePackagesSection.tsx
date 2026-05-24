@@ -421,8 +421,8 @@ export function HomePackagesSection() {
         }
 
         .pk-item--dark .pk-cta:hover {
-          background: #34D399;
-          border-color: #34D399;
+          background: #F59E0B;
+          border-color: #F59E0B;
           color: #064E3B;
         }
 
@@ -486,9 +486,9 @@ export function HomePackagesSection() {
         }
 
         .pk-item--orange .pk-cta:hover {
-          background: #064E3B;
-          border-color: #064E3B;
-          color: #F9FDF9;
+          background: #F59E0B;
+          border-color: #F59E0B;
+          color: #064E3B;
         }
 
         /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -550,9 +550,9 @@ export function HomePackagesSection() {
         }
 
         .pk-item--mint .pk-cta:hover {
-          background: #064E3B;
-          border-color: #064E3B;
-          color: #F9FDF9;
+          background: #F59E0B;
+          border-color: #F59E0B;
+          color: #064E3B;
         }
 
         /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -611,9 +611,9 @@ export function HomePackagesSection() {
         }
 
         .pk-item--yellow .pk-cta:hover {
-          background: #064E3B;
-          border-color: #064E3B;
-          color: #F9FDF9;
+          background: #F59E0B;
+          border-color: #F59E0B;
+          color: #064E3B;
         }
 
         /* ━━ Tablet (< 1024px) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */

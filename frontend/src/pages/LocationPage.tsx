@@ -303,8 +303,8 @@ export function LocationPage() {
         .lc-hero-cta {
           display: inline-flex;
           align-items: center;
-          background: #F97316;
-          color: #F9FDF9;
+          background: #F59E0B;
+          color: #064E3B;
           border-radius: 100px;
           padding: 0.9rem 2.25rem;
           font-size: 0.68rem;
@@ -315,7 +315,7 @@ export function LocationPage() {
           width: fit-content;
           transition: background 0.22s ease, transform 0.22s ease;
         }
-        .lc-hero-cta:hover { background: #ea6500; transform: translateY(-2px); }
+        .lc-hero-cta:hover { background: #D97706; transform: translateY(-2px); }
 
         /* Animated scroll line */
         .lc-scroll-hint {
@@ -679,8 +679,8 @@ export function LocationPage() {
         .lc-cta-btn-primary {
           display: inline-flex;
           align-items: center;
-          background: #F97316;
-          color: #F9FDF9;
+          background: #F59E0B;
+          color: #064E3B;
           border-radius: 100px;
           padding: 0.9rem 2.25rem;
           font-size: 0.68rem;
@@ -690,7 +690,7 @@ export function LocationPage() {
           text-decoration: none;
           transition: background 0.22s ease, transform 0.22s ease;
         }
-        .lc-cta-btn-primary:hover { background: #ea6500; transform: translateY(-2px); }
+        .lc-cta-btn-primary:hover { background: #D97706; transform: translateY(-2px); }
 
         .lc-cta-btn-secondary {
           display: inline-flex;

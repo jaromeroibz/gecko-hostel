@@ -270,8 +270,8 @@ export function RoomCard({ room, searchQuery, onSelect, isSelected }: Props) {
         }
 
         .rc-cta-btn:hover {
-          background: #F97316;
-          color: #F9FDF9;
+          background: #F59E0B;
+          color: #064E3B;
         }
 
         /* Active state — room is selected, widget is open */
