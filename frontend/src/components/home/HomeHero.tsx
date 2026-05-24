@@ -253,21 +253,17 @@ export function HomeHero() {
         .hero-book-btn {
           font-size: 0.9rem;
           letter-spacing: 0.16em;
+          background: transparent;
+          color: #064E3B;
           border: 1px solid #064E3B;
           border-radius: 9999px;
           padding: 0.75rem 1.75rem;
-          transition: border-color 0.2s;
         }
 
-        /* Orange wave floods in on hover */
-        .hero-book-btn .gecko-wave-fill { background: #F97316; }
-        .hero-book-btn .gecko-wave-text { color: #064E3B; }
-        .hero-book-btn.gecko-wave-btn:hover .gecko-wave-text {
-          animation: hero-wave-reveal 1s forwards;
-        }
-        @keyframes hero-wave-reveal {
-          0%, 78% { color: #064E3B; }
-          100%     { color: #F9FDF9; }
+        .hero-book-btn:hover {
+          background-color: #F97316;
+          border-color: #F97316;
+          color: #F9FDF9;
         }
 
         /* ── Burger — hidden on desktop ────────────────── */
@@ -359,6 +355,8 @@ export function HomeHero() {
         .drawer-book {
           font-size: 1rem;
           letter-spacing: 0.16em;
+          background: transparent;
+          color: #064E3B;
           border: 1px solid #064E3B;
           border-radius: 9999px;
           padding: 0.875rem 2rem;
@@ -366,15 +364,10 @@ export function HomeHero() {
           margin-top: 0.5rem;
         }
 
-        /* Orange wave in drawer button */
-        .drawer-book .gecko-wave-fill { background: #F97316; }
-        .drawer-book .gecko-wave-text { color: #064E3B; }
-        .drawer-book.gecko-wave-btn:hover .gecko-wave-text {
-          animation: drawer-wave-reveal 1s forwards;
-        }
-        @keyframes drawer-wave-reveal {
-          0%, 78% { color: #064E3B; }
-          100%     { color: #F9FDF9; }
+        .drawer-book:hover {
+          background-color: #F97316;
+          border-color: #F97316;
+          color: #F9FDF9;
         }
 
         /* ── Tablet (768–1023px) ───────────────────────── */

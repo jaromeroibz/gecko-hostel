@@ -10,35 +10,19 @@ interface WaveButtonProps {
 }
 
 export function WaveButton({ to, children, className = '', style, onClick }: WaveButtonProps) {
-  const mergedStyle: CSSProperties = {
-    ...style,
-    position: 'relative',
-    overflow: 'hidden',
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-
   const classes = `gecko-wave-btn ${className}`.trim()
-
-  const inner = (
-    <>
-      <span className="gecko-wave-text">{children}</span>
-      <span className="gecko-wave-fill" aria-hidden="true" />
-    </>
-  )
 
   if (to.startsWith('http') || to.startsWith('//')) {
     return (
-      <a href={to} className={classes} style={mergedStyle} onClick={onClick}>
-        {inner}
+      <a href={to} className={classes} style={style} onClick={onClick}>
+        {children}
       </a>
     )
   }
 
   return (
-    <Link to={to} className={classes} style={mergedStyle} onClick={onClick}>
-      {inner}
+    <Link to={to} className={classes} style={style} onClick={onClick}>
+      {children}
     </Link>
   )
 }

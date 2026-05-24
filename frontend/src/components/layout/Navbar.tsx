@@ -115,7 +115,7 @@ export function Navbar() {
               padding: '0.75rem 1.75rem',
               fontWeight: 500,
             }}
-            className="font-label"
+            className="font-label nav-book-btn"
           >
             Book Now
           </WaveButton>

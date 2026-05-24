@@ -131,31 +131,13 @@ export function HomeEditorialSection() {
           padding: 0.875rem 2rem;
           font-size: 0.75rem;
           letter-spacing: 0.18em;
-          transition: border-color 0.2s;
           margin-top: 0.5rem;
         }
 
         .editorial-cta:hover {
+          background-color: #F97316;
           border-color: #F97316;
-        }
-
-        /* Orange wave floods in on hover */
-        .editorial-cta .gecko-wave-fill {
-          background: #F97316;
-        }
-
-        /* Text starts near-white (on jungle), ends deep jungle (on orange) */
-        .editorial-cta .gecko-wave-text {
-          color: #F9FDF9;
-        }
-
-        .editorial-cta.gecko-wave-btn:hover .gecko-wave-text {
-          animation: editorial-wave-reveal 1s forwards;
-        }
-
-        @keyframes editorial-wave-reveal {
-          0%, 78% { color: #F9FDF9; }
-          100%     { color: #064E3B; }
+          color: #064E3B;
         }
 
 

@@ -61,109 +61,21 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   width: 100%;
 }
 
-/* ── Wave button ──────────────────────────────────────────── */
-.gecko-wave-text {
-  position: relative;
-  z-index: 10;
-  color: #1e3d32;
+/* ── Book Now buttons — WhatsApp-style staggered transition ───── */
+/* background fills first, border shifts simultaneously,           */
+/* text colour follows 0.5s later once the fill has landed.        */
+.gecko-wave-btn {
+  transition:
+    color            0.33s linear  0.5s,
+    border-color     0.5s  ease-out 0s,
+    background-color 0.33s linear  0s;
 }
 
-.gecko-wave-btn:hover .gecko-wave-text {
-  animation: gecko-wave-text-reveal 1s forwards;
-}
-
-/*
- * The fill layer. Default clip-path hides it completely (all points at the
- * bottom edge). When hover ends, animation is removed and it snaps back here.
- */
-.gecko-wave-fill {
-  position: absolute;
-  inset: 0;
-  background: #1e3d32;
-  clip-path: polygon(
-    0% 100%, 0% 100%, 8% 100%, 18% 100%, 28% 100%,
-    37% 100%, 46% 100%, 55% 100%, 63% 100%,
-    72% 100%, 82% 100%, 91% 100%, 100% 100%, 100% 100%
-  );
-}
-
-/* Animation fires only on hover — idle state has no running animation */
-.gecko-wave-btn:hover .gecko-wave-fill {
-  animation: gecko-wave-barrel 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-/*
- * Hollow barrel wave — single left-to-right wave.
- * X-sample points: 0, 0, 8, 18, 28, 37, 46, 55, 63, 72, 82, 91, 100, 100
- * (14 polygon points — consistent across all keyframes)
- *
- * The "hollow" is the DIP in the top edge after the crest:
- *   x=37% → crest (y=0%, top of wave)
- *   x=55% → barrel hollow (top edge drops to y=36%, air inside the barrel)
- *   x=63% → shoulder (top edge rises back to y=26%)
- *
- *   0%  → invisible
- *   30% → gentle swell across full width, left slightly ahead
- *   63% → barrel peak: steep left face, crest at x=37%, hollow dip at x=55%
- *   80% → crash: left+right flood to y=0%, hollow remnant lingers briefly
- *  100% → full fill
- */
-@keyframes gecko-wave-barrel {
-  0% {
-    animation-timing-function: ease-in;
-    clip-path: polygon(
-      0% 100%, 0% 100%, 8% 100%, 18% 100%, 28% 100%,
-      37% 100%, 46% 100%, 55% 100%, 63% 100%,
-      72% 100%, 82% 100%, 91% 100%, 100% 100%, 100% 100%
-    );
-  }
-  30% {
-    animation-timing-function: ease-in-out;
-    clip-path: polygon(
-      0% 100%, 0% 94%, 8% 88%, 18% 82%, 28% 77%,
-      37% 75%, 46% 77%, 55% 80%, 63% 83%,
-      72% 87%, 82% 91%, 91% 95%, 100% 98%, 100% 100%
-    );
-  }
-  63% {
-    /*
-     * Barrel peak.
-     * Left face: steep S-curve, y=70% at x=0 → y=0% at x=37% (crest).
-     * Hollow: top edge dips to y=36% at x=55% (air inside barrel).
-     * Shoulder: rises back to y=26% at x=63%, trailing off right.
-     */
-    animation-timing-function: cubic-bezier(0.1, 0, 0.3, 1);
-    clip-path: polygon(
-      0% 100%, 0% 70%, 8% 42%, 18% 18%, 28% 4%,
-      37% 0%, 46% 10%, 55% 36%, 63% 26%,
-      72% 40%, 82% 58%, 91% 76%, 100% 90%, 100% 100%
-    );
-  }
-  80% {
-    /*
-     * Crash. Left and right flood to y=0%.
-     * Hollow remnant lingers at x=55% (y=18%) before collapsing.
-     */
-    animation-timing-function: ease-out;
-    clip-path: polygon(
-      0% 100%, 0% 4%, 8% 0%, 18% 0%, 28% 0%,
-      37% 0%, 46% 4%, 55% 18%, 63% 2%,
-      72% 0%, 82% 0%, 91% 0%, 100% 0%, 100% 100%
-    );
-  }
-  100% {
-    clip-path: polygon(
-      0% 100%, 0% 0%, 8% 0%, 18% 0%, 28% 0%,
-      37% 0%, 46% 0%, 55% 0%, 63% 0%,
-      72% 0%, 82% 0%, 91% 0%, 100% 0%, 100% 100%
-    );
-  }
-}
-
-/* Text holds dark green while both fills build and crash, then flips to cream */
-@keyframes gecko-wave-text-reveal {
-  0%, 78% { color: #1e3d32; }
-  100%     { color: #f4f1ea; }
+/* Navbar button colours (hover state set here; default via inline style) */
+.nav-book-btn:hover {
+  background-color: #1e3d32 !important;
+  border-color:     #1e3d32 !important;
+  color:            #f4f1ea !important;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
