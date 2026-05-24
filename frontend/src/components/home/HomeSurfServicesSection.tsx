@@ -233,7 +233,8 @@ export function HomeSurfServicesSection() {
         /* ━━ Included strip ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .ss-included {
           margin-top: 1.25rem;
-          background: #064E3B;
+          background: #F4F1EA;
+          border-top: 1px solid rgba(6,78,59,0.1);
           padding: 1.625rem clamp(1.25rem, 6vw, 6rem);
         }
         .ss-included-inner {
@@ -249,13 +250,13 @@ export function HomeSurfServicesSection() {
           font-weight: 700;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: rgba(244,241,234,0.45);
+          color: rgba(6,78,59,0.45);
           flex-shrink: 0;
         }
         .ss-included-divider {
           width: 1px;
           height: 1rem;
-          background: rgba(244,241,234,0.15);
+          background: rgba(6,78,59,0.15);
           flex-shrink: 0;
         }
         .ss-included-items {
@@ -270,7 +271,7 @@ export function HomeSurfServicesSection() {
           align-items: center;
           gap: 0.4rem;
           font-size: 0.8125rem;
-          color: rgba(244,241,234,0.75);
+          color: rgba(6,78,59,0.75);
           font-weight: 500;
         }
         .ss-included-item span:first-child {
@@ -279,7 +280,7 @@ export function HomeSurfServicesSection() {
         .ss-included-duration {
           margin-left: auto;
           font-size: 0.6875rem;
-          color: rgba(244,241,234,0.4);
+          color: rgba(6,78,59,0.4);
           letter-spacing: 0.06em;
           white-space: nowrap;
         }
@@ -287,7 +288,6 @@ export function HomeSurfServicesSection() {
         /* ━━ Video Analysis ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .ss-video {
           background: #F4F1EA;
-          border-top: 1px solid rgba(6,78,59,0.1);
           padding: 2.75rem clamp(1.25rem, 6vw, 6rem) 4.5rem;
         }
         .ss-video-inner {
