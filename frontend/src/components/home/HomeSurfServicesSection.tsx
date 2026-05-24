@@ -284,6 +284,95 @@ export function HomeSurfServicesSection() {
           white-space: nowrap;
         }
 
+        /* ━━ Video Analysis ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .ss-video {
+          background: #064E3B;
+          border-top: 1px solid rgba(255,255,255,0.07);
+          padding: 2.75rem clamp(1.25rem, 6vw, 6rem) 4.5rem;
+        }
+        .ss-video-inner {
+          max-width: 1080px;
+          margin: 0 auto;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 3rem;
+        }
+        .ss-video-left { flex: 1; }
+
+        .ss-video-eyebrow {
+          font-size: 0.625rem;
+          font-weight: 700;
+          letter-spacing: 0.28em;
+          text-transform: uppercase;
+          color: #34D399;
+          margin: 0 0 0.75rem;
+        }
+        .ss-video-heading {
+          font-size: clamp(1.75rem, 3vw, 2.5rem);
+          font-weight: 500;
+          letter-spacing: -0.025em;
+          line-height: 1.08;
+          color: #F4F1EA;
+          margin: 0 0 1rem;
+        }
+        .ss-video-desc {
+          font-size: 0.9375rem;
+          line-height: 1.75;
+          color: rgba(244,241,234,0.52);
+          max-width: 500px;
+          margin: 0 0 1.375rem;
+        }
+        .ss-video-perks {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+        .ss-video-perk {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          font-size: 0.875rem;
+          color: rgba(244,241,234,0.7);
+        }
+        .ss-video-perk-dot {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #34D399;
+          flex-shrink: 0;
+        }
+
+        .ss-video-right {
+          flex-shrink: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1.375rem;
+          text-align: center;
+        }
+        .ss-video-price {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.2rem;
+        }
+        .ss-video-price-num {
+          font-size: clamp(3.5rem, 5.5vw, 5rem);
+          font-weight: 700;
+          letter-spacing: -0.04em;
+          line-height: 1;
+          color: #F4F1EA;
+          font-family: 'Comfortaa', cursive, sans-serif;
+        }
+        .ss-video-price-unit {
+          font-size: 0.625rem;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: rgba(244,241,234,0.35);
+        }
+
         /* ━━ Tablet ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         @media (max-width: 767px) {
           .ss-grid {
@@ -298,6 +387,19 @@ export function HomeSurfServicesSection() {
           }
           .ss-included-divider { display: none; }
           .ss-included-duration { margin-left: 0; }
+
+          .ss-video-inner {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2rem;
+          }
+          .ss-video-right {
+            align-items: flex-start;
+            text-align: left;
+            flex-direction: row;
+            align-items: center;
+            gap: 2rem;
+          }
         }
 
         @media (max-width: 479px) {
@@ -313,6 +415,13 @@ export function HomeSurfServicesSection() {
           .ss-included {
             padding-top: 1.375rem;
             padding-bottom: 1.375rem;
+          }
+          .ss-video {
+            padding-bottom: 3.5rem;
+          }
+          .ss-video-right {
+            flex-direction: column;
+            align-items: flex-start;
           }
         }
       `}</style>
@@ -424,6 +533,50 @@ export function HomeSurfServicesSection() {
             ))}
           </div>
           <span className="ss-included-duration">~ 2 hours per session</span>
+        </div>
+      </div>
+
+      {/* ── Video Analysis ──────────────────────────────────────────────── */}
+      <div className="ss-video reveal stagger-4">
+        <div className="ss-video-inner">
+
+          {/* Left — label + description + perks */}
+          <div className="ss-video-left">
+            <p className="ss-video-eyebrow font-label">Add-on service</p>
+            <h3 className="ss-video-heading font-display">Video Analysis</h3>
+            <p className="ss-video-desc">
+              We film your waves, then a coach breaks down your technique
+              frame by frame — stance, timing, rail pressure, pop-up mechanics.
+              Walk away knowing exactly what to work on next.
+            </p>
+            <div className="ss-video-perks">
+              {[
+                'HD footage of your full session',
+                '1-on-1 coach review after your surf',
+                'Technique notes & drills to take home',
+              ].map(perk => (
+                <div key={perk} className="ss-video-perk">
+                  <span className="ss-video-perk-dot" aria-hidden />
+                  {perk}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right — price + CTA */}
+          <div className="ss-video-right">
+            <div className="ss-video-price">
+              <span className="ss-video-price-num">$60</span>
+              <span className="ss-video-price-unit font-label">per analysis</span>
+            </div>
+            <Link to="/booking" className="ss-cta">
+              Add to your stay
+              <svg viewBox="0 0 16 16" fill="currentColor" style={{ width: 14, height: 14 }}>
+                <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.25 4.25a.75.75 0 0 1 0 1.06L9.28 12.53a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
+              </svg>
+            </Link>
+          </div>
+
         </div>
       </div>
 
