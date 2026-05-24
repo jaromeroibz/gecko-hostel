@@ -286,8 +286,8 @@ export function HomeSurfServicesSection() {
 
         /* ━━ Video Analysis ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .ss-video {
-          background: #064E3B;
-          border-top: 1px solid rgba(255,255,255,0.07);
+          background: #F4F1EA;
+          border-top: 1px solid rgba(6,78,59,0.1);
           padding: 2.75rem clamp(1.25rem, 6vw, 6rem) 4.5rem;
         }
         .ss-video-inner {
@@ -313,13 +313,13 @@ export function HomeSurfServicesSection() {
           font-weight: 500;
           letter-spacing: -0.025em;
           line-height: 1.08;
-          color: #F4F1EA;
+          color: #064E3B;
           margin: 0 0 1rem;
         }
         .ss-video-desc {
           font-size: 0.9375rem;
           line-height: 1.75;
-          color: rgba(244,241,234,0.52);
+          color: rgba(6,78,59,0.55);
           max-width: 500px;
           margin: 0 0 1.375rem;
         }
@@ -333,7 +333,7 @@ export function HomeSurfServicesSection() {
           align-items: center;
           gap: 0.6rem;
           font-size: 0.875rem;
-          color: rgba(244,241,234,0.7);
+          color: rgba(6,78,59,0.7);
         }
         .ss-video-perk-dot {
           width: 5px;
@@ -362,7 +362,7 @@ export function HomeSurfServicesSection() {
           font-weight: 700;
           letter-spacing: -0.04em;
           line-height: 1;
-          color: #F4F1EA;
+          color: #064E3B;
           font-family: 'Comfortaa', cursive, sans-serif;
         }
         .ss-video-price-unit {
@@ -370,7 +370,7 @@ export function HomeSurfServicesSection() {
           font-weight: 700;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: rgba(244,241,234,0.35);
+          color: rgba(6,78,59,0.4);
         }
 
         /* ━━ Tablet ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
