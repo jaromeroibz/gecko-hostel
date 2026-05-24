@@ -10,13 +10,13 @@ const TILES = [
   {
     id: 'waterfalls',
     title: 'Waterfalls',
-    sub: 'Montezuma · Nauyaca',
+    sub: 'Montezuma · Florida',
     img: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80',
   },
   {
     id: 'wildlife',
     title: 'Jungle & Wildlife',
-    sub: 'Monkeys, sloths & scarlet macaws',
+    sub: 'Monkeys, turtles & scarlet macaws',
     img: 'https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?auto=format&fit=crop&w=700&q=80',
   },
   {
@@ -28,7 +28,7 @@ const TILES = [
   {
     id: 'adventure',
     title: 'Adventure',
-    sub: 'ATV, hiking & Tortuga Island',
+    sub: 'ATV, fishing & hiking',
     img: 'https://images.unsplash.com/photo-1533130061792-64b345e4a833?auto=format&fit=crop&w=900&q=80',
   },
   // shown on mobile only (desktop mosaic has 4 tiles)
@@ -51,7 +51,7 @@ const FACTS = [
   { value: '27–30°C',   label: 'Water & air year-round' },
   { value: 'Every day', label: 'Consistent waves' },
   { value: '3 min',     label: 'Walk to the surf break' },
-  { value: '45 min',    label: 'From Tambor airport' },
+  { value: '30 min',    label: 'From Cobano airport' },
 ]
 
 export function LocationPage() {
@@ -80,7 +80,7 @@ export function LocationPage() {
             you leave.
           </h1>
           <p className="lc-hero-sub font-label" style={{ animation: 'hero-enter 0.85s cubic-bezier(0.22,1,0.36,1) 0.5s both' }}>
-            Where the jungle meets the ocean — the Pacific's best-kept secret.
+            Where the jungle meets the Pacific.
           </p>
           <Link to="/booking" className="lc-hero-cta font-label" style={{ animation: 'hero-enter 0.8s cubic-bezier(0.22,1,0.36,1) 0.65s both' }}>
             Book your stay →
@@ -113,7 +113,7 @@ export function LocationPage() {
             </h2>
             <p className="lc-surf-desc">
               Playa Santa Teresa and Playa Carmen deliver powerful beach breaks
-              and long right-handers that work on every swell. The warm Pacific
+              and long point breaks that work on every swell. The warm Pacific
               water, world-class surf schools and a community built around the
               ocean make this one of the finest surf destinations in Central
               America — whether you're paddling out for the first time or
@@ -190,11 +190,11 @@ export function LocationPage() {
             <h3 className="lc-gt-card-title font-display">By air</h3>
             <p className="lc-gt-card-desc">
               Fly San José → Cobano (45 min domestic flight), then a
-              45-minute taxi or shuttle to Santa Teresa. The fastest and most
+              30-minute taxi or shuttle to Santa Teresa. The fastest and most
               comfortable option — you'll be in the water by afternoon.
             </p>
             <span className="lc-gt-route font-label">
-              SJO → Cobano → Santa Teresa · ~2 hrs total
+              SJO → Cobano → Santa Teresa · ~1.5 hrs total
             </span>
           </div>
 
