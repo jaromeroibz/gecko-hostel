@@ -114,6 +114,7 @@ export function Navbar() {
               borderRadius: '9999px',
               padding: '0.75rem 1.75rem',
               fontWeight: 500,
+              textTransform: 'uppercase',
             }}
             className="font-label nav-book-btn"
           >
