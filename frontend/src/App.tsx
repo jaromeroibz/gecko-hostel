@@ -15,8 +15,9 @@ const AdminPage = lazy(() => import('./pages/AdminPage').then((m) => ({ default:
 
 function App() {
   return (
-    <Routes>
-      <Route path="*" element={<ScrollToTop />} />
+    <>
+      <ScrollToTop />
+      <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/booking" element={<Booking />} />
@@ -54,6 +55,7 @@ function App() {
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    </>
   )
 }
 

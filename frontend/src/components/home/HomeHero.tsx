@@ -11,7 +11,7 @@ const HERO_BG =
 
 const HERO_NAV = [
   { label: 'Home', to: '/' },
-  { label: 'Rooms', to: '/#rooms' },
+  { label: 'Rooms', to: '/booking' },
   { label: 'Location', to: '/location' },
   { label: 'Contact Us', to: '/contact' },
 ]
