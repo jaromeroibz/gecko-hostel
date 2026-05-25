@@ -1,94 +1,16 @@
+import { useTranslation } from 'react-i18next'
 import { useInView } from '../../hooks/useInView'
 
 const PACKAGES = [
-  {
-    id: 'backpacker',
-    category: 'Solo · Backpacker',
-    name: 'Backpacker\nSurf Camp',
-    duration: '6 days / 5 nights',
-    accommodation: 'Shared dorm',
-    price: 749,
-    priceUnit: '/ person',
-    taxNote: '~$845 with taxes',
-    surfLessons: 4,
-    videoSessions: 3,
-    inclusions: [
-      '4 surf lessons',
-      '3 video analyses',
-      'Daily breakfast',
-      'Montezuma Waterfall',
-      'Playa Hermosa + Tide Pools',
-    ],
-    bookingHref: '/booking?package=backpacker',
-    cardStyle: 'dark',
-  },
-  {
-    id: 'adventure',
-    category: 'Best Value',
-    name: 'Surf & Adventure\nCamp',
-    duration: '10 days / 7 nights',
-    accommodation: 'Shared dorm',
-    price: 1249,
-    priceUnit: '/ person',
-    taxNote: '~$1,410 with taxes',
-    surfLessons: 8,
-    videoSessions: 4,
-    inclusions: [
-      '8 surf lessons',
-      '4 video analyses',
-      'Daily breakfast',
-      'Montezuma + Florida Waterfalls',
-      'Playa Hermosa + La Perla + Manzanillo',
-    ],
-    bookingHref: '/booking?package=adventure',
-    cardStyle: 'orange',
-  },
-  {
-    id: 'couples',
-    category: 'Couples · Private Room',
-    name: 'Couples\nSurf Escape',
-    duration: '6 days / 5 nights',
-    accommodation: 'Private room for 2',
-    price: 1798,
-    priceUnit: '/ room',
-    taxNote: 'taxes included',
-    surfLessons: 5,
-    videoSessions: 4,
-    inclusions: [
-      '5 surf lessons',
-      '4 video analyses',
-      'Daily breakfast',
-      'Montezuma Waterfall',
-      'La Perla + Playa Manzanillo',
-    ],
-    bookingHref: '/booking?package=couples',
-    cardStyle: 'mint',
-  },
-  {
-    id: 'family',
-    category: 'Groups · Families',
-    name: 'Friends & Family\nSurf Retreat',
-    duration: '5 days / 5 nights',
-    accommodation: 'Private family room',
-    price: 3396,
-    priceUnit: '/ room',
-    taxNote: 'taxes included',
-    surfLessons: 3,
-    videoSessions: 2,
-    inclusions: [
-      '3 surf lessons',
-      '2 video analyses',
-      'Daily breakfast',
-      'Playa Hermosa + Tide Pools',
-      'Mal País + Playa Suecos',
-    ],
-    bookingHref: '/booking?package=family',
-    cardStyle: 'yellow',
-  },
+  { id: 'backpacker', price: 890,  bookingHref: '/booking?package=backpacker', cardStyle: 'dark'   },
+  { id: 'adventure',  price: 1300, bookingHref: '/booking?package=adventure',  cardStyle: 'orange' },
+  { id: 'couples',    price: 1200, bookingHref: '/booking?package=couples',    cardStyle: 'mint'   },
+  { id: 'family',     price: 1850, bookingHref: '/booking?package=family',     cardStyle: 'yellow' },
 ] as const
 
 export function HomePackagesSection() {
   const [ref, inView] = useInView<HTMLElement>()
+  const { t } = useTranslation()
   return (
     <section
       ref={ref}
@@ -100,14 +22,11 @@ export function HomePackagesSection() {
 
         {/* ── Header ──────────────────────────────────────────────────── */}
         <header className="pk-header reveal">
-          <p className="pk-eyebrow font-label">Surf Packages</p>
+          <p className="pk-eyebrow font-label">{t('packages.eyebrow')}</p>
           <h2 id="packages-heading" className="pk-heading font-display">
-            Surf more. Explore more.<br />All in one package.
+            {t('packages.heading1')}<br />{t('packages.heading2')}
           </h2>
-          <p className="pk-subtext">
-            Curated multi-day camps with lessons, tours, breakfast and a bed —
-            everything sorted so you can focus on the waves.
-          </p>
+          <p className="pk-subtext">{t('packages.subtext')}</p>
         </header>
 
         {/* ── Package grid ────────────────────────────────────────────── */}
@@ -118,23 +37,23 @@ export function HomePackagesSection() {
 
                 {/* Top: category + name + duration */}
                 <div className="pk-card-top">
-                  <span className="pk-category font-label">{pkg.category}</span>
+                  <span className="pk-category font-label">{t(`packages.${pkg.id}.category`)}</span>
                   <h3 id={`pkg-name-${pkg.id}`} className="pk-name font-display">
-                    {pkg.name.split('\n').map((line, i) => (
-                      <span key={i}>{line}{i === 0 && <br />}</span>
-                    ))}
+                    <span>{t(`packages.${pkg.id}.name1`)}</span>
+                    <br />
+                    <span>{t(`packages.${pkg.id}.name2`)}</span>
                   </h3>
                   <div className="pk-meta-row">
-                    <span className="pk-duration font-label">{pkg.duration}</span>
-                    <span className="pk-accom font-label">{pkg.accommodation}</span>
+                    <span className="pk-duration font-label">{t(`packages.${pkg.id}.duration`)}</span>
+                    <span className="pk-accom font-label">{t(`packages.${pkg.id}.accommodation`)}</span>
                   </div>
                 </div>
 
                 {/* Price */}
                 <div className="pk-price-row">
                   <span className="pk-price font-display">${pkg.price.toLocaleString()}</span>
-                  <span className="pk-price-unit font-label">{pkg.priceUnit}</span>
-                  <span className="pk-price-tax font-label">{pkg.taxNote}</span>
+                  <span className="pk-price-unit font-label">{t(`packages.${pkg.id}.priceUnit`)}</span>
+                  <span className="pk-price-tax font-label">{t(`packages.${pkg.id}.taxNote`)}</span>
                 </div>
 
                 {/* Divider */}
@@ -142,7 +61,7 @@ export function HomePackagesSection() {
 
                 {/* Inclusions */}
                 <ul className="pk-inclusions" role="list">
-                  {pkg.inclusions.map((item) => (
+                  {(t(`packages.${pkg.id}.inclusions`, { returnObjects: true }) as string[]).map((item) => (
                     <li key={item} className="pk-inclusion font-label">
                       <span className="pk-check" aria-hidden>✓</span>
                       {item}
@@ -152,7 +71,7 @@ export function HomePackagesSection() {
 
                 {/* CTA */}
                 <a href={pkg.bookingHref} className="pk-cta font-label">
-                  Book this package →
+                  {t('packages.bookPkg')}
                 </a>
 
               </article>
@@ -161,10 +80,7 @@ export function HomePackagesSection() {
         </ul>
 
         {/* ── Footer note ─────────────────────────────────────────────── */}
-        <p className="pk-footnote font-label">
-          Packages include accommodation, lessons &amp; tours — flights not included.
-          Extras are added during checkout.
-        </p>
+        <p className="pk-footnote font-label">{t('packages.footnote')}</p>
 
       </div>
 

@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 // Surf session at golden hour — sets the outdoor lifestyle mood
 const IMG_SURF =
   'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036019/AZC_9979_gzhuvd.jpg'
@@ -7,6 +9,7 @@ const IMG_BONFIRE =
   'https://res.cloudinary.com/doow0mhrm/image/upload/v1779039282/kimson-doan-AZMmUy2qL6A-unsplash_pwv13o.jpg'
 
 export function HomeWhySection() {
+  const { t } = useTranslation()
   return (
     <section
       id="why-gecko"
@@ -17,9 +20,9 @@ export function HomeWhySection() {
 
         {/* ── Header ─────────────────────────────────────────────────── */}
         <header className="why-header">
-          <p className="why-eyebrow font-label uppercase">Why Gecko Surf House</p>
+          <p className="why-eyebrow font-label uppercase">{t('why.eyebrow')}</p>
           <h2 id="why-heading" className="why-heading font-display">
-            Some places<br />just have it.
+            {t('why.heading1')}<br />{t('why.heading2')}
           </h2>
         </header>
 
@@ -39,22 +42,18 @@ export function HomeWhySection() {
 
           {/* Right: dark manifesto panel */}
           <div className="why-panel">
-            <p className="why-panel-eyebrow font-label uppercase">The Gecko difference</p>
+            <p className="why-panel-eyebrow font-label uppercase">{t('why.panelEyebrow')}</p>
 
             <blockquote className="why-pullquote font-display">
-              "Hard to explain until you're around the fire at midnight, swapping stories with someone from Norway about the wave you both caught at dawn."
+              "{t('why.pullquote')}"
             </blockquote>
 
-            <p className="why-panel-body">
-              A 3-minute walk from the break. A backyard that pulls strangers together.
-              People from everywhere who somehow feel like they've always known each other.
-              Santa Teresa does something to you — Gecko makes sure you feel it.
-            </p>
+            <p className="why-panel-body">{t('why.panelBody')}</p>
 
             <div className="why-divider" aria-hidden />
 
             <p className="why-panel-stat font-display">
-              12+ nationalities.<br />One backyard.
+              {t('why.panelStat1')}<br />{t('why.panelStat2')}
             </p>
           </div>
         </div>
@@ -72,24 +71,17 @@ export function HomeWhySection() {
             />
             <div className="why-community-overlay" aria-hidden />
             <div className="why-community-content">
-              <p className="why-community-label font-label uppercase">Community</p>
-              <h3 className="why-community-title font-display">
-                Strangers become crew.
-              </h3>
-              <p className="why-community-copy">
-                Six countries around one fire. Shared waves, shared meals, stories
-                that keep going long after the sun goes down.
-              </p>
+              <p className="why-community-label font-label uppercase">{t('why.community.label')}</p>
+              <h3 className="why-community-title font-display">{t('why.community.title')}</h3>
+              <p className="why-community-copy">{t('why.community.copy')}</p>
             </div>
           </div>
 
           {/* Card 2 — Stat (terracotta) */}
           <div className="why-stat">
-            <span className="why-stat-num font-display">3</span>
-            <span className="why-stat-label font-label uppercase">min to the water</span>
-            <p className="why-stat-copy">
-              Close enough to paddle out before the crowd even wakes up.
-            </p>
+            <span className="why-stat-num font-display">{t('why.stat.num')}</span>
+            <span className="why-stat-label font-label uppercase">{t('why.stat.label')}</span>
+            <p className="why-stat-copy">{t('why.stat.copy')}</p>
           </div>
 
           {/* Card 3 — Soul (dark, ghost watermark) */}
@@ -97,12 +89,9 @@ export function HomeWhySection() {
             <span className="why-soul-ghost font-display" aria-hidden>soul</span>
             <div className="why-soul-content">
               <h3 className="why-soul-title font-display">
-                Run by surfers.<br />Loved by travelers.
+                {t('why.soul.title1')}<br />{t('why.soul.title2')}
               </h3>
-              <p className="why-soul-copy">
-                We've been here long enough to know where the swell lines up,
-                where the best tacos are, and why nobody ever leaves on time.
-              </p>
+              <p className="why-soul-copy">{t('why.soul.copy')}</p>
             </div>
           </div>
 

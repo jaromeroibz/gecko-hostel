@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { WaveButton } from '../ui/WaveButton'
 
 type NavItemConfig = {
-  label: string
+  labelKey: string
   pathname: string
   hash?: string
 }
 
 const NAV_ITEMS: NavItemConfig[] = [
-  { label: 'Home', pathname: '/' },
-  { label: 'Rooms', pathname: '/booking' },
-  { label: 'Location', pathname: '/location' },
-  { label: 'Contact Us', pathname: '/contact' },
+  { labelKey: 'nav.home',     pathname: '/' },
+  { labelKey: 'nav.rooms',    pathname: '/booking' },
+  { labelKey: 'nav.location', pathname: '/location' },
+  { labelKey: 'nav.contact',  pathname: '/contact' },
 ]
 
 function navItemIsActive(pathname: string, hash: string, item: NavItemConfig): boolean {
@@ -31,6 +32,7 @@ function navItemIsActive(pathname: string, hash: string, item: NavItemConfig): b
 export function Navbar() {
   const { pathname, hash } = useLocation()
   const isHome = pathname === '/'
+  const { t, i18n } = useTranslation()
 
   const [visible, setVisible] = useState(!isHome)
 
@@ -46,6 +48,9 @@ export function Navbar() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [isHome])
+
+  const currentLang = i18n.language?.startsWith('es') ? 'es' : 'en'
+  const toggle = () => i18n.changeLanguage(currentLang === 'en' ? 'es' : 'en')
 
   return (
     <>
@@ -86,7 +91,7 @@ export function Navbar() {
             const to = item.hash ? { pathname: '/', hash: item.hash } : item.pathname
             return (
               <NavLink
-                key={`${item.label}-${item.hash ?? 'root'}`}
+                key={`${item.labelKey}-${item.hash ?? 'root'}`}
                 to={to}
                 style={{
                   position: 'relative',
@@ -100,7 +105,7 @@ export function Navbar() {
                 }}
                 className={`font-label navbar-link${active ? ' navbar-link--active' : ''}`}
               >
-                {item.label}
+                {t(item.labelKey)}
               </NavLink>
             )
           })}
@@ -118,8 +123,19 @@ export function Navbar() {
             }}
             className="font-label nav-book-btn"
           >
-            Book Now
+            {t('nav.bookNow')}
           </WaveButton>
+
+          {/* Language toggle */}
+          <button
+            onClick={toggle}
+            className="font-label navbar-lang-toggle"
+            aria-label={currentLang === 'en' ? 'Switch to Spanish' : 'Switch to English'}
+          >
+            <span className={currentLang === 'en' ? 'navbar-lang--active' : ''}>EN</span>
+            <span className="navbar-lang-sep">·</span>
+            <span className={currentLang === 'es' ? 'navbar-lang--active' : ''}>ES</span>
+          </button>
         </div>
       </nav>
     </header>

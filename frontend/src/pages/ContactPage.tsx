@@ -1,5 +1,6 @@
 import { useState, useId } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import { useInView } from '../hooks/useInView'
 
@@ -15,50 +16,49 @@ interface FieldErrors {
 
 const CONTACT_DETAILS = [
   {
+    id: 'email',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="cp-icon">
         <path d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
       </svg>
     ),
-    label: 'Email',
     value: 'geckosurfhousecr@gmail.com',
     href: 'mailto:geckosurfhousecr@gmail.com',
   },
   {
+    id: 'phone',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="cp-icon">
         <path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
       </svg>
     ),
-    label: 'Phone · WhatsApp',
     value: '+506 8739 0370',
     href: 'https://wa.me/50687390370',
   },
   {
+    id: 'location',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="cp-icon">
         <path d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
         <path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
       </svg>
     ),
-    label: 'Location',
-    value: 'Santa Teresa, Cobano, Puntarenas, Costa Rica',
     href: 'https://www.google.com/maps/place/Gecko+Surf+House/@9.6320219,-85.1573193,17z/data=!3m1!4b1!4m9!3m8!1s0x8f9f6f0f48e60c9b:0xcb2a9e0024365938!5m2!4m1!1i2!8m2!3d9.6320219!4d-85.154739!16s%2Fg%2F11z15gjhb9?entry=ttu&g_ep=EgoyMDI2MDUxNy4wIKXMDSoASAFQAw%3D%3D',
   },
   {
+    id: 'hours',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="cp-icon">
         <path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
       </svg>
     ),
-    label: 'Reception hours',
-    value: 'Mon–Sun · 8 am – 10 pm',
     href: null,
   },
 ]
 
 export function ContactPage() {
   const uid = useId()
+  const { t } = useTranslation()
 
   const [name,    setName]    = useState('')
   const [email,   setEmail]   = useState('')
@@ -483,11 +483,10 @@ export function ContactPage() {
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
       <div className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 -mt-10 sm:-mt-12">
         <div className="cp-hero">
-          <p className="cp-hero-eyebrow" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s both' }}>We'd love to hear from you</p>
-          <h1 style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.3s both' }}>Get in touch</h1>
+          <p className="cp-hero-eyebrow" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s both' }}>{t('contact.heroEyebrow')}</p>
+          <h1 style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.3s both' }}>{t('contact.heroHeading')}</h1>
           <p style={{ animation: 'hero-enter 0.85s cubic-bezier(0.22,1,0.36,1) 0.45s both' }}>
-            Questions about a stay, a surf lesson, or just curious what the vibe is like?
-            Drop us a note — we usually reply within a few hours.
+            {t('contact.heroSub')}
           </p>
         </div>
       </div>
@@ -504,17 +503,17 @@ export function ContactPage() {
                   <path d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
               </div>
-              <h2>Message sent!</h2>
+              <h2>{t('contact.successHeading')}</h2>
               <p>
-                Thanks for reaching out. We'll get back to you at <strong>{email}</strong> shortly.
+                {t('contact.successBody', { email })}
               </p>
               <button className="cp-success-btn" onClick={reset}>
-                Send another message
+                {t('contact.sendAnother')}
               </button>
             </div>
           ) : (
             <>
-              <p className="cp-form-title">Send us a message</p>
+              <p className="cp-form-title">{t('contact.formTitle')}</p>
 
               {status === 'error' && serverError && (
                 <div className="cp-banner-error" role="alert">
@@ -540,13 +539,13 @@ export function ContactPage() {
                 {/* Name */}
                 <div className="cp-field">
                   <label className="cp-label" htmlFor={`${uid}-name`}>
-                    Your name <span aria-hidden="true">*</span>
+                    {t('contact.nameLabel')} <span aria-hidden="true">*</span>
                   </label>
                   <input
                     id={`${uid}-name`}
                     className={`cp-input${fieldErrors.name ? ' error' : ''}`}
                     type="text"
-                    placeholder="Jane Doe"
+                    placeholder={t('contact.namePlaceholder')}
                     value={name}
                     onChange={e => setName(e.target.value)}
                     disabled={sending}
@@ -560,13 +559,13 @@ export function ContactPage() {
                 {/* Email */}
                 <div className="cp-field">
                   <label className="cp-label" htmlFor={`${uid}-email`}>
-                    Email address <span aria-hidden="true">*</span>
+                    {t('contact.emailLabel')} <span aria-hidden="true">*</span>
                   </label>
                   <input
                     id={`${uid}-email`}
                     className={`cp-input${fieldErrors.email ? ' error' : ''}`}
                     type="email"
-                    placeholder="jane@example.com"
+                    placeholder={t('contact.emailPlaceholder')}
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     disabled={sending}
@@ -580,13 +579,13 @@ export function ContactPage() {
                 {/* Subject (optional) */}
                 <div className="cp-field">
                   <label className="cp-label" htmlFor={`${uid}-subject`}>
-                    Subject <span style={{ color: 'rgba(6,78,59,.4)', fontWeight: 400, textTransform: 'none', letterSpacing: 0 }}>— optional</span>
+                    {t('contact.subjectLabel')} <span style={{ color: 'rgba(6,78,59,.4)', fontWeight: 400, textTransform: 'none', letterSpacing: 0 }}>{t('contact.subjectOptional')}</span>
                   </label>
                   <input
                     id={`${uid}-subject`}
                     className="cp-input"
                     type="text"
-                    placeholder="e.g. Surf lesson enquiry"
+                    placeholder={t('contact.subjectPlaceholder')}
                     value={subject}
                     onChange={e => setSubject(e.target.value)}
                     disabled={sending}
@@ -596,12 +595,12 @@ export function ContactPage() {
                 {/* Message */}
                 <div className="cp-field">
                   <label className="cp-label" htmlFor={`${uid}-message`}>
-                    Message <span aria-hidden="true">*</span>
+                    {t('contact.messageLabel')} <span aria-hidden="true">*</span>
                   </label>
                   <textarea
                     id={`${uid}-message`}
                     className={`cp-textarea${fieldErrors.message ? ' error' : ''}`}
-                    placeholder="Tell us what's on your mind…"
+                    placeholder={t('contact.messagePlaceholder')}
                     value={message}
                     onChange={e => setMessage(e.target.value)}
                     disabled={sending}
@@ -615,11 +614,11 @@ export function ContactPage() {
                   {sending ? (
                     <>
                       <span className="cp-spinner" />
-                      Sending…
+                      {t('contact.sending')}
                     </>
                   ) : (
                     <>
-                      Send message
+                      {t('contact.send')}
                       <svg viewBox="0 0 20 20" fill="currentColor" style={{ width: 16, height: 16 }}>
                         <path d="M3.105 2.289a.75.75 0 0 0-.826.95l1.414 4.925A1.5 1.5 0 0 0 5.135 9.25h6.115a.75.75 0 0 1 0 1.5H5.135a1.5 1.5 0 0 0-1.442 1.086l-1.414 4.926a.75.75 0 0 0 .826.95 28.896 28.896 0 0 0 15.293-7.154.75.75 0 0 0 0-1.115A28.897 28.897 0 0 0 3.105 2.289Z" />
                       </svg>
@@ -634,36 +633,41 @@ export function ContactPage() {
         {/* ── Sidebar ───────────────────────────────────────────────────── */}
         <div className="cp-sidebar reveal-from-right stagger-2">
           <div className="cp-detail-card">
-            <h3>Find us</h3>
-            {CONTACT_DETAILS.map(d => (
-              <div key={d.label} className="cp-detail-item">
-                <div className="cp-icon-wrap">{d.icon}</div>
-                <div>
-                  <p className="cp-detail-label">{d.label}</p>
-                  <p className="cp-detail-value">
-                    {d.href ? (
-                      <a href={d.href} target={d.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">
-                        {d.value}
-                      </a>
-                    ) : d.value}
-                  </p>
+            <h3>{t('contact.findUs')}</h3>
+            {CONTACT_DETAILS.map(d => {
+              const label = t(`contact.detail.${d.id}.label`)
+              const value = d.id === 'email'
+                ? 'geckosurfhousecr@gmail.com'
+                : d.id === 'phone'
+                ? '+506 8739 0370'
+                : t(`contact.detail.${d.id}.value`)
+              return (
+                <div key={d.id} className="cp-detail-item">
+                  <div className="cp-icon-wrap">{d.icon}</div>
+                  <div>
+                    <p className="cp-detail-label">{label}</p>
+                    <p className="cp-detail-value">
+                      {d.href ? (
+                        <a href={d.href} target={d.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">
+                          {value}
+                        </a>
+                      ) : value}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
 
           <div className="cp-cta-card">
-            <h3>Ready to book?</h3>
-            <p>
-              Browse rooms, check availability, and secure your spot in Santa Teresa —
-              directly through our booking page.
-            </p>
+            <h3>{t('contact.readyToBook')}</h3>
+            <p>{t('contact.readyBody')}</p>
             <div className="cp-cta-btns">
               <Link to="/booking" className="cp-cta-btn">
-                View rooms →
+                {t('contact.viewRooms')}
               </Link>
               <Link to="/#packages" className="cp-cta-btn-ghost">
-                Browse packages →
+                {t('contact.browsePackages')}
               </Link>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import { useInView } from '../hooks/useInView'
 
@@ -12,15 +13,16 @@ import { PACKAGES } from '../data/packages'
 import { useLodgifySearchFromRoute } from '../hooks/useLodgifySearchFromRoute'
 
 const HERO_BG =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036019/AZC_9979_gzhuvd.jpg'
+  'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779689915/ktet7vjrefaeo0lqdwg9.webp'
 
-const TRUST_ITEMS = [
-  { icon: '★', label: 'All 5-star reviews' },
-  { icon: '✓', label: 'Free cancellation' },
-  { icon: '⌾', label: '3 min from the break' },
+const TRUST_KEYS = [
+  { icon: '★', key: 'booking.trust.fiveStars' },
+  { icon: '✓', key: 'booking.trust.freeCancellation' },
+  { icon: '⌾', key: 'booking.trust.minFromBreak' },
 ]
 
 export function Booking() {
+  const { t } = useTranslation()
   const search = useLodgifySearchFromRoute()
   const [searchParams] = useSearchParams()
   const searchRef  = useRef<HTMLDivElement>(null)
@@ -74,16 +76,16 @@ export function Booking() {
         />
         <div className="bk-hero-overlay" aria-hidden />
         <div className="bk-hero-inner">
-          <p className="bk-eyebrow font-label" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s both' }}>Live Availability</p>
+          <p className="bk-eyebrow font-label" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s both' }}>{t('booking.liveAvailability')}</p>
           <h1 className="bk-heading font-display" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.3s both' }}>
             {activePackage ? (
-              <>Book your<br />package.</>
+              <>{t('booking.bookYourPackage1')}<br />{t('booking.bookYourPackage2')}</>
             ) : (
-              <>Find your<br />perfect room.</>
+              <>{t('booking.findYourRoom1')}<br />{t('booking.findYourRoom2')}</>
             )}
           </h1>
           <p className="bk-subtext font-label" style={{ animation: 'hero-enter 0.8s cubic-bezier(0.22,1,0.36,1) 0.48s both' }}>
-            Real-time pricing · confirmed at checkout
+            {t('booking.realtimePricing')}
           </p>
         </div>
       </div>
@@ -98,7 +100,7 @@ export function Booking() {
           extraQuery={extraQuery}
           minNights={activePackage?.nights}
           maxNights={activePackage?.nights}
-          submitLabel={activePackage ? 'Select your room →' : 'See rooms →'}
+          submitLabel={activePackage ? t('booking.selectYourRoom') : t('booking.seeRooms')}
           onAfterSearch={() => roomsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
           onAdultsChange={setLiveAdults}
         />
@@ -108,7 +110,7 @@ export function Booking() {
       {activePackage && (
         <div className="bk-pkg-banner">
           <div className="bk-pkg-banner-left">
-            <p className="bk-pkg-banner-eyebrow font-label">Package selected</p>
+            <p className="bk-pkg-banner-eyebrow font-label">{t('booking.packageSelected')}</p>
             <p className="bk-pkg-banner-name font-display">{activePackage.name}</p>
             <div className="bk-pkg-banner-meta">
               <span className="bk-pkg-pill font-label">{activePackage.duration}</span>
@@ -117,19 +119,19 @@ export function Booking() {
                 From ${activePackage.price.toLocaleString()} {activePackage.priceUnit}
               </span>
               <span className="bk-pkg-pill bk-pkg-pill--nights font-label">
-                ⏱ {activePackage.nights}-night minimum
+                ⏱ {activePackage.nights} {t('booking.nightMinimum')}
               </span>
             </div>
             {activePackage.note && (
               <p className="bk-pkg-banner-note font-label">{activePackage.note}</p>
             )}
             <p className="bk-pkg-extra-nights font-label">
-              Want to arrive early or stay longer?{' '}
+              {t('booking.arriveEarlyQ')}{' '}
               <Link
                 to={`/booking?arrival=${search.arrivalYmd}&departure=${search.departureYmd}&adults=${search.adults}`}
                 className="bk-pkg-extra-nights-link"
               >
-                Browse room-only nights →
+                {t('booking.browseRoomOnly')}
               </Link>
             </p>
           </div>
@@ -137,7 +139,7 @@ export function Booking() {
             to={`/booking?arrival=${search.arrivalYmd}&departure=${search.departureYmd}&adults=${search.adults}`}
             className="bk-pkg-clear font-label"
           >
-            ← Browse all rooms
+            {t('booking.browseAllRooms')}
           </Link>
         </div>
       )}
@@ -145,11 +147,11 @@ export function Booking() {
       {/* ── Trust micro-strip (shown only without a package filter) ──── */}
       {!activePackage && (
         <div ref={trustRef} className={`bk-trust-strip${trustInView ? ' in-view' : ''}`}>
-          {TRUST_ITEMS.map(({ icon, label }, i) => (
-            <span key={label} className={`bk-trust-item font-label reveal stagger-${i + 1}`}>
+          {TRUST_KEYS.map(({ icon, key }, i) => (
+            <span key={key} className={`bk-trust-item font-label reveal stagger-${i + 1}`}>
               <span className="bk-trust-icon">{icon}</span>
-              {label}
-              {i < TRUST_ITEMS.length - 1 && (
+              {t(key)}
+              {i < TRUST_KEYS.length - 1 && (
                 <span className="bk-trust-sep" aria-hidden>·</span>
               )}
             </span>
@@ -185,7 +187,7 @@ export function Booking() {
           <div ref={widgetRef} className="bk-widget-section">
             <div className="bk-widget-header">
               <div>
-                <p className="bk-widget-eyebrow font-label">Availability &amp; Pricing</p>
+                <p className="bk-widget-eyebrow font-label">{t('booking.availabilityAndPricing')}</p>
                 <p className="bk-widget-room-name font-display">{selectedRoom.name}</p>
               </div>
               {visibleRooms.length > 1 && (
@@ -194,7 +196,7 @@ export function Booking() {
                   onClick={() => setSelectedRoomId(null)}
                   className="bk-widget-change font-label"
                 >
-                  ← Choose a different room
+                  {t('booking.chooseDifferentRoom')}
                 </button>
               )}
             </div>
@@ -210,9 +212,7 @@ export function Booking() {
 
       {/* ── Footer note ──────────────────────────────────────────────── */}
       <p className="bk-footnote font-label">
-        {activePackage
-          ? 'Select your dates above, then choose a room to continue to checkout where you\'ll add the package.'
-          : 'Live pricing powered by Lodgify · Availability confirmed at checkout'}
+        {activePackage ? t('booking.footnotePackage') : t('booking.footnoteLive')}
       </p>
 
       {/* ── Sticky mobile bar ────────────────────────────────────────── */}
@@ -227,9 +227,9 @@ export function Booking() {
 
         /* ━━ Hero ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .bk-hero {
-          height: 38vh;
-          min-height: 260px;
-          max-height: 420px;
+          height: 52vh;
+          min-height: 360px;
+          max-height: 560px;
           overflow: hidden;
         }
 

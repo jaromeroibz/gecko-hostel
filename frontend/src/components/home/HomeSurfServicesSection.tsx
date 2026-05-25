@@ -1,29 +1,31 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useInView } from '../../hooks/useInView'
 
 const IMG_GROUP   = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_9199_vecrln.jpg'
 const IMG_PRIVATE = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_8726_y1g3pn.jpg'
 
 const GROUP_PLANS = [
-  { label: 'Single lesson',   price: '$70'  },
-  { label: '3-lesson pack',   price: '$180', save: 'save $30'  },
-  { label: '5-lesson pack',   price: '$275', save: 'save $75', highlight: true },
+  { id: 'single',  price: '$70'  },
+  { id: 'three',   price: '$180', saveKey: 'surfServices.group.save30' },
+  { id: 'five',    price: '$275', saveKey: 'surfServices.group.save75', highlight: true },
 ]
 
 const PRIVATE_PLANS = [
-  { label: '1:1 Private',              price: '$100' },
-  { label: 'Semi-private (2 people)', price: '$160' },
+  { id: 'oneOnOne',    price: '$100' },
+  { id: 'semiPrivate', price: '$160' },
 ]
 
-const INCLUDED = [
-  { icon: '🏄', label: 'Surfboard'   },
-  { icon: '👕', label: 'Rashguard'   },
-  { icon: '☀️', label: 'Sunscreen'   },
-  { icon: '🍉', label: 'Fresh fruit' },
+const INCLUDED_ITEMS = [
+  { icon: '🏄', id: 'surfboard'  },
+  { icon: '👕', id: 'rashguard'  },
+  { icon: '☀️', id: 'sunscreen'  },
+  { icon: '🍉', id: 'freshFruit' },
 ]
 
 export function HomeSurfServicesSection() {
   const [ref, inView] = useInView<HTMLElement>()
+  const { t } = useTranslation()
   return (
     <section
       ref={ref}
@@ -428,15 +430,11 @@ export function HomeSurfServicesSection() {
 
       {/* ── Header ──────────────────────────────────────────────────────── */}
       <div className="ss-header reveal">
-        <p className="ss-eyebrow">Earn your waves</p>
+        <p className="ss-eyebrow">{t('surfServices.eyebrow')}</p>
         <h2 className="ss-heading font-display">
-          Leave a better surfer<br />than you arrived.
+          {t('surfServices.heading1')}<br />{t('surfServices.heading2')}
         </h2>
-        <p className="ss-subline">
-          Experienced coaches. Small groups. Daily sessions in some of the best
-          waves in Central America. From your first pop-up to reading the
-          lineup — there's a session for every level.
-        </p>
+        <p className="ss-subline">{t('surfServices.subline')}</p>
       </div>
 
       {/* ── Cards ───────────────────────────────────────────────────────── */}
@@ -452,19 +450,19 @@ export function HomeSurfServicesSection() {
           />
           <div className="ss-card-overlay" aria-hidden />
           <div className="ss-card-body">
-            <span className="ss-card-pill">Group · Daily sessions</span>
-            <h3 className="ss-card-title font-display">Group Sessions</h3>
+            <span className="ss-card-pill">{t('surfServices.group.pill')}</span>
+            <h3 className="ss-card-title font-display">{t('surfServices.group.title')}</h3>
 
             <div className="ss-prices">
               {GROUP_PLANS.map(plan => (
                 <div
-                  key={plan.label}
+                  key={plan.id}
                   className={`ss-price-row${plan.highlight ? ' ss-price-row--highlight' : ''}`}
                 >
                   <div className="ss-price-left">
-                    <span className="ss-price-label">{plan.label}</span>
-                    {plan.save && (
-                      <span className="ss-price-save">{plan.save}</span>
+                    <span className="ss-price-label">{t(`surfServices.group.${plan.id}`)}</span>
+                    {plan.saveKey && (
+                      <span className="ss-price-save">{t(plan.saveKey)}</span>
                     )}
                   </div>
                   <span className="ss-price-value">{plan.price}</span>
@@ -473,7 +471,7 @@ export function HomeSurfServicesSection() {
             </div>
 
             <Link to="/booking" className="ss-cta">
-              Add to your stay
+              {t('surfServices.group.cta')}
               <svg viewBox="0 0 16 16" fill="currentColor" style={{ width: 14, height: 14 }}>
                 <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.25 4.25a.75.75 0 0 1 0 1.06L9.28 12.53a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
               </svg>
@@ -491,25 +489,25 @@ export function HomeSurfServicesSection() {
           />
           <div className="ss-card-overlay" aria-hidden />
           <div className="ss-card-body">
-            <span className="ss-card-pill">Private · Flexible schedule</span>
-            <h3 className="ss-card-title font-display">Private Coaching</h3>
+            <span className="ss-card-pill">{t('surfServices.private.pill')}</span>
+            <h3 className="ss-card-title font-display">{t('surfServices.private.title')}</h3>
 
             <div className="ss-prices">
               {PRIVATE_PLANS.map(plan => (
-                <div key={plan.label} className="ss-price-row">
-                  <span className="ss-price-label">{plan.label}</span>
+                <div key={plan.id} className="ss-price-row">
+                  <span className="ss-price-label">{t(`surfServices.private.${plan.id}`)}</span>
                   <span className="ss-price-value">{plan.price}</span>
                 </div>
               ))}
               <div className="ss-price-row" style={{ borderBottom: 'none', paddingTop: '0.75rem' }}>
                 <span style={{ fontSize: '0.8125rem', color: 'rgba(244,241,234,0.4)', lineHeight: 1.5 }}>
-                  One coach, one focus — your technique,<br />your pace, your breakthroughs.
+                  {t('surfServices.private.tagline')}
                 </span>
               </div>
             </div>
 
             <Link to="/booking" className="ss-cta">
-              Add to your stay
+              {t('surfServices.private.cta')}
               <svg viewBox="0 0 16 16" fill="currentColor" style={{ width: 14, height: 14 }}>
                 <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.25 4.25a.75.75 0 0 1 0 1.06L9.28 12.53a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
               </svg>
@@ -522,17 +520,17 @@ export function HomeSurfServicesSection() {
       {/* ── Included strip ──────────────────────────────────────────────── */}
       <div className="ss-included">
         <div className="ss-included-inner">
-          <span className="ss-included-label">Every session includes</span>
+          <span className="ss-included-label">{t('surfServices.included.label')}</span>
           <div className="ss-included-divider" aria-hidden />
           <div className="ss-included-items">
-            {INCLUDED.map(item => (
-              <span key={item.label} className="ss-included-item">
+            {INCLUDED_ITEMS.map(item => (
+              <span key={item.id} className="ss-included-item">
                 <span>{item.icon}</span>
-                <span>{item.label}</span>
+                <span>{t(`surfServices.included.${item.id}`)}</span>
               </span>
             ))}
           </div>
-          <span className="ss-included-duration">~ 2 hours per session</span>
+          <span className="ss-included-duration">{t('surfServices.included.duration')}</span>
         </div>
       </div>
 
@@ -542,22 +540,14 @@ export function HomeSurfServicesSection() {
 
           {/* Left — label + description + perks */}
           <div className="ss-video-left">
-            <p className="ss-video-eyebrow font-label">Add-on service</p>
-            <h3 className="ss-video-heading font-display">Video Analysis</h3>
-            <p className="ss-video-desc">
-              We film your waves, then a coach breaks down your technique
-              frame by frame — stance, timing, rail pressure, pop-up mechanics.
-              Walk away knowing exactly what to work on next.
-            </p>
+            <p className="ss-video-eyebrow font-label">{t('surfServices.video.eyebrow')}</p>
+            <h3 className="ss-video-heading font-display">{t('surfServices.video.heading')}</h3>
+            <p className="ss-video-desc">{t('surfServices.video.desc')}</p>
             <div className="ss-video-perks">
-              {[
-                'HD footage of your full session',
-                '1-on-1 coach review after your surf',
-                'Technique notes & drills to take home',
-              ].map(perk => (
-                <div key={perk} className="ss-video-perk">
+              {(['perk1', 'perk2', 'perk3'] as const).map(key => (
+                <div key={key} className="ss-video-perk">
                   <span className="ss-video-perk-dot" aria-hidden />
-                  {perk}
+                  {t(`surfServices.video.${key}`)}
                 </div>
               ))}
             </div>
@@ -567,10 +557,10 @@ export function HomeSurfServicesSection() {
           <div className="ss-video-right">
             <div className="ss-video-price">
               <span className="ss-video-price-num">$60</span>
-              <span className="ss-video-price-unit font-label">per analysis</span>
+              <span className="ss-video-price-unit font-label">{t('surfServices.video.priceUnit')}</span>
             </div>
             <Link to="/booking" className="ss-cta">
-              Add to your stay
+              {t('surfServices.video.cta')}
               <svg viewBox="0 0 16 16" fill="currentColor" style={{ width: 14, height: 14 }}>
                 <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.25 4.25a.75.75 0 0 1 0 1.06L9.28 12.53a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
               </svg>

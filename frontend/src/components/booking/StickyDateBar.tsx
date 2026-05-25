@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 type Props = {
   arrivalYmd: string
   departureYmd: string
@@ -22,6 +24,7 @@ function nightsBetween(a: string, d: string): number | null {
 }
 
 export function StickyDateBar({ arrivalYmd, departureYmd, adults, onEdit }: Props) {
+  const { t } = useTranslation()
   const hasDates = arrivalYmd.length === 8 && departureYmd.length === 8
   const nights   = nightsBetween(arrivalYmd, departureYmd)
 
@@ -35,16 +38,16 @@ export function StickyDateBar({ arrivalYmd, departureYmd, adults, onEdit }: Prop
                 {formatShort(arrivalYmd)} → {formatShort(departureYmd)}
               </p>
             ) : (
-              <p className="sdb-dates font-label">Select your dates</p>
+              <p className="sdb-dates font-label">{t('booking.selectDates')}</p>
             )}
             <p className="sdb-sub font-label">
-              {nights ? `${nights} night${nights !== 1 ? 's' : ''} · ` : ''}
-              {adults} {adults === 1 ? 'guest' : 'guests'}
+              {nights ? `${nights} ${nights !== 1 ? t('booking.nights') : t('booking.night')} · ` : ''}
+              {adults} {adults === 1 ? t('booking.guest') : t('booking.guestsPlural')}
             </p>
           </div>
 
           <button onClick={onEdit} className="sdb-edit-btn font-label">
-            Edit search ↑
+            {t('booking.editSearch')}
           </button>
         </div>
       </div>

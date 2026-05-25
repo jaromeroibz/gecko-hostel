@@ -1,43 +1,12 @@
+import { useTranslation } from 'react-i18next'
 import { useInView } from '../../hooks/useInView'
 
-// ─── Testimonials data ────────────────────────────────────────────────────────
+// ─── Testimonials data (static — names/initials/source stay same) ─────────────
 const REVIEWS = [
-  {
-    id: 'leon',
-    quote:
-      'We had an excellent stay. The accommodation has everything you need, making it very pleasant — coffee maker, kettle, a well-equipped and spotless kitchen. The staff cleans every day, so it\'s always perfectly clean. Romi was charming and attentive to our every need. Highly recommend — 200%! Excellent value for money, and close to all services.',
-    name: 'Léon',
-    detail: 'Multi-night stay · April 2026',
-    initial: 'L',
-    source: 'Airbnb',
-  },
-  {
-    id: 'josefine',
-    quote:
-      'I had a great stay!! Would definitely recommend to anyone going to Santa Teresa.',
-    name: 'Josefine',
-    detail: 'Multi-night stay · March 2026',
-    initial: 'J',
-    source: 'Airbnb',
-  },
-  {
-    id: 'kenzo',
-    quote:
-      'Magnifique! Eladio is an absolute gem.',
-    name: 'Kenzo',
-    detail: 'Multi-night stay · Feb 2026',
-    initial: 'K',
-    source: 'Airbnb',
-  },
-  {
-    id: 'josefine-statement',
-    quote:
-      'Would definitely recommend to anyone going to Santa Teresa.',
-    name: 'Josefine',
-    detail: 'Airbnb · March 2026',
-    initial: 'J',
-    source: 'Airbnb',
-  },
+  { id: 'leon',              name: 'Léon',    initial: 'L', source: 'Airbnb' },
+  { id: 'josefine',          name: 'Josefine', initial: 'J', source: 'Airbnb' },
+  { id: 'kenzo',             name: 'Kenzo',   initial: 'K', source: 'Airbnb' },
+  { id: 'josefine-statement', name: 'Josefine', initial: 'J', source: 'Airbnb' },
 ]
 
 function Stars() {
@@ -51,6 +20,7 @@ function Avatar({ initial }: { initial: string }) {
 export function HomeTestimonialsSection() {
   const [hero, right1, right2, statement] = REVIEWS
   const [ref, inView] = useInView<HTMLElement>()
+  const { t } = useTranslation()
 
   const GECKO_ICON = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1778622715/background-removed_kzu281.png'
   const DIVIDER_COUNT = 20
@@ -78,22 +48,19 @@ export function HomeTestimonialsSection() {
         {/* ── Header ──────────────────────────────────────────────────── */}
         <div className="tr-header reveal">
           <div className="tr-header-left">
-            <p className="tr-eyebrow font-label uppercase">What guests say</p>
+            <p className="tr-eyebrow font-label uppercase">{t('testimonials.eyebrow')}</p>
             <h2 id="tr-heading" className="tr-heading font-display">
-              Real people.<br />Real stories.
+              {t('testimonials.heading1')}<br />{t('testimonials.heading2')}
             </h2>
-            <p className="tr-subtext">
-              No filters. No scripts. Just the moments that make people
-              extend their stay.
-            </p>
+            <p className="tr-subtext">{t('testimonials.subtext')}</p>
           </div>
 
           {/* Rating callout card */}
           <div className="tr-rating-card">
             <div className="tr-rating-stars"><Stars /></div>
-            <p className="tr-rating-score font-display">All 5-star</p>
+            <p className="tr-rating-score font-display">{t('testimonials.allFiveStar')}</p>
             <p className="tr-rating-source font-label uppercase">
-              24 verified reviews<br />Airbnb · Booking.com
+              {t('testimonials.verifiedReviews')}<br />{t('testimonials.sources')}
             </p>
           </div>
         </div>
@@ -108,7 +75,7 @@ export function HomeTestimonialsSection() {
 
             {/* Quote */}
             <blockquote className="tr-hero-quote font-display">
-              {hero.quote}
+              {t(`testimonials.reviews.${hero.id}.quote`)}
             </blockquote>
 
             {/* Divider */}
@@ -121,7 +88,7 @@ export function HomeTestimonialsSection() {
                 <Stars />
                 <p className="tr-reviewer-name">{hero.name}</p>
                 <p className="tr-reviewer-detail font-label uppercase">
-                  {hero.detail}
+                  {t(`testimonials.reviews.${hero.id}.detail`)}
                 </p>
               </div>
               <span className="tr-source-badge font-label uppercase">
@@ -136,14 +103,14 @@ export function HomeTestimonialsSection() {
             {/* Card — sand */}
             <article className="tr-card tr-card--sand" aria-label={`Review by ${right1.name}`}>
               <blockquote className="tr-card-quote font-display">
-                {right1.quote}
+                {t(`testimonials.reviews.${right1.id}.quote`)}
               </blockquote>
               <div className="tr-card-footer">
                 <Avatar initial={right1.initial} />
                 <div>
                   <Stars />
                   <p className="tr-card-name">{right1.name}</p>
-                  <p className="tr-card-origin font-label uppercase">{right1.detail}</p>
+                  <p className="tr-card-origin font-label uppercase">{t(`testimonials.reviews.${right1.id}.detail`)}</p>
                 </div>
               </div>
             </article>
@@ -151,14 +118,14 @@ export function HomeTestimonialsSection() {
             {/* Card — terracotta */}
             <article className="tr-card tr-card--clay" aria-label={`Review by ${right2.name}`}>
               <blockquote className="tr-card-quote font-display">
-                {right2.quote}
+                {t(`testimonials.reviews.${right2.id}.quote`)}
               </blockquote>
               <div className="tr-card-footer">
                 <Avatar initial={right2.initial} />
                 <div>
                   <Stars />
                   <p className="tr-card-name">{right2.name}</p>
-                  <p className="tr-card-origin font-label uppercase">{right2.detail}</p>
+                  <p className="tr-card-origin font-label uppercase">{t(`testimonials.reviews.${right2.id}.detail`)}</p>
                 </div>
               </div>
             </article>
@@ -172,12 +139,12 @@ export function HomeTestimonialsSection() {
         <div className="tr-statement-inner">
           <span className="tr-statement-deco font-display" aria-hidden>"</span>
           <blockquote className="tr-statement-quote font-display">
-            {statement.quote}
+            {t(`testimonials.reviews.${statement.id}.quote`)}
           </blockquote>
           <div className="tr-statement-byline">
             <Stars />
             <p className="tr-statement-name font-label uppercase">
-              {statement.name} · {statement.detail}
+              {statement.name} · {t(`testimonials.reviews.${statement.id}.detail`)}
             </p>
           </div>
         </div>

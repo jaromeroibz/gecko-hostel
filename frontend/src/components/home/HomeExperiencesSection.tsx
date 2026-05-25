@@ -1,11 +1,14 @@
+import { useTranslation } from 'react-i18next'
 import { useInView } from '../../hooks/useInView'
 
 // ── Experience images ──────────────────────────────────────────────────────
-const IMG_ATV       = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779215038/pexels-srkportraits-8310033_cka0zv.jpg'
-const IMG_TIDEPOOLS = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_8778_qyo4bt.jpg'
+const IMG_ATV        = 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688497/zkyvvcmfetn0xc03naqh.webp'
+const IMG_WATERFALLS = 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688180/d30t12tefrpmbdqpipys.webp'
+const IMG_TIDEPOOLS  = 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688597/pj2fxkluiewa4rxm2lr0.webp'
 
 export function HomeExperiencesSection() {
   const [ref, inView] = useInView<HTMLElement>()
+  const { t } = useTranslation()
   return (
     <section
       ref={ref}
@@ -22,15 +25,15 @@ export function HomeExperiencesSection() {
       {/* ── Section header ─────────────────────────────────────────────────── */}
       <header className="ex-header reveal">
         <p className="ex-eyebrow font-label font-medium uppercase text-gecko-clay">
-          Explore with us
+          {t('experiences.eyebrow')}
         </p>
         <h2 className="ex-heading font-display text-gecko-cream">
-          Beyond the break.
+          {t('experiences.heading')}
         </h2>
         <p className="ex-subtext">
-          Santa Teresa doesn't start and end in the water.<br />
-          Jungle trails, hidden falls, secret coastlines —<br />
-          there's a whole world between sessions.
+          {t('experiences.subtext1')}<br />
+          {t('experiences.subtext2')}<br />
+          {t('experiences.subtext3')}
         </p>
       </header>
 
@@ -49,23 +52,17 @@ export function HomeExperiencesSection() {
 
           {/* Floating content panel — bottom left */}
           <div className="ex-hero-panel">
-            <span className="ex-cat font-label">Off-road · Guided & rentals</span>
+            <span className="ex-cat font-label">{t('experiences.atv.cat')}</span>
             <h3 className="ex-panel-title font-display">
-              Rip through<br />the jungle.
+              {t('experiences.atv.title1')}<br />{t('experiences.atv.title2')}
             </h3>
-            <p className="ex-panel-body">
-              Coastal cliffs, hidden lookouts, jungle trails.
-              Book a guided ATV tour or rent one and carve your own path —
-              Santa Teresa's wildest terrain is yours.
-            </p>
-            <span className="ex-tag font-label">
-              ATV Tours · Half day · Guided or self-guided
-            </span>
+            <p className="ex-panel-body">{t('experiences.atv.body')}</p>
+            <span className="ex-tag font-label">{t('experiences.atv.tag')}</span>
           </div>
 
           {/* Badge — top right */}
           <div className="ex-badge font-label" aria-label="Most popular experience">
-            ★ Most popular
+            {t('experiences.atv.badge')}
           </div>
 
           <span className="ex-num" aria-hidden>01</span>
@@ -74,23 +71,22 @@ export function HomeExperiencesSection() {
         {/* ─── ROW 2 — Waterfalls + Tide Pools ────────────────────────── */}
         <div className="ex-row-2">
 
-          {/* Waterfalls — warm sun-yellow colour block */}
-          <div className="ex-card ex-card--warm reveal stagger-3">
-            <div className="ex-warm-bg" aria-hidden />
-            <span className="ex-ghost font-display" aria-hidden>Falls</span>
-            <span className="ex-num ex-num--dark" aria-hidden>02</span>
-            <div className="ex-card-content ex-card-content--warm">
-              <span className="ex-cat ex-cat--dark font-label">Into the wild</span>
-              <h3 className="ex-card-title ex-card-title--dark font-display">
-                Swim<br />somewhere<br />untouched.
+          {/* Waterfalls */}
+          <div className="ex-card reveal stagger-3">
+            <img
+              src={IMG_WATERFALLS}
+              alt="Waterfall in the Costa Rica jungle near Santa Teresa"
+              loading="lazy"
+            />
+            <div className="ex-card-overlay" aria-hidden />
+            <span className="ex-num" aria-hidden>02</span>
+            <div className="ex-card-content">
+              <span className="ex-cat font-label">{t('experiences.waterfalls.cat')}</span>
+              <h3 className="ex-card-title font-display">
+                {t('experiences.waterfalls.title1')}<br />{t('experiences.waterfalls.title2')}<br />{t('experiences.waterfalls.title3')}
               </h3>
-              <p className="ex-card-body ex-card-body--dark">
-                Hike through dense rainforest to waterfalls so remote
-                they feel like secrets. Cold water, warm light, zero crowds.
-              </p>
-              <span className="ex-tag ex-tag--dark font-label">
-                Waterfall Tours · Full day · Guided
-              </span>
+              <p className="ex-card-body">{t('experiences.waterfalls.body')}</p>
+              <span className="ex-tag font-label">{t('experiences.waterfalls.tag')}</span>
             </div>
           </div>
 
@@ -104,17 +100,12 @@ export function HomeExperiencesSection() {
             <div className="ex-card-overlay" aria-hidden />
             <span className="ex-num" aria-hidden>03</span>
             <div className="ex-card-content">
-              <span className="ex-cat font-label">Coast & ocean</span>
+              <span className="ex-cat font-label">{t('experiences.tidepools.cat')}</span>
               <h3 className="ex-card-title font-display">
-                The coast<br />hides its<br />best secrets.
+                {t('experiences.tidepools.title1')}<br />{t('experiences.tidepools.title2')}<br />{t('experiences.tidepools.title3')}
               </h3>
-              <p className="ex-card-body">
-                Tide pools teeming with life, hidden coves only locals know.
-                A guided walk along the raw coastline between sessions.
-              </p>
-              <span className="ex-tag font-label">
-                Tide Pools · Hidden Beaches · Guided walk
-              </span>
+              <p className="ex-card-body">{t('experiences.tidepools.body')}</p>
+              <span className="ex-tag font-label">{t('experiences.tidepools.tag')}</span>
             </div>
           </div>
 
@@ -123,10 +114,10 @@ export function HomeExperiencesSection() {
         {/* ─── CTA strip ────────────────────────────────────────────────── */}
         <div className="ex-cta-strip reveal stagger-5">
           <p className="ex-cta-copy font-display">
-            Every day is a new adventure.
+            {t('experiences.ctaCopy')}
           </p>
           <a href="/booking" className="ex-cta-btn font-label font-medium uppercase">
-            Book your stay →
+            {t('experiences.ctaBtn')}
           </a>
         </div>
 

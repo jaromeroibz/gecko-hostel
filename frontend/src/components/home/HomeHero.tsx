@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { WaveButton } from '../ui/WaveButton'
 
 const LOGO_URL =
@@ -9,17 +10,18 @@ const LOGO_URL =
 const HERO_BG =
   'https://res.cloudinary.com/doow0mhrm/image/upload/v1778627977/frames-for-your-heart-eBSKJJuPeO8-unsplash_uc6ksc.jpg'
 
-const HERO_NAV = [
-  { label: 'Home', to: '/' },
-  { label: 'Rooms', to: '/booking' },
-  { label: 'Location', to: '/location' },
-  { label: 'Contact Us', to: '/contact' },
+const NAV_KEYS = [
+  { labelKey: 'nav.home',     to: '/' },
+  { labelKey: 'nav.rooms',    to: '/booking' },
+  { labelKey: 'nav.location', to: '/location' },
+  { labelKey: 'nav.contact',  to: '/contact' },
 ]
 
 export function HomeHero() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrollY, setScrollY] = useState(0)
   const heroRef = useRef<HTMLDivElement>(null)
+  const { t, i18n } = useTranslation()
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
@@ -34,6 +36,8 @@ export function HomeHero() {
   }, [])
 
   const close = () => setMenuOpen(false)
+  const currentLang = i18n.language?.startsWith('es') ? 'es' : 'en'
+  const toggleLang = () => i18n.changeLanguage(currentLang === 'en' ? 'es' : 'en')
 
   return (
     <>
@@ -105,25 +109,36 @@ export function HomeHero() {
 
             <div className="hero-text-col" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both' }}>
               <h1 className="hero-heading font-display font-medium tracking-tight text-gecko-forestDeep">
-                Welcome to<br />Gecko Surf House
+                {t('hero.welcomeTo')}<br />{t('hero.hostelName')}
               </h1>
             </div>
           </div>
 
           {/* ROW 2: Desktop navbar */}
           <nav className="hero-nav" aria-label="Hero navigation" style={{ animation: 'hero-enter 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both' }}>
-            {HERO_NAV.map(({ label, to }) => (
+            {NAV_KEYS.map(({ labelKey, to }) => (
               <Link
-                key={label}
+                key={labelKey}
                 to={to}
                 className="hero-nav-link font-label font-medium uppercase text-gecko-forest hover:text-gecko-forestDeep"
               >
-                {label}
+                {t(labelKey)}
               </Link>
             ))}
             <WaveButton to="/booking" className="hero-book-btn font-label font-medium uppercase">
-              Book Now
+              {t('nav.bookNow')}
             </WaveButton>
+
+            {/* Language toggle — desktop */}
+            <button
+              onClick={toggleLang}
+              className="font-label lang-toggle-light"
+              aria-label={currentLang === 'en' ? 'Switch to Spanish' : 'Switch to English'}
+            >
+              <span className={currentLang === 'en' ? 'navbar-lang--active' : ''}>EN</span>
+              <span className="navbar-lang-sep">·</span>
+              <span className={currentLang === 'es' ? 'navbar-lang--active' : ''}>ES</span>
+            </button>
           </nav>
 
           {/* Burger — mobile only */}
@@ -131,7 +146,7 @@ export function HomeHero() {
             <button
               className="hero-burger"
               onClick={() => setMenuOpen(true)}
-              aria-label="Open menu"
+              aria-label={t('hero.openMenu')}
             >
               <span /><span /><span />
             </button>
@@ -152,22 +167,34 @@ export function HomeHero() {
         style={{ transform: menuOpen ? 'translateX(0)' : 'translateX(100%)' }}
         aria-hidden={!menuOpen}
       >
-        <button className="drawer-close" onClick={close} aria-label="Close menu">✕</button>
+        <button className="drawer-close" onClick={close} aria-label={t('hero.closeMenu')}>✕</button>
 
         <nav className="drawer-nav">
-          {HERO_NAV.map(({ label, to }) => (
+          {NAV_KEYS.map(({ labelKey, to }) => (
             <Link
-              key={label}
+              key={labelKey}
               to={to}
               className="drawer-link font-label font-medium uppercase text-gecko-forest hover:text-gecko-forestDeep"
               onClick={close}
             >
-              {label}
+              {t(labelKey)}
             </Link>
           ))}
           <WaveButton to="/booking" className="drawer-book font-label font-medium uppercase" onClick={close}>
-            Book Now
+            {t('nav.bookNow')}
           </WaveButton>
+
+          {/* Language toggle — mobile drawer */}
+          <button
+            onClick={() => { toggleLang(); close() }}
+            className="font-label lang-toggle-light"
+            style={{ marginTop: '0.5rem', alignSelf: 'flex-start' }}
+            aria-label={currentLang === 'en' ? 'Switch to Spanish' : 'Switch to English'}
+          >
+            <span className={currentLang === 'en' ? 'navbar-lang--active' : ''}>EN</span>
+            <span className="navbar-lang-sep">·</span>
+            <span className={currentLang === 'es' ? 'navbar-lang--active' : ''}>ES</span>
+          </button>
         </nav>
       </div>
 

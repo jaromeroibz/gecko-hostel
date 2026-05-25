@@ -1,60 +1,42 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import { useInView } from '../hooks/useInView'
 
 // ── Images (swap for your own Cloudinary URLs when ready) ─────────────────────
-const HERO_IMG = 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=2000&q=80'
-const SURF_IMG = 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=1400&q=80'
+const HERO_IMG = 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779689486/j9kzefwlwcb6yrk1825s.webp'
+const SURF_IMG = 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688177/nylo3uhstgl3zium2ulk.webp'
 
 const TILES = [
   {
     id: 'waterfalls',
-    title: 'Waterfalls',
-    sub: 'Montezuma · Florida',
-    img: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80',
+    img: 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688179/kylykmwfpcokuxsdsne2.webp',
   },
   {
     id: 'wildlife',
-    title: 'Jungle & Wildlife',
-    sub: 'Monkeys, turtles & scarlet macaws',
-    img: 'https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?auto=format&fit=crop&w=700&q=80',
+    img: 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688179/wxmofl4tudxikumspmcd.webp',
   },
   {
     id: 'sunsets',
-    title: 'Pacific Sunsets',
-    sub: 'Golden hour every single evening',
-    img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=700&q=80',
+    img: 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688896/qnxln0z2pzqq9phy80zy.webp',
   },
   {
     id: 'adventure',
-    title: 'Adventure',
-    sub: 'ATV, fishing & hiking',
-    img: 'https://images.unsplash.com/photo-1533130061792-64b345e4a833?auto=format&fit=crop&w=900&q=80',
+    img: 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688941/olu30hgccjaqbiolzevf.webp',
   },
   // shown on mobile only (desktop mosaic has 4 tiles)
   {
     id: 'food',
-    title: 'Food & Nightlife',
-    sub: 'Sodas, ceviche & rooftop bars',
     img: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=700&q=80',
   },
 ]
 
-const SURF_STATS: [string, string][] = [
-  ['27°C',          'Water temp'],
-  ['Beach + point', 'Break types'],
-  ['All year',      'Surf season'],
-  ['All levels',    'Instructors'],
-]
+const SURF_STAT_KEYS = ['waterTemp', 'breakTypes', 'surfSeason', 'instructors'] as const
 
-const FACTS = [
-  { value: '27–30°C',   label: 'Water & air year-round' },
-  { value: 'Every day', label: 'Consistent waves' },
-  { value: '3 min',     label: 'Walk to the surf break' },
-  { value: '30 min',    label: 'From Cobano airport' },
-]
+const FACT_KEYS = ['waterTemp', 'waves', 'walk', 'airport'] as const
 
 export function LocationPage() {
+  const { t } = useTranslation()
   const [statementRef, statementInView] = useInView<HTMLDivElement>({ threshold: 0.15 })
   const [surfRef,      surfInView]      = useInView<HTMLDivElement>({ threshold: 0.08 })
   const [expRef,       expInView]       = useInView<HTMLDivElement>({ threshold: 0.06 })
@@ -73,17 +55,17 @@ export function LocationPage() {
         />
         <div className="lc-hero-overlay absolute inset-0" aria-hidden />
         <div className="lc-hero-inner">
-          <p className="lc-eyebrow font-label" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s both' }}>Nicoya Peninsula · Costa Rica</p>
+          <p className="lc-eyebrow font-label" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s both' }}>{t('location.heroEyebrow')}</p>
           <h1 className="lc-hero-heading font-display" style={{ animation: 'hero-enter 0.9s cubic-bezier(0.22,1,0.36,1) 0.32s both' }}>
-            Santa Teresa<br />
-            doesn't let<br />
-            you leave.
+            {t('location.heroHeading1')}<br />
+            {t('location.heroHeading2')}<br />
+            {t('location.heroHeading3')}
           </h1>
           <p className="lc-hero-sub font-label" style={{ animation: 'hero-enter 0.85s cubic-bezier(0.22,1,0.36,1) 0.5s both' }}>
-            Where the jungle meets the Pacific.
+            {t('location.heroSub')}
           </p>
           <Link to="/booking" className="lc-hero-cta font-label" style={{ animation: 'hero-enter 0.8s cubic-bezier(0.22,1,0.36,1) 0.65s both' }}>
-            Book your stay →
+            {t('location.heroCta')}
           </Link>
         </div>
         <div className="lc-scroll-hint" aria-hidden>
@@ -94,12 +76,11 @@ export function LocationPage() {
       {/* ── Opening statement ────────────────────────────────────────── */}
       <div ref={statementRef} className={`lc-statement${statementInView ? ' in-view' : ''}`}>
         <p className="lc-statement-text reveal">
-          A dirt road lined with surf shops, howler monkeys overhead, scarlet
-          macaws crossing the sky at dawn.{' '}
+          {t('location.statement1')}{' '}
           <span className="lc-statement-accent">
-            Santa Teresa sits at the tip of the Nicoya Peninsula
+            {t('location.statementAccent')}
           </span>{' '}
-          — and once you arrive, leaving feels like a mistake.
+          {t('location.statement2')}
         </p>
       </div>
 
@@ -107,23 +88,18 @@ export function LocationPage() {
       <div ref={surfRef} className={`lc-surf relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2${surfInView ? ' in-view' : ''}`}>
         <div className="lc-surf-inner">
           <div className="lc-surf-text reveal-from-left">
-            <p className="lc-surf-eyebrow font-label">The main attraction</p>
+            <p className="lc-surf-eyebrow font-label">{t('location.surfEyebrow')}</p>
             <h2 className="lc-surf-heading font-display">
-              Consistent waves,<br />year-round.
+              {t('location.surfHeading1')}<br />{t('location.surfHeading2')}
             </h2>
             <p className="lc-surf-desc">
-              Playa Santa Teresa and Playa Carmen deliver powerful beach breaks
-              and long point breaks that work on every swell. The warm Pacific
-              water, world-class surf schools and a community built around the
-              ocean make this one of the finest surf destinations in Central
-              America — whether you're paddling out for the first time or
-              hunting barrels before breakfast.
+              {t('location.surfDesc')}
             </p>
             <div className="lc-surf-stats">
-              {SURF_STATS.map(([val, label], i) => (
-                <div key={label} className={`lc-stat reveal stagger-${i + 2}`}>
-                  <span className="lc-stat-val font-display">{val}</span>
-                  <span className="lc-stat-label font-label">{label}</span>
+              {SURF_STAT_KEYS.map((key, i) => (
+                <div key={key} className={`lc-stat reveal stagger-${i + 2}`}>
+                  <span className="lc-stat-val font-display">{t(`location.stats.${key}.val`)}</span>
+                  <span className="lc-stat-label font-label">{t(`location.stats.${key}.label`)}</span>
                 </div>
               ))}
             </div>
@@ -139,8 +115,8 @@ export function LocationPage() {
       {/* ── Experiences mosaic ───────────────────────────────────────── */}
       <div ref={expRef} className={`lc-experiences${expInView ? ' in-view' : ''}`}>
         <div className="lc-exp-header reveal">
-          <p className="lc-exp-eyebrow font-label">More than just surf</p>
-          <h2 className="lc-exp-heading font-display">Life in Santa Teresa</h2>
+          <p className="lc-exp-eyebrow font-label">{t('location.expEyebrow')}</p>
+          <h2 className="lc-exp-heading font-display">{t('location.expHeading')}</h2>
         </div>
 
         <div className="lc-mosaic reveal stagger-2" role="list">
@@ -149,7 +125,7 @@ export function LocationPage() {
               key={tile.id}
               role="listitem"
               className={`lc-tile lc-tile--${tile.id}`}
-              aria-label={tile.title}
+              aria-label={t(`location.tiles.${tile.id}.title`)}
             >
               <div
                 className="lc-tile-img"
@@ -158,8 +134,8 @@ export function LocationPage() {
               />
               <div className="lc-tile-overlay" aria-hidden />
               <div className="lc-tile-text">
-                <span className="lc-tile-title font-display">{tile.title}</span>
-                <span className="lc-tile-sub font-label">{tile.sub}</span>
+                <span className="lc-tile-title font-display">{t(`location.tiles.${tile.id}.title`)}</span>
+                <span className="lc-tile-sub font-label">{t(`location.tiles.${tile.id}.sub`)}</span>
               </div>
             </div>
           ))}
@@ -169,10 +145,10 @@ export function LocationPage() {
       {/* ── Fact strip ───────────────────────────────────────────────── */}
       <div ref={factsRef} className={`lc-facts relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2${factsInView ? ' in-view' : ''}`}>
         <div className="lc-facts-inner">
-          {FACTS.map(({ value, label }, i) => (
-            <div key={label} className={`lc-fact reveal stagger-${i + 1}`}>
-              <span className="lc-fact-val font-display">{value}</span>
-              <span className="lc-fact-label font-label">{label}</span>
+          {FACT_KEYS.map((key, i) => (
+            <div key={key} className={`lc-fact reveal stagger-${i + 1}`}>
+              <span className="lc-fact-val font-display">{t(`location.facts.${key}.val`)}</span>
+              <span className="lc-fact-label font-label">{t(`location.facts.${key}.label`)}</span>
             </div>
           ))}
         </div>
@@ -180,34 +156,30 @@ export function LocationPage() {
 
       {/* ── Getting there ────────────────────────────────────────────── */}
       <div ref={gtRef} className={`lc-getting-there${gtInView ? ' in-view' : ''}`}>
-        <p className="lc-gt-eyebrow font-label reveal">Getting here</p>
+        <p className="lc-gt-eyebrow font-label reveal">{t('location.gettingHere')}</p>
         <h2 className="lc-gt-heading font-display reveal stagger-1">
-          Finding paradise is easier than you think.
+          {t('location.gtHeading')}
         </h2>
         <div className="lc-gt-cards">
           <div className="lc-gt-card reveal stagger-2">
             <div className="lc-gt-icon" aria-hidden>✈️</div>
-            <h3 className="lc-gt-card-title font-display">By air</h3>
+            <h3 className="lc-gt-card-title font-display">{t('location.byAir.title')}</h3>
             <p className="lc-gt-card-desc">
-              Fly San José → Cobano (45 min domestic flight), then a
-              30-minute taxi or shuttle to Santa Teresa. The fastest and most
-              comfortable option — you'll be in the water by afternoon.
+              {t('location.byAir.desc')}
             </p>
             <span className="lc-gt-route font-label">
-              SJO → Cobano → Santa Teresa · ~1.5 hrs total
+              {t('location.byAir.route')}
             </span>
           </div>
 
           <div className="lc-gt-card reveal stagger-3">
             <div className="lc-gt-icon" aria-hidden>⛴️</div>
-            <h3 className="lc-gt-card-title font-display">By bus & ferry</h3>
+            <h3 className="lc-gt-card-title font-display">{t('location.byFerry.title')}</h3>
             <p className="lc-gt-card-desc">
-              Bus to Puntarenas, ferry to Paquera, then a local bus straight
-              to Santa Teresa. Longer, but the ferry crossing through the Gulf
-              of Nicoya is an experience in itself — book a window seat.
+              {t('location.byFerry.desc')}
             </p>
             <span className="lc-gt-route font-label">
-              San José → Paquera ferry → Santa Teresa · ~5–6 hrs
+              {t('location.byFerry.route')}
             </span>
           </div>
         </div>
@@ -216,20 +188,20 @@ export function LocationPage() {
       {/* ── Final CTA ────────────────────────────────────────────────── */}
       <div ref={ctaRef} className={`lc-cta relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2${ctaInView ? ' in-view' : ''}`}>
         <div className="lc-cta-inner">
-          <p className="lc-cta-eyebrow font-label reveal">You've read enough</p>
+          <p className="lc-cta-eyebrow font-label reveal">{t('location.ctaEyebrow')}</p>
           <h2 className="lc-cta-heading font-display reveal stagger-1">
-            Santa Teresa<br />is waiting.
+            {t('location.ctaHeading1')}<br />{t('location.ctaHeading2')}
           </h2>
           <p className="lc-cta-sub font-label reveal stagger-2">
-            Waves every morning. Jungle at your door.<br />
-            The rest figures itself out.
+            {t('location.ctaSub1')}<br />
+            {t('location.ctaSub2')}
           </p>
           <div className="lc-cta-btns reveal stagger-3">
             <Link to="/booking" className="lc-cta-btn-primary font-label">
-              Book your stay →
+              {t('location.ctaBookBtn')}
             </Link>
             <Link to="/#packages" className="lc-cta-btn-secondary font-label">
-              Browse packages →
+              {t('location.ctaBrowseBtn')}
             </Link>
           </div>
         </div>

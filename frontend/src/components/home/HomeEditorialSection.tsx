@@ -1,15 +1,15 @@
+import { useTranslation } from 'react-i18next'
 import { WaveButton } from '../ui/WaveButton'
 import { useInView } from '../../hooks/useInView'
 
-// Golden-hour surfer riding the wave — warm, lifestyle
 const IMAGE_1 =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_7689_wollqs.jpg'
-// Aerial cutback, turquoise spray — energy + action
+  'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688177/v2qsha0l6ppjfternu6w.webp'
 const IMAGE_2 =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_1348_ucphi8.jpg'
+  'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688351/evakkr0xhkqn8w1qerma.webp'
 
 export function HomeEditorialSection() {
   const [ref, inView] = useInView<HTMLElement>()
+  const { t } = useTranslation()
   return (
     <section
       ref={ref}
@@ -20,31 +20,25 @@ export function HomeEditorialSection() {
         {/* ── LEFT: Text content ───────────────────────────────────── */}
         <div className="editorial-text reveal">
           <p className="editorial-tagline font-label font-medium uppercase text-gecko-clay">
-            Waves in front. Jungle behind. Sunsets everywhere.
+            {t('editorial.tagline')}
           </p>
 
           <h2 className="editorial-heading font-display font-medium tracking-tight text-gecko-cream">
-            Welcome to<br />Gecko Surf House
+            {t('editorial.heading1')}<br />
+            {t('editorial.heading2')}
           </h2>
 
           <div className="editorial-body">
-            <p>
-              A laid-back backpacker hostel in the heart of Santa Teresa, Costa Rica. Surf
-              world-class waves just steps away, explore tropical nature, watch incredible
-              sunsets, and connect with travelers from all over the world.
-            </p>
-            <p>
-              From early morning surf sessions to late-night BBQs under the stars, Gecko Surf
-              House is built around simple moments and good vibes.
-            </p>
+            <p>{t('editorial.body1')}</p>
+            <p>{t('editorial.body2')}</p>
           </div>
 
           <p className="editorial-closer font-display">
-            Stay close to the ocean. Stay close to nature.
+            {t('editorial.closer')}
           </p>
 
           <WaveButton to="/booking" className="editorial-cta font-label font-medium uppercase">
-            Book your next adventure
+            {t('editorial.cta')}
           </WaveButton>
         </div>
 

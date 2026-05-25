@@ -78,6 +78,41 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   color:            #064E3B !important;
 }
 
+/* Language toggle — sticky navbar & hero drawer */
+.navbar-lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  color: rgba(30, 61, 50, 0.45);
+  padding: 0.25rem 0;
+  transition: color 0.2s;
+}
+.navbar-lang-toggle:hover { color: #1e3d32; }
+.navbar-lang-sep { opacity: 0.4; }
+.navbar-lang--active { color: #1e3d32; font-weight: 700; }
+
+/* Light version for hero / dark drawer */
+.lang-toggle-light {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  color: rgba(6, 78, 59, 0.45);
+  padding: 0.25rem 0;
+  transition: color 0.2s;
+}
+.lang-toggle-light:hover { color: #064E3B; }
+.lang-toggle-light .navbar-lang--active { color: #064E3B; font-weight: 700; }
+
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    Scroll-reveal utilities
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */

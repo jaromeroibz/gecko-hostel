@@ -16,7 +16,7 @@ export type MarketingRoom = {
 export const MARKETING_ROOMS: MarketingRoom[] = [
   {
     id: 'gecko-dorm',
-    name: '6 Gecko',
+    name: 'Gecko Dorm',
     tagline: 'Social surf energy',
     description:
       'Our signature shared space—perfect for meeting travelers, early surf missions, and easygoing evenings after the beach.',
@@ -29,7 +29,7 @@ export const MARKETING_ROOMS: MarketingRoom[] = [
   },
   {
     id: 'la-lora',
-    name: 'Doble — La Lora',
+    name: 'La Lora',
     tagline: 'Private room calm',
     description:
       'A quiet double for couples or friends who want privacy without losing the hostel pulse—ideal after long days in the water.',

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import type { BookingRoom } from '../../data/bookingRooms'
 
@@ -22,6 +23,7 @@ type Props = {
 
 export function RoomCard({ room, searchQuery, onSelect, isSelected }: Props) {
   const [imgIdx, setImgIdx] = useState(0)
+  const { t } = useTranslation()
 
   const images = room.images.length > 0 ? room.images : [GECKO_DORM_PLACEHOLDER]
   const hasMultiple = images.length > 1
@@ -84,9 +86,9 @@ export function RoomCard({ room, searchQuery, onSelect, isSelected }: Props) {
           {/* Bottom bar: badges (left) + dots (right) */}
           <div className="absolute bottom-3.5 left-3.5 right-3.5 z-10 flex flex-wrap items-end justify-between gap-2">
             <div className="flex flex-wrap gap-2">
-              <span className="rc-badge-type font-label">{room.type}</span>
+              <span className="rc-badge-type font-label">{t(`bookingRooms.${room.id}.type`)}</span>
               <span className="rc-badge-meta font-label">
-                {room.size} m² · {room.bathroom === 'private' ? 'Private bath' : 'Shared bath'}
+                {room.size} m² · {room.bathroom === 'private' ? t('booking.privateBath') : t('booking.sharedBath')}
               </span>
             </div>
 
@@ -110,13 +112,13 @@ export function RoomCard({ room, searchQuery, onSelect, isSelected }: Props) {
         {/* ── Info ────────────────────────────────────────────────────── */}
         <div className="flex flex-1 flex-col p-6 sm:p-7">
           <h2 className="rc-name font-display">{room.name}</h2>
-          <p className="rc-meta mt-1">{room.beds}</p>
+          <p className="rc-meta mt-1">{t(`bookingRooms.${room.id}.beds`)}</p>
           <p className="rc-meta mt-0.5">
-            Up to {room.capacity} guest{room.capacity !== 1 ? 's' : ''}
+            {t('booking.upTo')} {room.capacity} {room.capacity !== 1 ? t('booking.guestsPlural') : t('booking.guest')}
           </p>
-          <p className="rc-desc mt-3 flex-1">{room.description}</p>
+          <p className="rc-desc mt-3 flex-1">{t(`bookingRooms.${room.id}.description`)}</p>
           <ul className="mt-4 flex flex-wrap gap-2" aria-label="Amenities">
-            {room.highlights.map((item) => (
+            {(t(`bookingRooms.${room.id}.highlights`, { returnObjects: true }) as string[]).map((item) => (
               <li key={item} className="rc-highlight font-label">{item}</li>
             ))}
           </ul>
@@ -130,11 +132,11 @@ export function RoomCard({ room, searchQuery, onSelect, isSelected }: Props) {
               onClick={onSelect}
               className={`rc-cta-btn font-label${isSelected ? ' rc-cta-btn--active' : ''}`}
             >
-              {isSelected ? 'Availability shown below ↓' : 'Check availability →'}
+              {isSelected ? t('booking.availabilityShown') : t('booking.checkAvailability')}
             </button>
           ) : (
             <Link to={bookHref} className="rc-cta-btn font-label">
-              Book this room →
+              {t('booking.bookRoom')}
             </Link>
           )}
         </div>

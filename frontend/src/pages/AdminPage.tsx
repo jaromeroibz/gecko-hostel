@@ -65,9 +65,9 @@ export function AdminPage() {
   const [imageSearch, setImageSearch] = useState('')
   const [imageCategory, setImageCategory] = useState('all')
   const [rooms, setRooms] = useState<RoomRecord[]>([
-    { id: 'room-1', name: '6 Gecko', capacity: 6, type: 'Dorm', basePrice: 45 },
-    { id: 'room-2', name: 'Doble - La Lora', capacity: 2, type: 'Private', basePrice: 95 },
-    { id: 'room-3', name: 'Paraiso', capacity: 4, type: 'Family', basePrice: 120 },
+    { id: 'room-1', name: 'Gecko Dorm', capacity: 6, type: 'Dorm', basePrice: 45 },
+    { id: 'room-2', name: 'La Lora', capacity: 2, type: 'Private', basePrice: 95 },
+    { id: 'room-3', name: 'Paraíso', capacity: 4, type: 'Family', basePrice: 120 },
     { id: 'room-4', name: 'Rocamar', capacity: 2, type: 'Private', basePrice: 110 },
   ])
 

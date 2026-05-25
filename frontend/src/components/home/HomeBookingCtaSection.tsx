@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useInView } from '../../hooks/useInView'
 
 // Surfer paddling at dusk — deep moody blue, cinematic
@@ -6,6 +7,7 @@ const CTA_BG =
   'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036018/AZC_9775_bnnbdm.jpg'
 
 export function HomeBookingCtaSection() {
+  const { t } = useTranslation()
   const [ref, inView] = useInView<HTMLElement>({ threshold: 0.08 })
   return (
     <section
@@ -38,19 +40,17 @@ export function HomeBookingCtaSection() {
         {/* Left — editorial headline cluster */}
         <div className="cta-left">
           <p className="cta-eyebrow font-label uppercase reveal">
-            Santa Teresa · Costa Rica
+            {t('cta.eyebrow')}
           </p>
 
           <h2 id="cta-heading" className="cta-heading font-display">
-            <span className="cta-line-wrap"><span className="cta-line-inner">Your next</span></span>
-            <span className="cta-line-wrap"><span className="cta-line-inner stagger-1">morning</span></span>
-            <span className="cta-line-wrap"><span className="cta-line-inner stagger-2"><em>starts here.</em></span></span>
+            <span className="cta-line-wrap"><span className="cta-line-inner">{t('cta.line1')}</span></span>
+            <span className="cta-line-wrap"><span className="cta-line-inner stagger-1">{t('cta.line2')}</span></span>
+            <span className="cta-line-wrap"><span className="cta-line-inner stagger-2"><em>{t('cta.line3')}</em></span></span>
           </h2>
 
           <p className="cta-body reveal stagger-3">
-            3 minutes from the break. Hot coffee before the crowd wakes up.
-            A backyard that turns strangers into crew.
-            The only thing left is your room.
+            {t('cta.body')}
           </p>
         </div>
 
@@ -61,25 +61,25 @@ export function HomeBookingCtaSection() {
           <div className="cta-panel-bar" aria-hidden />
 
           <p className="cta-panel-eyebrow font-label uppercase">
-            Reserve your stay
+            {t('cta.panelEyebrow')}
           </p>
 
           <p className="cta-panel-heading font-display">
-            Rooms fill fast.<br />
-            <em>Don't wait.</em>
+            {t('cta.panelHeading')}<br />
+            <em>{t('cta.panelHeadingEm')}</em>
           </p>
 
           <div className="cta-panel-divider" aria-hidden />
 
           <p className="cta-panel-note font-label">
-            Real-time availability · Secure booking
+            {t('cta.panelNote')}
           </p>
 
           <Link
             to="/booking"
             className="cta-btn-primary font-label"
           >
-            Book your room
+            {t('cta.panelBtn')}
           </Link>
 
         </div>

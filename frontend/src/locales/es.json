@@ -1,0 +1,420 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "rooms": "Habitaciones",
+    "location": "Ubicación",
+    "contact": "Contáctanos",
+    "bookNow": "Reservar"
+  },
+  "hero": {
+    "welcomeTo": "Bienvenido a",
+    "hostelName": "Gecko Surf House",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
+  },
+  "editorial": {
+    "tagline": "Olas al frente. Selva atrás. Atardeceres en todas partes.",
+    "heading1": "Bienvenido a",
+    "heading2": "Gecko Surf House",
+    "body1": "Un hostal mochilero relajado en el corazón de Santa Teresa, Costa Rica. Surfea olas de clase mundial a pocos pasos, explora la naturaleza tropical, contempla increíbles atardeceres y conecta con viajeros de todo el mundo.",
+    "body2": "Desde sesiones de surf al amanecer hasta BBQs nocturnos bajo las estrellas, Gecko Surf House se construye alrededor de los momentos simples y la buena onda.",
+    "closer": "Cerca del océano. Cerca de la naturaleza.",
+    "cta": "Reserva tu próxima aventura"
+  },
+  "surfServices": {
+    "eyebrow": "Gánate las olas",
+    "heading1": "Vuelve mejor surfista",
+    "heading2": "de lo que llegaste.",
+    "subline": "Coaches experimentados. Grupos pequeños. Sesiones diarias en algunas de las mejores olas de Centroamérica. Desde tu primer pop-up hasta leer el lineup — hay una sesión para cada nivel.",
+    "group": {
+      "pill": "Grupal · Sesiones diarias",
+      "title": "Sesiones Grupales",
+      "single": "Clase individual",
+      "three": "Pack 3 clases",
+      "five": "Pack 5 clases",
+      "save30": "ahorra $30",
+      "save75": "ahorra $75",
+      "cta": "Agregar a tu estancia"
+    },
+    "private": {
+      "pill": "Privado · Horario flexible",
+      "title": "Coaching Privado",
+      "oneOnOne": "1:1 Privado",
+      "semiPrivate": "Semi-privado (2 personas)",
+      "tagline": "Un coach, un enfoque — tu técnica, tu ritmo, tus avances.",
+      "cta": "Agregar a tu estancia"
+    },
+    "included": {
+      "label": "Cada sesión incluye",
+      "surfboard": "Tabla de surf",
+      "rashguard": "Rashguard",
+      "sunscreen": "Protector solar",
+      "freshFruit": "Fruta fresca",
+      "duration": "~ 2 horas por sesión"
+    },
+    "video": {
+      "eyebrow": "Servicio adicional",
+      "heading": "Análisis de Video",
+      "desc": "Filmamos tus olas y luego un coach analiza tu técnica cuadro por cuadro — postura, timing, presión en los rails, mecánica del pop-up. Sales sabiendo exactamente en qué trabajar.",
+      "perk1": "Grabación HD de toda tu sesión",
+      "perk2": "Revisión 1 a 1 con el coach después de surfear",
+      "perk3": "Notas de técnica y ejercicios para llevar a casa",
+      "priceUnit": "por análisis",
+      "cta": "Agregar a tu estancia"
+    }
+  },
+  "experiences": {
+    "eyebrow": "Explora con nosotros",
+    "heading": "Más allá de la ola.",
+    "subtext1": "Santa Teresa no empieza ni termina en el agua.",
+    "subtext2": "Senderos en la selva, cascadas escondidas, costas secretas —",
+    "subtext3": "hay todo un mundo entre sesiones.",
+    "atv": {
+      "cat": "Off-road · Tours guiados y alquiler",
+      "title1": "Adéntrate",
+      "title2": "en la selva.",
+      "body": "Acantilados costeros, miradores escondidos, senderos en la jungla. Reserva un tour guiado en ATV o alquila uno y traza tu propio camino — el terreno más salvaje de Santa Teresa es tuyo.",
+      "tag": "Tours ATV · Medio día · Guiado o por libre",
+      "badge": "★ El más popular"
+    },
+    "waterfalls": {
+      "cat": "En plena naturaleza",
+      "title1": "Nada en",
+      "title2": "algún lugar",
+      "title3": "intacto.",
+      "body": "Camina por selva densa hasta cascadas tan remotas que parecen secretos. Agua fría, luz cálida, sin multitudes.",
+      "tag": "Tours de Cascadas · Día completo · Guiado"
+    },
+    "tidepools": {
+      "cat": "Costa y océano",
+      "title1": "La costa",
+      "title2": "esconde sus",
+      "title3": "mejores secretos.",
+      "body": "Pozas llenas de vida, calas escondidas que solo conocen los locales. Un paseo guiado por la costa salvaje entre sesiones.",
+      "tag": "Pozas de Marea · Playas Escondidas · Caminata guiada"
+    },
+    "ctaCopy": "Cada día es una nueva aventura.",
+    "ctaBtn": "Reserva tu estancia →"
+  },
+  "roomsSection": {
+    "eyebrow": "Alójate con nosotros",
+    "heading1": "Habitaciones hechas para",
+    "heading2": "los ritmos del viajero real.",
+    "subtext": "Desde dormitorios sociales hasta suites privadas — espacios pensados para la ventilación, el sueño profundo y los cambios rápidos entre olas.",
+    "ctaEyebrow": "Disponibilidad en tiempo real",
+    "ctaBody": "Lista cuando tú lo estés — confirma fechas y consulta precios reales en segundos.",
+    "ctaBtn": "Ver disponibilidad →"
+  },
+  "rooms": {
+    "gecko-dorm": {
+      "tagline": "Energía social de surf",
+      "description": "Nuestro espacio compartido por excelencia — perfecto para conocer viajeros, salidas de surf al amanecer y tardes relajadas después de la playa.",
+      "capacityLabel": "Hasta 6 personas",
+      "roomType": "Dormitorio compartido",
+      "highlights": ["Lockers", "Sala común", "Zona de ducha de surf cercana"]
+    },
+    "la-lora": {
+      "tagline": "Calma de habitación privada",
+      "description": "Una doble tranquila para parejas o amigos que quieren privacidad sin perder el pulso del hostal — ideal después de largos días en el agua.",
+      "capacityLabel": "Hasta 2 personas",
+      "roomType": "Habitación privada",
+      "highlights": ["Baño compartido", "Limpieza diaria", "Televisión de pantalla plana"]
+    },
+    "paraiso": {
+      "tagline": "Espacio para grupos pequeños",
+      "description": "Más espacio para extenderse — ideal para grupos pequeños o familias que quieren comodidad, ventilación y una base para las aventuras.",
+      "capacityLabel": "Hasta 4 personas",
+      "roomType": "Habitación familiar",
+      "highlights": ["Baño privado", "Aire acondicionado", "Cocina compartida"]
+    },
+    "rocamar": {
+      "tagline": "Retiro de surf elevado",
+      "description": "Nuestra opción privada más refinada — pensada para viajeros que quieren mayor comodidad y un ritmo más tranquilo entre sesiones.",
+      "capacityLabel": "Hasta 4 personas",
+      "roomType": "Suite privada",
+      "highlights": ["WiFi gratuito", "Baño privado", "Televisión de pantalla plana"]
+    }
+  },
+  "packages": {
+    "eyebrow": "Paquetes de Surf",
+    "heading1": "Surfea más. Explora más.",
+    "heading2": "Todo en un paquete.",
+    "subtext": "Campamentos de varios días con clases, tours, desayuno y cama — todo resuelto para que puedas concentrarte en las olas.",
+    "footnote": "Los paquetes incluyen alojamiento, clases y tours — vuelos no incluidos. Los extras se agregan en el checkout.",
+    "bookPkg": "Reservar este paquete →",
+    "backpacker": {
+      "category": "Solo · Mochilero",
+      "name1": "Backpacker",
+      "name2": "Surf Camp",
+      "duration": "6 días / 5 noches",
+      "accommodation": "Habitación compartida",
+      "taxNote": "+ impuestos",
+      "priceUnit": "/ persona",
+      "inclusions": ["4 lecciones de surf", "3 análisis de video", "5 desayunos", "Tour Cascadas de Montezuma", "Transporte y comida incluidos"]
+    },
+    "adventure": {
+      "category": "Mejor Valor",
+      "name1": "Surf & Adventure",
+      "name2": "Camp",
+      "duration": "10 días / 9 noches",
+      "accommodation": "Habitación compartida",
+      "taxNote": "+ impuestos",
+      "priceUnit": "/ persona",
+      "inclusions": ["8 lecciones de surf", "4 análisis de video", "9 desayunos", "Tours Cascadas de Montezuma y Florida", "Transporte y comida incluidos"]
+    },
+    "couples": {
+      "category": "Parejas · Habitación privada",
+      "name1": "Couples",
+      "name2": "Surf Escape",
+      "duration": "6 días / 5 noches",
+      "accommodation": "Habitación privada para 2",
+      "taxNote": "+ impuestos · para 2 personas",
+      "priceUnit": "/ habitación",
+      "inclusions": ["5 lecciones de surf", "3 análisis de video", "5 desayunos", "Tours Montezuma y Manzanillo", "Transporte y comida incluidos"]
+    },
+    "family": {
+      "category": "Grupos · Familias",
+      "name1": "Friends & Family",
+      "name2": "Surf Retreat",
+      "duration": "6 días / 5 noches",
+      "accommodation": "Habitación privada para 4",
+      "taxNote": "+ impuestos · para 4 personas",
+      "priceUnit": "/ habitación",
+      "inclusions": ["3 lecciones de surf", "2 análisis de video", "Desayunos diarios", "Tours Playa Mal País y Playa Hermosa"]
+    }
+  },
+  "why": {
+    "eyebrow": "Por qué Gecko Surf House",
+    "heading1": "Algunos lugares",
+    "heading2": "simplemente lo tienen.",
+    "panelEyebrow": "La diferencia Gecko",
+    "pullquote": "Difícil de explicar hasta que estás alrededor del fuego a medianoche, intercambiando historias con alguien de Noruega sobre la ola que los dos cogieron al amanecer.",
+    "panelBody": "A 3 minutos caminando del break. Un patio trasero que une a desconocidos. Gente de todos lados que de alguna forma siente que siempre se ha conocido. Santa Teresa te hace algo — Gecko se asegura de que lo sientas.",
+    "panelStat1": "12+ nacionalidades.",
+    "panelStat2": "Un patio trasero.",
+    "community": {
+      "label": "Comunidad",
+      "title": "Los desconocidos se vuelven equipo.",
+      "copy": "Seis países alrededor de un fuego. Olas compartidas, comidas compartidas, historias que siguen mucho después de que el sol se pone."
+    },
+    "stat": {
+      "num": "3",
+      "label": "min al agua",
+      "copy": "Lo suficientemente cerca para salir al lineup antes de que el resto despierte."
+    },
+    "soul": {
+      "title1": "Dirigido por surfistas.",
+      "title2": "Amado por viajeros.",
+      "copy": "Llevamos el tiempo suficiente aquí para saber dónde se forman las olas, dónde están los mejores tacos y por qué nadie se va a tiempo."
+    }
+  },
+  "testimonials": {
+    "eyebrow": "Lo que dicen los huéspedes",
+    "heading1": "Personas reales.",
+    "heading2": "Historias reales.",
+    "subtext": "Sin filtros. Sin guiones. Solo los momentos que hacen que la gente extienda su estancia.",
+    "allFiveStar": "Todo 5 estrellas",
+    "verifiedReviews": "24 reseñas verificadas",
+    "sources": "Airbnb · Booking.com",
+    "reviews": {
+      "leon": {
+        "quote": "We had an excellent stay. The accommodation has everything you need, making it very pleasant — coffee maker, kettle, a well-equipped and spotless kitchen. The staff cleans every day, so it's always perfectly clean. Romi was charming and attentive to our every need. Highly recommend — 200%! Excellent value for money, and close to all services.",
+        "detail": "Estancia de varias noches · Abril 2026"
+      },
+      "josefine": {
+        "quote": "I had a great stay!! Would definitely recommend to anyone going to Santa Teresa.",
+        "detail": "Estancia de varias noches · Marzo 2026"
+      },
+      "kenzo": {
+        "quote": "Magnifique! Eladio is an absolute gem.",
+        "detail": "Estancia de varias noches · Feb 2026"
+      },
+      "josefine-statement": {
+        "quote": "Would definitely recommend to anyone going to Santa Teresa.",
+        "detail": "Airbnb · Marzo 2026"
+      }
+    }
+  },
+  "cta": {
+    "eyebrow": "Santa Teresa · Costa Rica",
+    "line1": "Tu próxima",
+    "line2": "mañana",
+    "line3": "empieza aquí.",
+    "body": "A 3 minutos del break. Café caliente antes de que despierte la multitud. Un patio trasero que convierte a desconocidos en equipo. Lo único que falta es tu habitación.",
+    "panelEyebrow": "Reserva tu estancia",
+    "panelHeading": "Las habitaciones se llenan rápido.",
+    "panelHeadingEm": "No esperes.",
+    "panelNote": "Disponibilidad en tiempo real · Reserva segura",
+    "panelBtn": "Reservar habitación"
+  },
+  "footer": {
+    "tagline1": "Follow",
+    "tagline2": "the swell.",
+    "explore": "Explorar",
+    "visitUs": "Visítanos",
+    "follow": "Síguenos",
+    "bookNowLink": "Reservar →",
+    "province": "Provincia de Puntarenas",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "checkInTime": "3:00 pm",
+    "checkOutTime": "11:00 am",
+    "socialTag": "¿Cogiste una ola? Etiquétanos.",
+    "copyright": "Gecko Surf House. Todos los derechos reservados.",
+    "developedBy": "Desarrollado por"
+  },
+  "contact": {
+    "heroEyebrow": "Nos encantaría saber de ti",
+    "heroHeading": "Ponte en contacto",
+    "heroSub": "¿Tienes preguntas sobre una estancia, una clase de surf o simplemente tienes curiosidad por el ambiente? Escríbenos — normalmente respondemos en pocas horas.",
+    "formTitle": "Envíanos un mensaje",
+    "nameLabel": "Tu nombre",
+    "emailLabel": "Correo electrónico",
+    "subjectLabel": "Asunto",
+    "subjectOptional": "— opcional",
+    "messageLabel": "Mensaje",
+    "namePlaceholder": "Juan García",
+    "emailPlaceholder": "juan@ejemplo.com",
+    "subjectPlaceholder": "p. ej. Consulta sobre clases de surf",
+    "messagePlaceholder": "Cuéntanos qué tienes en mente…",
+    "send": "Enviar mensaje",
+    "sending": "Enviando…",
+    "successHeading": "¡Mensaje enviado!",
+    "successBody": "Gracias por escribirnos. Te responderemos a {{email}} en breve.",
+    "sendAnother": "Enviar otro mensaje",
+    "findUs": "Encuéntranos",
+    "detail": {
+      "email": { "label": "Correo electrónico" },
+      "phone": { "label": "Teléfono · WhatsApp" },
+      "location": { "label": "Ubicación", "value": "Santa Teresa, Cóbano, Puntarenas, Costa Rica" },
+      "hours": { "label": "Horario de recepción", "value": "Lun–Dom · 8 am – 10 pm" }
+    },
+    "readyToBook": "¿Listo para reservar?",
+    "readyBody": "Explora habitaciones, consulta disponibilidad y asegura tu lugar en Santa Teresa — directamente desde nuestra página de reservas.",
+    "viewRooms": "Ver habitaciones →",
+    "browsePackages": "Ver paquetes →"
+  },
+  "location": {
+    "heroEyebrow": "Península de Nicoya · Costa Rica",
+    "heroHeading1": "Santa Teresa",
+    "heroHeading2": "no te deja",
+    "heroHeading3": "ir.",
+    "heroSub": "Donde la selva se encuentra con el Pacífico.",
+    "heroCta": "Reserva tu estancia →",
+    "statement1": "Un camino de tierra bordeado de tiendas de surf, monos aulladores en lo alto, lapas rojas cruzando el cielo al amanecer.",
+    "statementAccent": "Santa Teresa está en la punta de la Península de Nicoya",
+    "statement2": "— y cuando llegas, irte se siente como un error.",
+    "surfEyebrow": "La atracción principal",
+    "surfHeading1": "Olas consistentes,",
+    "surfHeading2": "durante todo el año.",
+    "surfDesc": "Playa Santa Teresa y Playa Carmen ofrecen potentes beach breaks y largos point breaks que funcionan con cada swell. El cálido Pacífico, escuelas de surf de clase mundial y una comunidad construida alrededor del océano hacen de este uno de los mejores destinos de surf en Centroamérica — tanto si es tu primera palada como si buscas el barril perfecto antes del desayuno.",
+    "stats": {
+      "waterTemp": { "val": "27°C", "label": "Temperatura del agua" },
+      "breakTypes": { "val": "Playa + punta", "label": "Tipos de ola" },
+      "surfSeason": { "val": "Todo el año", "label": "Temporada de surf" },
+      "instructors": { "val": "Todos los niveles", "label": "Instructores" }
+    },
+    "expEyebrow": "Más que surf",
+    "expHeading": "La vida en Santa Teresa",
+    "tiles": {
+      "waterfalls": { "title": "Cascadas", "sub": "Montezuma · Florida" },
+      "wildlife": { "title": "Selva y Fauna", "sub": "Monos, tortugas y lapas rojas" },
+      "sunsets": { "title": "Atardeceres del Pacífico", "sub": "Hora dorada todas las tardes" },
+      "adventure": { "title": "Aventura", "sub": "ATV, pesca y senderismo" },
+      "food": { "title": "Gastronomía y Vida Nocturna", "sub": "Sodas, ceviche y bares en azoteas" }
+    },
+    "facts": {
+      "waterTemp": { "val": "27–30°C", "label": "Agua y aire todo el año" },
+      "waves": { "val": "Cada día", "label": "Olas constantes" },
+      "walk": { "val": "3 min", "label": "Caminando al break" },
+      "airport": { "val": "30 min", "label": "Desde el aeropuerto de Cóbano" }
+    },
+    "gettingHere": "Cómo llegar",
+    "gtHeading": "Encontrar el paraíso es más fácil de lo que crees.",
+    "byAir": {
+      "title": "En avión",
+      "desc": "Vuelo San José → Cóbano (45 min, vuelo doméstico), luego 30 minutos en taxi o shuttle hasta Santa Teresa. La opción más rápida y cómoda — estarás en el agua por la tarde.",
+      "route": "SJO → Cóbano → Santa Teresa · ~1,5 h en total"
+    },
+    "byFerry": {
+      "title": "En bus y ferry",
+      "desc": "Bus hasta Puntarenas, ferry hasta Paquera y luego bus local directo a Santa Teresa. Más largo, pero el cruce en ferry por el Golfo de Nicoya es toda una experiencia — reserva un asiento junto a la ventana.",
+      "route": "San José → Ferry Paquera → Santa Teresa · ~5–6 h"
+    },
+    "ctaEyebrow": "Ya leíste suficiente",
+    "ctaHeading1": "Santa Teresa",
+    "ctaHeading2": "te espera.",
+    "ctaSub1": "Olas cada mañana. La selva a tu puerta.",
+    "ctaSub2": "El resto se soluciona solo.",
+    "ctaBookBtn": "Reserva tu estancia →",
+    "ctaBrowseBtn": "Ver paquetes →"
+  },
+  "booking": {
+    "checkIn": "Entrada",
+    "checkOut": "Salida",
+    "guests": "Huéspedes",
+    "removeGuest": "Reducir huéspedes",
+    "addGuest": "Agregar huésped",
+    "search": "Buscar",
+    "selectDates": "Selecciona tus fechas",
+    "night": "noche",
+    "nights": "noches",
+    "guest": "huésped",
+    "guestsPlural": "huéspedes",
+    "editSearch": "Editar búsqueda ↑",
+    "upTo": "Hasta",
+    "privateBath": "Baño privado",
+    "sharedBath": "Baño compartido",
+    "bookRoom": "Reservar esta habitación →",
+    "checkAvailability": "Ver disponibilidad →",
+    "availabilityShown": "Disponibilidad abajo ↓",
+    "liveAvailability": "Disponibilidad en Vivo",
+    "findYourRoom1": "Encuentra tu",
+    "findYourRoom2": "habitación perfecta.",
+    "bookYourPackage1": "Reserva tu",
+    "bookYourPackage2": "paquete.",
+    "realtimePricing": "Precios en tiempo real · confirmados al pagar",
+    "seeRooms": "Ver habitaciones →",
+    "selectYourRoom": "Seleccionar habitación →",
+    "trust": {
+      "fiveStars": "Todas reseñas de 5 estrellas",
+      "freeCancellation": "Cancelación gratuita",
+      "minFromBreak": "3 min del break"
+    },
+    "packageSelected": "Paquete seleccionado",
+    "nightMinimum": "noches mínimas",
+    "arriveEarlyQ": "¿Quieres llegar antes o quedarte más tiempo?",
+    "browseRoomOnly": "Ver habitaciones sin paquete →",
+    "browseAllRooms": "← Ver todas las habitaciones",
+    "availabilityAndPricing": "Disponibilidad y Precios",
+    "chooseDifferentRoom": "← Elegir otra habitación",
+    "footnoteLive": "Precios en tiempo real via Lodgify · Disponibilidad confirmada al pagar",
+    "footnotePackage": "Elige tus fechas arriba y luego selecciona una habitación para continuar al pago donde añadirás el paquete."
+  },
+  "bookingRooms": {
+    "6-gecko": {
+      "type": "Dormitorio",
+      "beds": "1 cama individual",
+      "description": "Nuestra unidad más grande — un dormitorio compartido espacioso pensado para el viajero surfista. Cocina compartida, patio exterior y todo lo esencial para un viaje de surf sin complicaciones. A 3 minutos de Playa Carmen.",
+      "highlights": ["WiFi gratuito", "Aire acondicionado", "Cocina compartida", "Patio", "Cafetera", "Baño compartido"]
+    },
+    "la-lora": {
+      "type": "Habitación doble",
+      "beds": "1 cama de matrimonio",
+      "description": "Una acogedora doble privada ideal para parejas o amigos cercanos. Cocina compartida, televisión de pantalla plana y aire acondicionado — todas las comodidades del hogar, a pasos del surf.",
+      "highlights": ["WiFi gratuito", "Aire acondicionado", "Televisión de pantalla plana", "Cocina compartida", "Cafetera", "Baño compartido"]
+    },
+    "rocamar": {
+      "type": "Habitación cuádruple",
+      "beds": "2 camas individuales + 1 cama de matrimonio",
+      "description": "Una cuádruple bien equipada con baño privado y patio — perfecta para grupos o familias. Cocina compartida, zona de comedor exterior y televisión de pantalla plana incluidas.",
+      "highlights": ["WiFi gratuito", "Aire acondicionado", "Baño privado", "Televisión de pantalla plana", "Cocina compartida", "Patio"]
+    },
+    "paraiso": {
+      "type": "Habitación cuádruple",
+      "beds": "2 camas individuales + 1 cama de matrimonio",
+      "description": "Cuádruple espaciosa en planta baja con zona de estar exterior y baño privado — una base ideal para familias o grupos de amigos.",
+      "highlights": ["WiFi gratuito", "Aire acondicionado", "Baño privado", "Televisión de pantalla plana", "Cocina compartida", "Patio"]
+    }
+  }
+}

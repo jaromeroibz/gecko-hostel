@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const LOGO =
   'https://res.cloudinary.com/doow0mhrm/image/upload/v1779032984/Untitled_xbxmok.png'
 
 const NAV_LINKS = [
-  { label: 'Home',       to: '/'         },
-  { label: 'Rooms',      to: '/#rooms'   },
-  { label: 'Location',   to: '/location' },
-  { label: 'Contact Us', to: '/contact'  },
+  { labelKey: 'nav.home',    to: '/'         },
+  { labelKey: 'nav.rooms',   to: '/#rooms'   },
+  { labelKey: 'nav.location', to: '/location' },
+  { labelKey: 'nav.contact', to: '/contact'  },
 ]
 
 const SOCIAL_LINKS = [
@@ -15,6 +16,7 @@ const SOCIAL_LINKS = [
 ]
 
 export function Footer() {
+  const { t } = useTranslation()
   return (
     <footer className="footer-root">
 
@@ -31,8 +33,8 @@ export function Footer() {
             className="footer-logo"
           />
           <p className="footer-tagline font-display">
-            Follow<br />
-            <em>the swell.</em>
+            {t('footer.tagline1')}<br />
+            <em>{t('footer.tagline2')}</em>
           </p>
         </div>
 
@@ -44,19 +46,19 @@ export function Footer() {
 
           {/* Column 1 — Navigate */}
           <div className="footer-col">
-            <p className="footer-col-label font-label uppercase">Explore</p>
+            <p className="footer-col-label font-label uppercase">{t('footer.explore')}</p>
             <nav aria-label="Footer navigation">
               <ul className="footer-link-list">
                 {NAV_LINKS.map((link) => (
-                  <li key={link.label}>
+                  <li key={link.labelKey}>
                     <Link to={link.to} className="footer-link font-label">
-                      {link.label}
+                      {t(link.labelKey)}
                     </Link>
                   </li>
                 ))}
                 <li>
                   <Link to="/booking" className="footer-link footer-link--cta font-label">
-                    Book Now →
+                    {t('footer.bookNowLink')}
                   </Link>
                 </li>
               </ul>
@@ -65,27 +67,27 @@ export function Footer() {
 
           {/* Column 2 — Visit Us */}
           <div className="footer-col">
-            <p className="footer-col-label font-label uppercase">Visit Us</p>
+            <p className="footer-col-label font-label uppercase">{t('footer.visitUs')}</p>
             <address className="footer-address font-label">
               <p>Santa Teresa</p>
-              <p>Puntarenas Province</p>
+              <p>{t('footer.province')}</p>
               <p>Costa Rica</p>
             </address>
             <div className="footer-hours font-label">
               <div className="footer-hours-row">
-                <span className="footer-hours-key">Check-in</span>
-                <span className="footer-hours-val">3:00 pm</span>
+                <span className="footer-hours-key">{t('footer.checkIn')}</span>
+                <span className="footer-hours-val">{t('footer.checkInTime')}</span>
               </div>
               <div className="footer-hours-row">
-                <span className="footer-hours-key">Check-out</span>
-                <span className="footer-hours-val">11:00 am</span>
+                <span className="footer-hours-key">{t('footer.checkOut')}</span>
+                <span className="footer-hours-val">{t('footer.checkOutTime')}</span>
               </div>
             </div>
           </div>
 
           {/* Column 3 — Follow */}
           <div className="footer-col">
-            <p className="footer-col-label font-label uppercase">Follow</p>
+            <p className="footer-col-label font-label uppercase">{t('footer.follow')}</p>
             <ul className="footer-link-list">
               {SOCIAL_LINKS.map((link) => (
                 <li key={link.label}>
@@ -101,7 +103,7 @@ export function Footer() {
               ))}
             </ul>
             <p className="footer-social-tag font-label">
-              Caught a wave? Tag us.<br />
+              {t('footer.socialTag')}<br />
               <span className="footer-social-handle">#GeckoSurfHouse</span>
             </p>
           </div>
@@ -113,13 +115,13 @@ export function Footer() {
 
         <div className="footer-bottom">
           <p className="footer-copy font-label">
-            © {new Date().getFullYear()} Gecko Surf House. All rights reserved.
+            © {new Date().getFullYear()} {t('footer.copyright')}
           </p>
           <p className="footer-locale font-label uppercase">
             Santa Teresa · Costa Rica
           </p>
           <p className="footer-dev font-label">
-            Developed by{' '}
+            {t('footer.developedBy')}{' '}
             <a
               href="https://jaromeroibz.github.io/porftolio/"
               target="_blank"

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { useInView } from '../../hooks/useInView'
 import { MARKETING_ROOMS } from '../../data/marketingRooms'
 
@@ -6,6 +7,7 @@ const DIVIDER_COUNT = 20
 
 export function HomeRoomsSection() {
   const [ref, inView] = useInView<HTMLElement>()
+  const { t } = useTranslation()
   return (
     <section
       ref={ref}
@@ -28,14 +30,11 @@ export function HomeRoomsSection() {
 
         {/* ── Header ──────────────────────────────────────────────────── */}
         <header className="rs-header reveal">
-          <p className="rs-eyebrow font-label">Stay with us</p>
+          <p className="rs-eyebrow font-label">{t('roomsSection.eyebrow')}</p>
           <h2 id="rooms-heading" className="rs-heading font-display">
-            Rooms built for<br />real travel rhythms.
+            {t('roomsSection.heading1')}<br />{t('roomsSection.heading2')}
           </h2>
-          <p className="rs-subtext">
-            From social dorms to private suites — spaces tuned for airflow,
-            deep sleep, and quick turnarounds between waves.
-          </p>
+          <p className="rs-subtext">{t('roomsSection.subtext')}</p>
         </header>
 
         {/* ── Room grid ───────────────────────────────────────────────── */}
@@ -54,16 +53,16 @@ export function HomeRoomsSection() {
                 </div>
                 <div className="room-content">
                   <div className="room-badges">
-                    <span className="room-type font-label">{room.roomType}</span>
-                    <span className="room-capacity-pill font-label">{room.capacityLabel}</span>
+                    <span className="room-type font-label">{t(`rooms.${room.id}.roomType`)}</span>
+                    <span className="room-capacity-pill font-label">{t(`rooms.${room.id}.capacityLabel`)}</span>
                   </div>
                   <h3 id={`room-name-${room.id}`} className="room-name font-display">
                     {room.name}
                   </h3>
-                  <p className="room-tagline font-label">{room.tagline}</p>
-                  <p className="room-desc">{room.description}</p>
+                  <p className="room-tagline font-label">{t(`rooms.${room.id}.tagline`)}</p>
+                  <p className="room-desc">{t(`rooms.${room.id}.description`)}</p>
                   <ul className="room-highlights" role="list">
-                    {room.highlights.map((item) => (
+                    {(t(`rooms.${room.id}.highlights`, { returnObjects: true }) as string[]).map((item) => (
                       <li key={item} className="room-highlight font-label">
                         {item}
                       </li>
@@ -78,13 +77,11 @@ export function HomeRoomsSection() {
         {/* ── CTA strip ───────────────────────────────────────────────── */}
         <div className="rs-cta">
           <div>
-            <p className="rs-cta-eyebrow font-label">Live availability</p>
-            <p className="rs-cta-body">
-              Ready when you are — lock in dates and see real pricing in seconds.
-            </p>
+            <p className="rs-cta-eyebrow font-label">{t('roomsSection.ctaEyebrow')}</p>
+            <p className="rs-cta-body">{t('roomsSection.ctaBody')}</p>
           </div>
           <a href="/booking" className="rs-cta-btn font-label">
-            Search availability →
+            {t('roomsSection.ctaBtn')}
           </a>
         </div>
 

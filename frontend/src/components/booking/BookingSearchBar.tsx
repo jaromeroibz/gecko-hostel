@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import { dateToHtmlDateValue, htmlDateValueToDate } from '../../utils/formatDateToYYYYMMDD'
 
@@ -48,11 +49,13 @@ export function BookingSearchBar({
   extraQuery,
   minNights,
   maxNights,
-  submitLabel = 'Search',
+  submitLabel,
   onAfterSearch,
   onAdultsChange,
 }: Props) {
   const navigate = useNavigate()
+  const { t } = useTranslation()
+  const resolvedSubmitLabel = submitLabel ?? t('booking.search')
   const [arrival, setArrival] = useState(() => ymdToHtml(arrivalYmd))
   const [departure, setDeparture] = useState(() => {
     const arr = ymdToHtml(arrivalYmd)
@@ -154,7 +157,7 @@ export function BookingSearchBar({
         {/* ── Check-in ──────────────────────────────────────── */}
         <div className="flex flex-1 flex-col gap-1.5">
           <label htmlFor="bsb-arrival" className="bsb-label font-label">
-            Check-in
+            {t('booking.checkIn')}
           </label>
           <input
             id="bsb-arrival"
@@ -171,7 +174,7 @@ export function BookingSearchBar({
         <div className="flex items-center justify-center sm:self-end sm:pb-[9px]">
           {nights !== null ? (
             <span className="bsb-nights-pill font-label">
-              {nights} night{nights !== 1 ? 's' : ''}
+              {nights} {nights !== 1 ? t('booking.nights') : t('booking.night')}
             </span>
           ) : (
             <span className="bsb-arrow hidden sm:block">→</span>
@@ -181,7 +184,7 @@ export function BookingSearchBar({
         {/* ── Check-out ─────────────────────────────────────── */}
         <div className="flex flex-1 flex-col gap-1.5">
           <label htmlFor="bsb-departure" className="bsb-label font-label">
-            Check-out
+            {t('booking.checkOut')}
           </label>
           <input
             id="bsb-departure"
@@ -199,13 +202,13 @@ export function BookingSearchBar({
         {/* ── Guests ────────────────────────────────────────── */}
         {showGuests && (
           <div className="flex flex-col gap-1.5">
-            <span className="bsb-label font-label">Guests</span>
+            <span className="bsb-label font-label">{t('booking.guests')}</span>
             <div className="bsb-guests">
               <button
                 type="button"
                 onClick={() => adjustAdults(-1)}
                 disabled={adults <= 1}
-                aria-label="Remove guest"
+                aria-label={t('booking.removeGuest')}
                 className="bsb-guest-btn"
               >
                 −
@@ -215,7 +218,7 @@ export function BookingSearchBar({
                 type="button"
                 onClick={() => adjustAdults(1)}
                 disabled={adults >= 10}
-                aria-label="Add guest"
+                aria-label={t('booking.addGuest')}
                 className="bsb-guest-btn"
               >
                 +
@@ -226,7 +229,7 @@ export function BookingSearchBar({
 
         {/* ── Submit ────────────────────────────────────────── */}
         <button type="submit" className="bsb-submit font-label sm:self-end">
-          {submitLabel}
+          {resolvedSubmitLabel}
         </button>
       </form>
 

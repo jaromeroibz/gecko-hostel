@@ -16,7 +16,7 @@ export const BOOKING_ROOMS: BookingRoom[] = [
   {
     id: '6-gecko',
     rentalId: '765108',
-    name: '6 Gecko',
+    name: 'Gecko Dorm',
     type: 'Dormitory Room',
     beds: '1 single bed',
     capacity: 6,
@@ -36,7 +36,7 @@ export const BOOKING_ROOMS: BookingRoom[] = [
   {
     id: 'la-lora',
     rentalId: '765109',
-    name: 'Doble — La Lora',
+    name: 'La Lora',
     type: 'Double Room',
     beds: '1 double bed',
     capacity: 2,
@@ -54,7 +54,7 @@ export const BOOKING_ROOMS: BookingRoom[] = [
   {
     id: 'rocamar',
     rentalId: '765110',
-    name: '4 Arriba — Rocamar',
+    name: 'Rocamar',
     type: 'Quadruple Room',
     beds: '2 single beds + 1 double bed',
     capacity: 4,
@@ -73,7 +73,7 @@ export const BOOKING_ROOMS: BookingRoom[] = [
   {
     id: 'paraiso',
     rentalId: '765111',
-    name: '4 Abajo — Paraíso',
+    name: 'Paraíso',
     type: 'Quadruple Room',
     beds: '2 single beds + 1 double bed',
     capacity: 4,
