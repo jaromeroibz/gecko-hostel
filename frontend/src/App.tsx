@@ -24,10 +24,11 @@ function App() {
         <Route path="/booking/:roomId" element={<BookingRoom />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/location" element={<LocationPage />} />
-        <Route path="/admin/login" element={<AdminLoginPage />} />
+        {/* Admin routes disabled — feature not included in current plan */}
+        {/* To re-enable: restore AdminLoginPage route and the RequireAdminAuth block below */}
+        <Route path="/admin/login" element={<Navigate to="/" replace />} />
       </Route>
-      {/* Full-viewport admin shell (no public navbar / max-width wrapper — avoids fixed sidebar overlap) */}
-      <Route element={<RequireAdminAuth />}>
+      {/* <Route element={<RequireAdminAuth />}>
         <Route
           path="/admin"
           element={
@@ -52,7 +53,7 @@ function App() {
             </Suspense>
           }
         />
-      </Route>
+      </Route> */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
     </>

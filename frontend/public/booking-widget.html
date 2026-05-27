@@ -4,29 +4,66 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Book</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { background: transparent; }
 
     :root {
-      --ldg-bnb-background:                    #ffffff;
-      --ldg-bnb-border-radius:                 0.75rem;
-      --ldg-bnb-box-shadow:                    none;
-      --ldg-bnb-padding:                       0px;
-      --ldg-bnb-input-background:              #f4f1ea;
-      --ldg-bnb-button-border-radius:          9999px;
-      --ldg-bnb-font-family:                   system-ui, sans-serif;
-      --ldg-bnb-color-primary:                 #1e3d32;
-      --ldg-bnb-color-primary-lighter:         #4d6433;
-      --ldg-bnb-color-primary-darker:          #142923;
-      --ldg-bnb-color-primary-contrast:        #f4f1ea;
-      --ldg-component-calendar-cell-selection-bg-color: #1e3d32;
-      --ldg-component-calendar-cell-selection-color:    #f4f1ea;
-      --ldg-component-calendar-cell-selected-bg-color:  #4d6433;
-      --ldg-component-calendar-cell-selected-color:     #f4f1ea;
+      /* ── Container ─────────────────────────────────────────────────── */
+      --ldg-bnb-background:              transparent;
+      --ldg-bnb-border-radius:           0px;
+      --ldg-bnb-box-shadow:              none;
+      --ldg-bnb-padding:                 0px;
+
+      /* ── Inputs ────────────────────────────────────────────────────── */
+      --ldg-bnb-input-background:        rgba(6, 78, 59, 0.06);
+
+      /* ── Buttons ───────────────────────────────────────────────────── */
+      --ldg-bnb-button-border-radius:    9999px;
+
+      /* ── Typography ────────────────────────────────────────────────── */
+      --ldg-bnb-font-family:             'Nunito', 'DM Sans', system-ui, sans-serif;
+
+      /* ── Brand palette ─────────────────────────────────────────────── */
+      --ldg-bnb-color-primary:           #064E3B;
+      --ldg-bnb-color-primary-lighter:   #34D399;    /* mint — calendar range bg */
+      --ldg-bnb-color-primary-darker:    #142923;
+      --ldg-bnb-color-primary-contrast:  #F9FDF9;
+
+      /* ── Calendar ──────────────────────────────────────────────────── */
+      --ldg-component-calendar-cell-selection-bg-color: #064E3B;     /* endpoint dates */
+      --ldg-component-calendar-cell-selection-color:    #F9FDF9;
+      --ldg-component-calendar-cell-selected-bg-color:  rgba(52, 211, 153, 0.18); /* range fill */
+      --ldg-component-calendar-cell-selected-color:     #064E3B;
     }
 
     #lodgify-book-now-box { width: 100%; }
+
+    /* ── Book Now CTA — amber to match site's primary CTA colour ────────── */
+    /* Lodgify with data-new-tab="true" renders the button as                 */
+    /* <a href="https://checkout.lodgify.com/…">. Targeting the href is the   */
+    /* most stable selector across Lodgify script updates.                    */
+    a[href*="checkout.lodgify.com"] {
+      background:     #F59E0B !important;
+      border-color:   transparent !important;
+      color:          #1a3328 !important;
+      font-weight:    700 !important;
+      letter-spacing: 0.08em !important;
+      text-transform: uppercase !important;
+      transition:     background 0.2s ease, transform 0.15s ease !important;
+    }
+
+    a[href*="checkout.lodgify.com"]:hover {
+      background: #D97706 !important;
+      transform:  translateY(-1px) !important;
+    }
+
+    a[href*="checkout.lodgify.com"]:active {
+      transform: translateY(0) !important;
+    }
   </style>
 </head>
 <body>
@@ -294,6 +331,24 @@
         }
       }
     }
+
+    // ── Checkout intercept ───────────────────────────────────────────────────────
+    // Lodgify's "Book now" renders as an <a href="https://checkout.lodgify.com/...">
+    // with data-new-tab="true". We intercept the click before it opens a new tab,
+    // fire a postMessage to the parent so it can show the reminder modal, and let
+    // the parent open the URL once the user confirms.
+    document.addEventListener('click', function(e) {
+      let el = e.target
+      while (el && el !== document.body) {
+        if (el.tagName === 'A' && typeof el.href === 'string' && el.href.includes('checkout.lodgify.com')) {
+          e.preventDefault()
+          e.stopImmediatePropagation()
+          window.parent.postMessage({ type: 'ldg-checkout-intercept', url: el.href }, '*')
+          return
+        }
+        el = el.parentElement
+      }
+    }, true) // capture phase — fires before React's synthetic event handlers
 
     // ── Poll until the widget is ready, prefill dates, wait for pricing ────────
     // The parent keeps its spinner until it receives ldg-widget-ready, so we

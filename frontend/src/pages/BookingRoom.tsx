@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
 
 import { BookingSearchBar } from '../components/booking/BookingSearchBar'
+import { CheckoutReminderModal } from '../components/booking/CheckoutReminderModal'
 import { BOOKING_ROOMS } from '../data/bookingRooms'
+import { PACKAGES } from '../data/packages'
 import { useLodgifySearchFromRoute } from '../hooks/useLodgifySearchFromRoute'
 
 const PLACEHOLDER_IMG =
@@ -17,11 +19,15 @@ export function BookingRoom() {
   const packageId = searchParams.get('package')
 
   // ── All hooks must be declared before any early return ───────────────────
-  const [iframeHeight, setIframeHeight]     = useState(420)
-  const [imgIdx, setImgIdx]                 = useState(0)
-  const [widgetLoaded, setWidgetLoaded]     = useState(false)
+  const [iframeHeight, setIframeHeight]       = useState(420)
+  const [imgIdx, setImgIdx]                   = useState(0)
+  const [widgetLoaded, setWidgetLoaded]       = useState(false)
   const [isWidgetVisible, setIsWidgetVisible] = useState(false)
   const widgetRef = useRef<HTMLDivElement>(null)
+
+  // ── Checkout reminder modal ────────────────────────────────────────────────
+  const [reminderOpen, setReminderOpen]   = useState(false)
+  const [checkoutUrl,  setCheckoutUrl]    = useState('')
 
   const room = BOOKING_ROOMS.find((r) => r.id === roomId)
 
@@ -51,6 +57,11 @@ export function BookingRoom() {
       if (e.data?.type === 'ldg-widget-ready') {
         setWidgetLoaded(true)
       }
+      // Fired from booking-widget.html when the user clicks "Book now"
+      if (e.data?.type === 'ldg-checkout-intercept' && typeof e.data.url === 'string') {
+        setCheckoutUrl(e.data.url)
+        setReminderOpen(true)
+      }
     }
     window.addEventListener('message', onMessage)
     return () => window.removeEventListener('message', onMessage)
@@ -67,6 +78,13 @@ export function BookingRoom() {
     return () => observer.disconnect()
   }, [])
   // ─────────────────────────────────────────────────────────────────────────
+
+  const activePackage = packageId ? PACKAGES[packageId] : null
+
+  function handleReminderConfirm() {
+    setReminderOpen(false)
+    window.open(checkoutUrl, '_blank', 'noopener,noreferrer')
+  }
 
   if (!room) return <Navigate to="/booking" replace />
 
@@ -227,7 +245,7 @@ export function BookingRoom() {
           </div>
 
           {/* Lodgify Booking Box ─────────────────────────────────────── */}
-          <div ref={widgetRef} className="rounded-2xl border border-gecko-sand bg-white p-5 shadow-sm">
+          <div ref={widgetRef} className="rounded-2xl border border-gecko-sand bg-gecko-cream p-5 shadow-sm">
             <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-gecko-forest/55">
               Book this room
             </p>
@@ -296,6 +314,18 @@ export function BookingRoom() {
           </div>
         </div>
       </div>
+      {/* ── Checkout reminder modal ───────────────────────────────────── */}
+      <CheckoutReminderModal
+        isOpen={reminderOpen}
+        onClose={() => setReminderOpen(false)}
+        onConfirm={handleReminderConfirm}
+        roomName={room.name}
+        arrivalYmd={search.arrivalYmd}
+        departureYmd={search.departureYmd}
+        adults={search.adults}
+        hasPackage={!!activePackage}
+        packageName={activePackage?.name}
+      />
     </>
   )
 }

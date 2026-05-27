@@ -19,9 +19,14 @@ type Props = {
   onSelect?: () => void
   /** Highlights the card with a mint ring when it's the active selection */
   isSelected?: boolean
+  /**
+   * When provided, intercepts the default "Book this room" Link and calls
+   * this handler instead (used to open the checkout reminder modal).
+   */
+  onBookNow?: () => void
 }
 
-export function RoomCard({ room, searchQuery, onSelect, isSelected }: Props) {
+export function RoomCard({ room, searchQuery, onSelect, isSelected, onBookNow }: Props) {
   const [imgIdx, setImgIdx] = useState(0)
   const { t } = useTranslation()
 
@@ -133,6 +138,14 @@ export function RoomCard({ room, searchQuery, onSelect, isSelected }: Props) {
               className={`rc-cta-btn font-label${isSelected ? ' rc-cta-btn--active' : ''}`}
             >
               {isSelected ? t('booking.availabilityShown') : t('booking.checkAvailability')}
+            </button>
+          ) : onBookNow ? (
+            <button
+              type="button"
+              onClick={onBookNow}
+              className="rc-cta-btn font-label"
+            >
+              {t('booking.bookRoom')}
             </button>
           ) : (
             <Link to={bookHref} className="rc-cta-btn font-label">

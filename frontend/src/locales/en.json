@@ -2,6 +2,7 @@
   "nav": {
     "home": "Home",
     "rooms": "Rooms",
+    "packages": "Packages",
     "location": "Location",
     "contact": "Contact Us",
     "bookNow": "Book Now"
@@ -214,7 +215,7 @@
     "heading2": "Real stories.",
     "subtext": "No filters. No scripts. Just the moments that make people extend their stay.",
     "allFiveStar": "All 5-star",
-    "verifiedReviews": "24 verified reviews",
+    "verifiedReviews": "24+ verified reviews",
     "sources": "Airbnb · Booking.com",
     "reviews": {
       "leon": {
@@ -389,7 +390,15 @@
     "availabilityAndPricing": "Availability & Pricing",
     "chooseDifferentRoom": "← Choose a different room",
     "footnoteLive": "Live pricing powered by Lodgify · Availability confirmed at checkout",
-    "footnotePackage": "Select your dates above, then choose a room to continue to checkout where you'll add the package."
+    "footnotePackage": "Select your dates above, then choose a room to continue to checkout where you'll add the package.",
+    "reminderTitle": "One last thing before you book",
+    "reminderRoom": "Room",
+    "reminderDates": "Dates",
+    "reminderGuests": "Guests",
+    "reminderNotePackage": "You selected a package — remember to add it in the extras section once you reach the Lodgify checkout.",
+    "reminderNoteExtras": "Want to add surf lessons or video analysis? Look for the extras section at checkout.",
+    "reminderConfirm": "Yes, continue to checkout →",
+    "reminderBack": "Go back"
   },
   "bookingRooms": {
     "6-gecko": {

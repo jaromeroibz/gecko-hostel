@@ -65,8 +65,8 @@ export function LodgifyWidget({ room, arrivalYmd, departureYmd, adults }: Props)
 
       <style>{`
         .ldgw-card {
-          background: #ffffff;
-          border: 1px solid rgba(6, 78, 59, 0.1);
+          background: #f4f1ea;
+          border: 1px solid rgba(6, 78, 59, 0.09);
           border-radius: 1.25rem;
           padding: 1.25rem;
           box-shadow:

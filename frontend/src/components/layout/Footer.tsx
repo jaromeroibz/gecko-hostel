@@ -5,10 +5,11 @@ const LOGO =
   'https://res.cloudinary.com/doow0mhrm/image/upload/v1779032984/Untitled_xbxmok.png'
 
 const NAV_LINKS = [
-  { labelKey: 'nav.home',    to: '/'         },
-  { labelKey: 'nav.rooms',   to: '/#rooms'   },
-  { labelKey: 'nav.location', to: '/location' },
-  { labelKey: 'nav.contact', to: '/contact'  },
+  { labelKey: 'nav.home',     to: '/'          },
+  { labelKey: 'nav.rooms',    to: '/#rooms'    },
+  { labelKey: 'nav.packages', to: '/#packages' },
+  { labelKey: 'nav.location', to: '/location'  },
+  { labelKey: 'nav.contact',  to: '/contact'   },
 ]
 
 const SOCIAL_LINKS = [

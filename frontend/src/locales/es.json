@@ -2,6 +2,7 @@
   "nav": {
     "home": "Inicio",
     "rooms": "Habitaciones",
+    "packages": "Paquetes",
     "location": "Ubicación",
     "contact": "Contáctanos",
     "bookNow": "Reservar"
@@ -34,7 +35,7 @@
       "five": "Pack 5 clases",
       "save30": "ahorra $30",
       "save75": "ahorra $75",
-      "cta": "Agregar a tu estancia"
+      "cta": "Agregar a tu estadía"
     },
     "private": {
       "pill": "Privado · Horario flexible",
@@ -42,7 +43,7 @@
       "oneOnOne": "1:1 Privado",
       "semiPrivate": "Semi-privado (2 personas)",
       "tagline": "Un coach, un enfoque — tu técnica, tu ritmo, tus avances.",
-      "cta": "Agregar a tu estancia"
+      "cta": "Agregar a tu estadía"
     },
     "included": {
       "label": "Cada sesión incluye",
@@ -60,7 +61,7 @@
       "perk2": "Revisión 1 a 1 con el coach después de surfear",
       "perk3": "Notas de técnica y ejercicios para llevar a casa",
       "priceUnit": "por análisis",
-      "cta": "Agregar a tu estancia"
+      "cta": "Agregar a tu estadía"
     }
   },
   "experiences": {
@@ -94,42 +95,42 @@
       "tag": "Pozas de Marea · Playas Escondidas · Caminata guiada"
     },
     "ctaCopy": "Cada día es una nueva aventura.",
-    "ctaBtn": "Reserva tu estancia →"
+    "ctaBtn": "Reserva tu estadía →"
   },
   "roomsSection": {
     "eyebrow": "Alójate con nosotros",
     "heading1": "Habitaciones hechas para",
     "heading2": "los ritmos del viajero real.",
-    "subtext": "Desde dormitorios sociales hasta suites privadas — espacios pensados para la ventilación, el sueño profundo y los cambios rápidos entre olas.",
+    "subtext": "Desde el dormitorio compartido hasta la suite privada — cada espacio pensado para dormir bien, despertar temprano y llegar al agua antes que nadie.",
     "ctaEyebrow": "Disponibilidad en tiempo real",
-    "ctaBody": "Lista cuando tú lo estés — confirma fechas y consulta precios reales en segundos.",
+    "ctaBody": "Listos cuando tú lo estés — confirma fechas y consulta precios reales en segundos.",
     "ctaBtn": "Ver disponibilidad →"
   },
   "rooms": {
     "gecko-dorm": {
-      "tagline": "Energía social de surf",
-      "description": "Nuestro espacio compartido por excelencia — perfecto para conocer viajeros, salidas de surf al amanecer y tardes relajadas después de la playa.",
+      "tagline": "Comparte el espacio, quédate con la experiencia.",
+      "description": "Para los que vienen a surfear y se quedan por la gente.",
       "capacityLabel": "Hasta 6 personas",
       "roomType": "Dormitorio compartido",
       "highlights": ["Lockers", "Sala común", "Zona de ducha de surf cercana"]
     },
     "la-lora": {
-      "tagline": "Calma de habitación privada",
-      "description": "Una doble tranquila para parejas o amigos que quieren privacidad sin perder el pulso del hostal — ideal después de largos días en el agua.",
+      "tagline": "Privacidad sin perder el ambiente.",
+      "description": "Doble privada para parejas o amigos. Privacidad sin perder el pulso del hostal.",
       "capacityLabel": "Hasta 2 personas",
       "roomType": "Habitación privada",
       "highlights": ["Baño compartido", "Limpieza diaria", "Televisión de pantalla plana"]
     },
     "paraiso": {
       "tagline": "Espacio para grupos pequeños",
-      "description": "Más espacio para extenderse — ideal para grupos pequeños o familias que quieren comodidad, ventilación y una base para las aventuras.",
+      "description": "Habitación privada para grupos o familias. Espacio de sobra para descansar entre aventuras.",
       "capacityLabel": "Hasta 4 personas",
       "roomType": "Habitación familiar",
       "highlights": ["Baño privado", "Aire acondicionado", "Cocina compartida"]
     },
     "rocamar": {
-      "tagline": "Retiro de surf elevado",
-      "description": "Nuestra opción privada más refinada — pensada para viajeros que quieren mayor comodidad y un ritmo más tranquilo entre sesiones.",
+      "tagline": "Confort sin compromisos.",
+      "description": "La opción más cómoda del hostal. Para quienes quieren su espacio y buen descanso.",
       "capacityLabel": "Hasta 4 personas",
       "roomType": "Suite privada",
       "highlights": ["WiFi gratuito", "Baño privado", "Televisión de pantalla plana"]
@@ -212,9 +213,9 @@
     "eyebrow": "Lo que dicen los huéspedes",
     "heading1": "Personas reales.",
     "heading2": "Historias reales.",
-    "subtext": "Sin filtros. Sin guiones. Solo los momentos que hacen que la gente extienda su estancia.",
-    "allFiveStar": "Todo 5 estrellas",
-    "verifiedReviews": "24 reseñas verificadas",
+    "subtext": "Sin filtros. Sin guiones. Solo los momentos que hacen que la gente extienda su estadía.",
+    "allFiveStar": "Solo 5 estrellas",
+    "verifiedReviews": "24+ reseñas verificadas",
     "sources": "Airbnb · Booking.com",
     "reviews": {
       "leon": {
@@ -240,8 +241,8 @@
     "line1": "Tu próxima",
     "line2": "mañana",
     "line3": "empieza aquí.",
-    "body": "A 3 minutos del break. Café caliente antes de que despierte la multitud. Un patio trasero que convierte a desconocidos en equipo. Lo único que falta es tu habitación.",
-    "panelEyebrow": "Reserva tu estancia",
+    "body": "A 3 minutos del break. Café caliente antes de que despierte la multitud. Un patio trasero que convierte a desconocidos en amigos. Lo único que falta es tu habitación.",
+    "panelEyebrow": "Reserva tu estadía",
     "panelHeading": "Las habitaciones se llenan rápido.",
     "panelHeadingEm": "No esperes.",
     "panelNote": "Disponibilidad en tiempo real · Reserva segura",
@@ -266,7 +267,7 @@
   "contact": {
     "heroEyebrow": "Nos encantaría saber de ti",
     "heroHeading": "Ponte en contacto",
-    "heroSub": "¿Tienes preguntas sobre una estancia, una clase de surf o simplemente tienes curiosidad por el ambiente? Escríbenos — normalmente respondemos en pocas horas.",
+    "heroSub": "¿Tienes preguntas sobre una estadía, una clase de surf o simplemente tienes curiosidad por el ambiente? Escríbenos — normalmente respondemos en pocas horas.",
     "formTitle": "Envíanos un mensaje",
     "nameLabel": "Tu nombre",
     "emailLabel": "Correo electrónico",
@@ -300,7 +301,7 @@
     "heroHeading2": "no te deja",
     "heroHeading3": "ir.",
     "heroSub": "Donde la selva se encuentra con el Pacífico.",
-    "heroCta": "Reserva tu estancia →",
+    "heroCta": "Reserva tu estadía →",
     "statement1": "Un camino de tierra bordeado de tiendas de surf, monos aulladores en lo alto, lapas rojas cruzando el cielo al amanecer.",
     "statementAccent": "Santa Teresa está en la punta de la Península de Nicoya",
     "statement2": "— y cuando llegas, irte se siente como un error.",
@@ -346,7 +347,7 @@
     "ctaHeading2": "te espera.",
     "ctaSub1": "Olas cada mañana. La selva a tu puerta.",
     "ctaSub2": "El resto se soluciona solo.",
-    "ctaBookBtn": "Reserva tu estancia →",
+    "ctaBookBtn": "Reserva tu estadía →",
     "ctaBrowseBtn": "Ver paquetes →"
   },
   "booking": {
@@ -389,7 +390,15 @@
     "availabilityAndPricing": "Disponibilidad y Precios",
     "chooseDifferentRoom": "← Elegir otra habitación",
     "footnoteLive": "Precios en tiempo real via Lodgify · Disponibilidad confirmada al pagar",
-    "footnotePackage": "Elige tus fechas arriba y luego selecciona una habitación para continuar al pago donde añadirás el paquete."
+    "footnotePackage": "Elige tus fechas arriba y luego selecciona una habitación para continuar al pago donde añadirás el paquete.",
+    "reminderTitle": "Antes de continuar",
+    "reminderRoom": "Habitación",
+    "reminderDates": "Fechas",
+    "reminderGuests": "Huéspedes",
+    "reminderNotePackage": "Seleccionaste un paquete — recuerda añadirlo en la sección de extras al llegar al checkout de Lodgify.",
+    "reminderNoteExtras": "¿Quieres añadir clases de surf o análisis de video? Búscalos en la sección de extras al pagar.",
+    "reminderConfirm": "Sí, continuar al checkout →",
+    "reminderBack": "Volver"
   },
   "bookingRooms": {
     "6-gecko": {

@@ -13,6 +13,7 @@ const HERO_BG =
 const NAV_KEYS = [
   { labelKey: 'nav.home',     to: '/' },
   { labelKey: 'nav.rooms',    to: '/booking' },
+  { labelKey: 'nav.packages', to: '/#packages' },
   { labelKey: 'nav.location', to: '/location' },
   { labelKey: 'nav.contact',  to: '/contact' },
 ]
