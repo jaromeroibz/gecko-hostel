@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Homepage — highest priority, surfed weekly for fresh content -->
+  <url>
+    <loc>https://geckosurfhouse.com/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://geckosurfhouse.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://geckosurfhouse.com/" />
+  </url>
+
+  <!-- Booking / rooms overview -->
+  <url>
+    <loc>https://geckosurfhouse.com/booking</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Individual room pages -->
+  <url>
+    <loc>https://geckosurfhouse.com/booking/6-gecko</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://geckosurfhouse.com/booking/la-lora</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://geckosurfhouse.com/booking/rocamar</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://geckosurfhouse.com/booking/paraiso</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Package booking entry points -->
+  <url>
+    <loc>https://geckosurfhouse.com/booking?package=backpacker</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://geckosurfhouse.com/booking?package=adventure</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://geckosurfhouse.com/booking?package=couples</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://geckosurfhouse.com/booking?package=family</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Location guide -->
+  <url>
+    <loc>https://geckosurfhouse.com/location</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://geckosurfhouse.com/contact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+
+</urlset>

@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom'
 
+import { SchemaMarkup } from '../seo/SchemaMarkup'
 import { Footer } from './Footer'
 import { Navbar } from './Navbar'
 
@@ -12,6 +13,8 @@ export function MainLayout() {
 
   return (
     <div className="flex min-h-screen flex-col overflow-x-hidden bg-gecko-cream">
+      {/* Global JSON-LD schema — renders into <head> via react-helmet-async */}
+      <SchemaMarkup />
       <Navbar />
       {/* Fixed navbar takes no space in flow — add spacer on inner pages */}
       {!isHome && <div className="h-[108px] flex-shrink-0" aria-hidden />}

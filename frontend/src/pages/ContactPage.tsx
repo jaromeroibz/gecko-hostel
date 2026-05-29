@@ -2,6 +2,8 @@ import { useState, useId } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
+import { BreadcrumbSchema } from '../components/seo/SchemaMarkup'
+import { SEOHead } from '../components/seo/SEOHead'
 import { useInView } from '../hooks/useInView'
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://127.0.0.1:5000/api'
@@ -121,6 +123,13 @@ export function ContactPage() {
 
   return (
     <>
+      <SEOHead
+        title="Contact Gecko Surf House | Santa Teresa, Costa Rica"
+        description="Reach out to Gecko Surf House in Santa Teresa, Costa Rica. Ask about surf packages, room availability, or adventures. We usually reply within a few hours."
+        path="/contact"
+      />
+      <BreadcrumbSchema crumbs={[{ name: 'Contact Us', path: '/contact' }]} />
+
       <style>{`
         /* ── Hero ──────────────────────────────────────────────────────── */
         .cp-hero {

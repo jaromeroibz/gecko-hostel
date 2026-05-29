@@ -3,6 +3,8 @@ import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
 
 import { BookingSearchBar } from '../components/booking/BookingSearchBar'
 import { CheckoutReminderModal } from '../components/booking/CheckoutReminderModal'
+import { AccommodationSchema, BreadcrumbSchema } from '../components/seo/SchemaMarkup'
+import { SEOHead } from '../components/seo/SEOHead'
 import { BOOKING_ROOMS } from '../data/bookingRooms'
 import { PACKAGES } from '../data/packages'
 import { useLodgifySearchFromRoute } from '../hooks/useLodgifySearchFromRoute'
@@ -116,8 +118,34 @@ export function BookingRoom() {
       )
     : null
 
+  const seoImage = images[0]
+  const seoTitle = `${room.name} | Surf Hostel Room in Santa Teresa, Costa Rica`
+  const seoDescription = `${room.description} Free WiFi, AC, 3 min to Carmen Beach. Book at Gecko Surf House.`
+
   return (
     <>
+      <SEOHead
+        title={seoTitle}
+        description={seoDescription}
+        path={`/booking/${room.id}`}
+        image={seoImage}
+        noindex={!!searchParams.get('arrival')}
+      />
+      <AccommodationSchema
+        name={room.name}
+        description={room.description}
+        type={room.type}
+        image={seoImage}
+        capacity={room.capacity}
+        size={room.size}
+        path={`/booking/${room.id}`}
+      />
+      <BreadcrumbSchema
+        crumbs={[
+          { name: 'Book Your Stay', path: '/booking' },
+          { name: room.name, path: `/booking/${room.id}` },
+        ]}
+      />
     <div className="space-y-8 pb-28 pt-4 sm:pb-8 sm:pt-6">
 
       {/* ── Back link ───────────────────────────────────────────────── */}

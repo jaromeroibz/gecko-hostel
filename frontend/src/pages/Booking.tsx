@@ -8,6 +8,8 @@ import { BookingSearchBar } from '../components/booking/BookingSearchBar'
 import { LodgifyWidget } from '../components/booking/LodgifyWidget'
 import { RoomCard } from '../components/booking/RoomCard'
 import { StickyDateBar } from '../components/booking/StickyDateBar'
+import { SEOHead } from '../components/seo/SEOHead'
+import { BreadcrumbSchema } from '../components/seo/SchemaMarkup'
 import { BOOKING_ROOMS } from '../data/bookingRooms'
 import { PACKAGES } from '../data/packages'
 import { useLodgifySearchFromRoute } from '../hooks/useLodgifySearchFromRoute'
@@ -65,8 +67,30 @@ export function Booking() {
     }, 80)
   }
 
+  // Dynamic SEO: package pages get their own optimized title/description
+  const seoTitle = activePackage
+    ? `${activePackage.name} — Surf Package in Santa Teresa, Costa Rica`
+    : 'Book Your Stay | Surf Hostel Rooms in Santa Teresa, Costa Rica'
+  const seoDescription = activePackage
+    ? `${activePackage.duration} surf package at Gecko Surf House, Santa Teresa. ${activePackage.accommodation} included. From $${activePackage.price} ${activePackage.priceUnit}. Book now.`
+    : 'Check availability and book your room at Gecko Surf House, Santa Teresa. Private rooms, shared dorms, and surf packages near Playa Carmen, Costa Rica. Live pricing.'
+  const seoPath = activePackage ? `/booking?package=${packageId}` : '/booking'
+
   return (
     <>
+      <SEOHead
+        title={seoTitle}
+        description={seoDescription}
+        path={seoPath}
+        noindex={!activePackage && (!!searchParams.get('arrival'))}
+      />
+      <BreadcrumbSchema
+        crumbs={[
+          { name: 'Book Your Stay', path: '/booking' },
+          ...(activePackage ? [{ name: activePackage.name, path: `/booking?package=${packageId}` }] : []),
+        ]}
+      />
+
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <div className="bk-hero relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 -mt-10 sm:-mt-12">
         <div

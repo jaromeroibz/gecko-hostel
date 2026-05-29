@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Block admin routes
+Disallow: /admin/
+Disallow: /admin/login
+
+# Block search with empty or default params to avoid thin content indexing
+Disallow: /booking?arrival=*&departure=*&adults=*
+
+Sitemap: https://geckosurfhouse.com/sitemap.xml

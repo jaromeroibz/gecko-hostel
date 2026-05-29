@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
+import { BreadcrumbSchema, TouristDestinationSchema } from '../components/seo/SchemaMarkup'
+import { SEOHead } from '../components/seo/SEOHead'
 import { useInView } from '../hooks/useInView'
 
 // ── Images (swap for your own Cloudinary URLs when ready) ─────────────────────
@@ -46,6 +48,15 @@ export function LocationPage() {
 
   return (
     <>
+      <SEOHead
+        title="Santa Teresa, Costa Rica — Surf & Travel Guide | Gecko Surf House"
+        description="Discover Santa Teresa — consistent waves, 27°C water, howler monkeys and Pacific sunsets. Gecko Surf House is your base camp for the best of Costa Rica surf travel."
+        path="/location"
+        image={HERO_IMG}
+      />
+      <TouristDestinationSchema />
+      <BreadcrumbSchema crumbs={[{ name: 'Location', path: '/location' }]} />
+
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <div className="lc-hero relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 -mt-10 sm:-mt-12">
         <div
