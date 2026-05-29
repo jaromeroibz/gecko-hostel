@@ -47,12 +47,29 @@
     <link rel="preconnect" href="https://app.lodgify.com" crossorigin />
     <link rel="dns-prefetch" href="https://checkout.lodgify.com" />
 
-    <!-- ── Font stylesheet ──────────────────────────────────────────────── -->
-    <!-- Work Sans removed — not referenced in Tailwind config or any component -->
+    <!-- ── Font stylesheet (non-render-blocking) ───────────────────────── -->
+    <!-- media="print" loads the CSS without blocking paint; onload swaps it  -->
+    <!-- to "all" so it applies once the font file lands. With display=swap,  -->
+    <!-- text renders immediately with a system fallback then shifts to the    -->
+    <!-- custom font — no blank-screen wait for fonts on slow connections.     -->
+    <!-- Work Sans removed — not referenced in Tailwind config or any CSS.    -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@300..700&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Nunito:wght@300..700&display=swap"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@300..700&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Nunito:wght@300..700&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@300..700&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Nunito:wght@300..700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
     <!-- ── LCP image preload — hero background, above the fold ─────────── -->
     <!-- URL must exactly match HomeHero.tsx HERO_BG so the browser reuses this fetch -->

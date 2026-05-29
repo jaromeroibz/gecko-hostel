@@ -3,13 +3,16 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { MainLayout } from './components/layout/MainLayout'
 import { ScrollToTop } from './components/utils/ScrollToTop'
+// HomePage is eagerly imported — it's the landing page and must render immediately.
+// Lazy-loading it creates a waterfall (main bundle → page chunk → render → image)
+// that wrecks FCP and causes NO_LCP in Lighthouse.
+import { HomePage } from './pages/HomePage'
 
-// Route-level code splitting — each page loads only when navigated to.
-// This cuts the initial JS bundle and speeds up first paint.
-const HomePage    = lazy(() => import('./pages/HomePage').then(m => ({ default: m.HomePage })))
-const Booking     = lazy(() => import('./pages/Booking').then(m => ({ default: m.Booking })))
-const BookingRoom = lazy(() => import('./pages/BookingRoom').then(m => ({ default: m.BookingRoom })))
-const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })))
+// Inner pages are lazy-loaded — users only reach them after the home page loads,
+// so the extra chunk fetch happens in the background / after interaction.
+const Booking      = lazy(() => import('./pages/Booking').then(m => ({ default: m.Booking })))
+const BookingRoom  = lazy(() => import('./pages/BookingRoom').then(m => ({ default: m.BookingRoom })))
+const ContactPage  = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })))
 const LocationPage = lazy(() => import('./pages/LocationPage').then(m => ({ default: m.LocationPage })))
 
 /** Minimal full-screen spinner shown while a lazy chunk loads */

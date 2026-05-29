@@ -52,12 +52,32 @@ export function HomeHero() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundImage: `url('${HERO_BG}')`,
-          backgroundSize: 'cover',
-          backgroundPosition: `center calc(30% + ${scrollY * 0.22}px)`,
           backgroundColor: '#F9FDF9',
+          overflow: 'hidden',
         }}
       >
+        {/* ── Hero background as <img> (not CSS background-image) ──────────────
+            Using a real img element makes it a valid LCP candidate and lets the
+            <link rel="preload"> in index.html directly benefit this fetch.
+            CSS background-image is invisible to Lighthouse's LCP detector.     */}
+        <img
+          src={HERO_BG}
+          alt=""
+          aria-hidden="true"
+          fetchPriority="high"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center 30%',
+            transform: `translateY(${scrollY * 0.22}px)`,
+            willChange: 'transform',
+            pointerEvents: 'none',
+          }}
+        />
+
         {/* Barely-mint veil — lets the beach texture breathe without competing with the logo */}
         <div
           aria-hidden
