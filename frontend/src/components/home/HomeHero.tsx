@@ -191,7 +191,7 @@ export function HomeHero() {
       >
         <button className="drawer-close" onClick={close} aria-label={t('hero.closeMenu')}>✕</button>
 
-        <nav className="drawer-nav">
+        <nav className="drawer-nav" aria-label="Mobile navigation">
           {NAV_KEYS.map(({ labelKey, to }) => (
             <Link
               key={labelKey}

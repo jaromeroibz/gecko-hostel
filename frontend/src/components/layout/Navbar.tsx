@@ -70,7 +70,7 @@ export function Navbar() {
         pointerEvents: visible ? 'auto' : 'none',
       }}
     >
-      <nav className="sn-nav">
+      <nav className="sn-nav" aria-label="Main navigation">
 
         {/* ── Left: Logo ───────────────────────────────────────────── */}
         <Link to="/" className="sn-logo-link" aria-label="Gecko Surf House — Home">

@@ -205,7 +205,7 @@ export function BookingRoom() {
             <span className="rounded-full bg-gecko-cream/95 px-3 py-1.5 text-xs font-semibold text-gecko-forest shadow-sm backdrop-blur-sm">
               {room.type}
             </span>
-            <span className="rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
+            <span className="rounded-full bg-black/60 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
               {room.size} m² · {room.bathroom === 'private' ? 'Private bathroom' : 'Shared bathroom'}
             </span>
           </div>
