@@ -152,11 +152,125 @@
       transform: translateY(0) !important;
     }
 
+    /* ── Calendar dialog — full visual direction overhaul ───────────────
+       The date-picker renders as [role="dialog"]. We target its container
+       and every internal element to match the site's palette and fonts.   */
+
+    /* Dialog shell */
+    [role="dialog"] {
+      border-radius: 1.35rem !important;
+      border: 1.5px solid rgba(6, 78, 59, 0.1) !important;
+      box-shadow:
+        0 4px 6px -1px rgba(6, 78, 59, 0.06),
+        0 16px 48px -8px rgba(6, 78, 59, 0.22) !important;
+      overflow: visible !important;
+    }
+
+    /* Propagate site font to every node inside both dialogs */
+    [role="dialog"],
+    [role="dialog"] * {
+      font-family: 'Nunito', 'DM Sans', system-ui, sans-serif !important;
+    }
+
+    /* ── Month / year header ─────────────────────────────────────────── */
+    [role="dialog"] h2,
+    [role="dialog"] [role="heading"] {
+      color: #064E3B !important;
+      font-weight: 700 !important;
+      font-size: 0.9rem !important;
+      letter-spacing: 0.01em !important;
+    }
+
+    /* ── Prev / Next navigation arrows ──────────────────────────────── */
+    [role="dialog"] button[aria-label="Previous"],
+    [role="dialog"] button[aria-label="Next"] {
+      width: 2rem !important;
+      height: 2rem !important;
+      border-radius: 100px !important;
+      background: rgba(6, 78, 59, 0.07) !important;
+      color: #064E3B !important;
+      border: none !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      transition: background 0.15s ease !important;
+    }
+    [role="dialog"] button[aria-label="Previous"]:hover,
+    [role="dialog"] button[aria-label="Next"]:hover {
+      background: rgba(6, 78, 59, 0.14) !important;
+    }
+
+    /* ── Weekday column headers (Mo Tu We…) ─────────────────────────── */
+    [role="columnheader"],
+    [role="columnheader"] abbr {
+      color: rgba(6, 78, 59, 0.38) !important;
+      font-size: 0.6rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.14em !important;
+      text-transform: uppercase !important;
+      text-decoration: none !important;
+    }
+
+    /* ── Day cells ───────────────────────────────────────────────────── */
+    [role="gridcell"] button {
+      border-radius: 8px !important;
+      font-size: 0.83rem !important;
+      font-weight: 500 !important;
+      color: #064E3B !important;
+      transition: background 0.12s ease, color 0.12s ease !important;
+    }
+
+    /* Hover on available, unselected days */
+    [role="gridcell"] button:not([aria-disabled="true"]):not([disabled]):hover {
+      background: rgba(52, 211, 153, 0.2) !important;
+      color: #064E3B !important;
+    }
+
+    /* Disabled / unavailable days */
+    [role="gridcell"] button[aria-disabled="true"],
+    [role="gridcell"] button[disabled] {
+      color: rgba(6, 78, 59, 0.2) !important;
+      background: transparent !important;
+      cursor: default !important;
+    }
+
+    /* Today indicator */
+    [role="gridcell"] button[aria-current="date"] {
+      border: 1.5px solid rgba(52, 211, 153, 0.55) !important;
+    }
+
+    /* ── Guests dialog — force site font on every element ────────────── */
+    [data-testid="book-now-box.guests-breakdown-dialog"],
+    [data-testid="book-now-box.guests-breakdown-dialog"] * {
+      font-family: 'Nunito', 'DM Sans', system-ui, sans-serif !important;
+    }
+
+    /* Guest type name (Adults, Children…) */
+    [data-testid="book-now-box.guests-breakdown-dialog"] strong,
+    [data-testid="book-now-box.guests-breakdown-dialog"] b {
+      color: #064E3B !important;
+      font-weight: 700 !important;
+    }
+
+    /* Age description ("Ages 18 and above") */
+    [data-testid="book-now-box.guests-breakdown-dialog"] p,
+    [data-testid="book-now-box.guests-breakdown-dialog"] span:not([data-testid]) {
+      color: rgba(6, 78, 59, 0.55) !important;
+      font-size: 0.8rem !important;
+    }
+
+    /* Guest count number */
+    [data-testid*="guests-count"],
+    [data-testid*="-count"] {
+      color: #064E3B !important;
+      font-weight: 700 !important;
+      font-size: 0.95rem !important;
+    }
+
     /* ── Responsive — ensure widget never overflows its iframe ───────── */
     * { max-width: 100%; }
 
     @media (max-width: 360px) {
-      /* On very small phones, let the date row stack */
       [data-testid="book-now-box.date-picker.trigger"] {
         flex-direction: column !important;
         gap: 0.5rem !important;
@@ -429,6 +543,38 @@
         }
       }
     }
+
+    // ── Click outside to close open dialogs ─────────────────────────────────────
+    // Lodgify's calendar and guests dialogs don't close when clicking outside them.
+    // This handler detects outside clicks and fires an Escape keydown on the open
+    // dialog — Lodgify's React internals handle the close from there.
+    // Runs in the bubbling phase (false) so it doesn't interfere with the capture-
+    // phase checkout intercept below.
+    document.addEventListener('click', function(e) {
+      const openDialog = document.querySelector('[role="dialog"]')
+      if (!openDialog) return
+
+      // Click was inside the dialog itself → do nothing
+      if (openDialog.contains(e.target)) return
+
+      // Click was on one of the triggers that toggle the dialog → do nothing
+      // (their own click handler will close it)
+      const dateTrigger   = document.querySelector('[data-testid="book-now-box.date-picker.trigger"]')
+      const guestsTrigger = document.querySelector('[data-testid="guests-breakdown-trigger"]')
+      if (dateTrigger   && dateTrigger.contains(e.target))   return
+      if (guestsTrigger && guestsTrigger.contains(e.target)) return
+
+      // Outside click confirmed — send Escape to the dialog so React closes it
+      openDialog.dispatchEvent(new KeyboardEvent('keydown', {
+        key:        'Escape',
+        code:       'Escape',
+        keyCode:    27,
+        which:      27,
+        bubbles:    true,
+        cancelable: true,
+        composed:   true,
+      }))
+    }, false)
 
     // ── Checkout intercept ───────────────────────────────────────────────────────
     // Lodgify's "Book now" renders as an <a href="https://checkout.lodgify.com/...">
