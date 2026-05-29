@@ -576,6 +576,25 @@
       }))
     }, false)
 
+    // ── Receive close-dialogs signal from parent page ───────────────────────────
+    // When the user clicks anywhere on the parent page (outside the iframe),
+    // BookingRoom.tsx sends { type: 'ldg-close-dialogs' } via postMessage.
+    // We dispatch Escape on any open dialog so Lodgify's React internals close it.
+    window.addEventListener('message', function(e) {
+      if (!e.data || e.data.type !== 'ldg-close-dialogs') return
+      const openDialog = document.querySelector('[role="dialog"]')
+      if (!openDialog) return
+      openDialog.dispatchEvent(new KeyboardEvent('keydown', {
+        key:        'Escape',
+        code:       'Escape',
+        keyCode:    27,
+        which:      27,
+        bubbles:    true,
+        cancelable: true,
+        composed:   true,
+      }))
+    })
+
     // ── Checkout intercept ───────────────────────────────────────────────────────
     // Lodgify's "Book now" renders as an <a href="https://checkout.lodgify.com/...">
     // with data-new-tab="true". We intercept the click before it opens a new tab,

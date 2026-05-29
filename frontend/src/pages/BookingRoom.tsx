@@ -68,6 +68,18 @@ export function BookingRoom() {
     window.addEventListener('message', onMessage)
     return () => window.removeEventListener('message', onMessage)
   }, [])
+  // Close Lodgify calendar / guests dialog when clicking anywhere on the parent page.
+  // Clicks outside the iframe never fire inside it, so we send a postMessage signal
+  // that booking-widget.html converts into an Escape keydown on the open dialog.
+  useEffect(() => {
+    function closeWidgetDialogs() {
+      const iframeEl = widgetRef.current?.querySelector('iframe') as HTMLIFrameElement | null
+      iframeEl?.contentWindow?.postMessage({ type: 'ldg-close-dialogs' }, '*')
+    }
+    document.addEventListener('click', closeWidgetDialogs, false)
+    return () => document.removeEventListener('click', closeWidgetDialogs, false)
+  }, [])
+
   // Hide sticky bar when the booking widget is scrolled into view.
   useEffect(() => {
     const el = widgetRef.current
