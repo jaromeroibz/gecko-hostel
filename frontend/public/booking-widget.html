@@ -9,17 +9,17 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { background: transparent; }
+    html, body { background: transparent; overflow-x: hidden; }
 
     :root {
       /* ── Container ─────────────────────────────────────────────────── */
       --ldg-bnb-background:              transparent;
-      --ldg-bnb-border-radius:           0px;
+      --ldg-bnb-border-radius:           14px;
       --ldg-bnb-box-shadow:              none;
       --ldg-bnb-padding:                 0px;
 
       /* ── Inputs ────────────────────────────────────────────────────── */
-      --ldg-bnb-input-background:        rgba(6, 78, 59, 0.06);
+      --ldg-bnb-input-background:        rgba(6, 78, 59, 0.05);
 
       /* ── Buttons ───────────────────────────────────────────────────── */
       --ldg-bnb-button-border-radius:    9999px;
@@ -29,23 +29,109 @@
 
       /* ── Brand palette ─────────────────────────────────────────────── */
       --ldg-bnb-color-primary:           #064E3B;
-      --ldg-bnb-color-primary-lighter:   #34D399;    /* mint — calendar range bg */
+      --ldg-bnb-color-primary-lighter:   #34D399;
       --ldg-bnb-color-primary-darker:    #142923;
       --ldg-bnb-color-primary-contrast:  #F9FDF9;
 
       /* ── Calendar ──────────────────────────────────────────────────── */
-      --ldg-component-calendar-cell-selection-bg-color: #064E3B;     /* endpoint dates */
+      --ldg-component-calendar-cell-selection-bg-color: #064E3B;
       --ldg-component-calendar-cell-selection-color:    #F9FDF9;
-      --ldg-component-calendar-cell-selected-bg-color:  rgba(52, 211, 153, 0.18); /* range fill */
+      --ldg-component-calendar-cell-selected-bg-color:  rgba(52, 211, 153, 0.18);
       --ldg-component-calendar-cell-selected-color:     #064E3B;
     }
 
-    #lodgify-book-now-box { width: 100%; }
+    #lodgify-book-now-box {
+      width: 100%;
+      max-width: 100%;
+    }
 
-    /* ── Book Now CTA — amber to match site's primary CTA colour ────────── */
-    /* Lodgify with data-new-tab="true" renders the button as                 */
-    /* <a href="https://checkout.lodgify.com/…">. Targeting the href is the   */
-    /* most stable selector across Lodgify script updates.                    */
+    /* ── Guests trigger — match site input style ─────────────────────────
+       Targets the clickable row that shows "1 adult" and opens the
+       guests breakdown dialog.                                             */
+    [data-testid="guests-breakdown-trigger"] {
+      border-radius: 14px !important;
+      border: 1.5px solid rgba(6, 78, 59, 0.15) !important;
+      background: rgba(6, 78, 59, 0.05) !important;
+      font-family: 'Nunito', 'DM Sans', system-ui, sans-serif !important;
+      padding: 0.625rem 0.875rem !important;
+      transition: border-color 0.2s, box-shadow 0.2s !important;
+    }
+
+    [data-testid="guests-breakdown-trigger"]:hover {
+      border-color: rgba(52, 211, 153, 0.5) !important;
+    }
+
+    [data-testid="guests-breakdown-trigger"]:focus-within,
+    [data-testid="guests-breakdown-trigger"][aria-expanded="true"] {
+      border-color: rgba(52, 211, 153, 0.6) !important;
+      box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.12) !important;
+    }
+
+    /* Guests label ("Guests") */
+    [data-testid="guests-breakdown-trigger"] > *:first-child {
+      font-size: 0.62rem !important;
+      letter-spacing: 0.2em !important;
+      text-transform: uppercase !important;
+      color: rgba(6, 78, 59, 0.45) !important;
+      font-weight: 600 !important;
+    }
+
+    /* Guests value ("1 adult") */
+    [data-testid="guests-breakdown-trigger"] > *:nth-child(2) {
+      color: #064E3B !important;
+      font-weight: 600 !important;
+      font-size: 0.9rem !important;
+    }
+
+    /* ── Guests breakdown dialog ─────────────────────────────────────────
+       The popup that opens when clicking the trigger.                     */
+    [data-testid="book-now-box.guests-breakdown-dialog"] {
+      border-radius: 1.25rem !important;
+      border: 1.5px solid rgba(6, 78, 59, 0.1) !important;
+      box-shadow: 0 8px 40px -8px rgba(6, 78, 59, 0.2) !important;
+      font-family: 'Nunito', 'DM Sans', system-ui, sans-serif !important;
+      padding: 1.25rem !important;
+    }
+
+    /* ── Quantity +/− buttons in the guests dialog ───────────────────── */
+    [data-testid$="-add-button"],
+    [data-testid$="-remove-button"] {
+      border-radius: 100px !important;
+      border: 1.5px solid rgba(6, 78, 59, 0.2) !important;
+      background: rgba(6, 78, 59, 0.05) !important;
+      color: #064E3B !important;
+      font-weight: 700 !important;
+      font-size: 1.1rem !important;
+      transition: background 0.15s ease, border-color 0.15s ease !important;
+    }
+
+    [data-testid$="-add-button"]:hover,
+    [data-testid$="-remove-button"]:hover {
+      background: rgba(6, 78, 59, 0.12) !important;
+      border-color: rgba(6, 78, 59, 0.35) !important;
+    }
+
+    [data-testid$="-add-button"]:disabled,
+    [data-testid$="-remove-button"]:disabled {
+      opacity: 0.3 !important;
+    }
+
+    /* ── Done button in guests dialog ────────────────────────────────── */
+    [data-testid="book-now-box.guests-breakdown-done-cta"] {
+      background: #064E3B !important;
+      color: #F9FDF9 !important;
+      border-radius: 9999px !important;
+      font-family: 'Nunito', 'DM Sans', system-ui, sans-serif !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.08em !important;
+      transition: background 0.2s ease !important;
+    }
+
+    [data-testid="book-now-box.guests-breakdown-done-cta"]:hover {
+      background: #142923 !important;
+    }
+
+    /* ── Book Now CTA — amber to match site's primary CTA colour ─────── */
     a[href*="checkout.lodgify.com"] {
       background:     #F59E0B !important;
       border-color:   transparent !important;
@@ -53,6 +139,7 @@
       font-weight:    700 !important;
       letter-spacing: 0.08em !important;
       text-transform: uppercase !important;
+      border-radius:  9999px !important;
       transition:     background 0.2s ease, transform 0.15s ease !important;
     }
 
@@ -63,6 +150,17 @@
 
     a[href*="checkout.lodgify.com"]:active {
       transform: translateY(0) !important;
+    }
+
+    /* ── Responsive — ensure widget never overflows its iframe ───────── */
+    * { max-width: 100%; }
+
+    @media (max-width: 360px) {
+      /* On very small phones, let the date row stack */
+      [data-testid="book-now-box.date-picker.trigger"] {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+      }
     }
   </style>
 </head>

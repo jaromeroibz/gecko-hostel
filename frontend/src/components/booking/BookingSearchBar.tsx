@@ -61,12 +61,10 @@ export function BookingSearchBar({
     const arr = ymdToHtml(arrivalYmd)
     const dep = ymdToHtml(departureYmd)
     if (arr) {
-      // Exact duration: always lock to arrival + maxNights
       if (maxNights) {
         const d = htmlDateValueToDate(arr)
         if (d) { d.setDate(d.getDate() + maxNights); return dateToHtmlDateValue(d) }
       }
-      // Minimum stay: bump forward if too short
       if (minNights) {
         const d = htmlDateValueToDate(arr)
         if (d) {
@@ -80,7 +78,6 @@ export function BookingSearchBar({
   })
   const [adults, setAdults] = useState(initialAdults)
 
-  // Earliest allowed departure given an arrival date and minNights requirement
   function calcMinDeparture(arrivalHtml: string): string {
     const d = htmlDateValueToDate(arrivalHtml)
     if (!d) return arrivalHtml
@@ -88,7 +85,6 @@ export function BookingSearchBar({
     return dateToHtmlDateValue(d)
   }
 
-  // Latest allowed departure when maxNights is set (exact package duration)
   function calcMaxDeparture(arrivalHtml: string): string | undefined {
     if (!maxNights) return undefined
     const d = htmlDateValueToDate(arrivalHtml)
@@ -100,12 +96,10 @@ export function BookingSearchBar({
   function handleArrivalChange(value: string) {
     setArrival(value)
     if (!value) return
-    // When maxNights is set, lock departure to exactly arrival + maxNights
     if (maxNights) {
       setDeparture(calcMaxDeparture(value) ?? departure)
       return
     }
-    // Otherwise auto-advance departure to satisfy minNights (or at least 1 night ahead)
     const minDep = calcMinDeparture(value)
     if (!departure || departure < minDep) {
       setDeparture(minDep)
@@ -130,7 +124,6 @@ export function BookingSearchBar({
       ...(extraQuery ?? {}),
     })
     navigate(`${basePath}?${params.toString()}`, { replace: true })
-    // Scroll to results after navigation settles
     if (onAfterSearch) {
       setTimeout(onAfterSearch, 80)
     }
@@ -138,7 +131,6 @@ export function BookingSearchBar({
 
   const today = todayHtml()
 
-  // Night count between the two selected dates
   const nights: number | null = (() => {
     if (!arrival || !departure) return null
     const diff = Math.round(
@@ -151,91 +143,98 @@ export function BookingSearchBar({
     <>
       <form
         onSubmit={handleSubmit}
-        className="bsb-form flex flex-col gap-3 sm:flex-row sm:items-end sm:gap-3"
+        className="bsb-form"
         aria-label="Search availability"
       >
-        {/* ── Check-in ──────────────────────────────────────── */}
-        <div className="flex flex-1 flex-col gap-1.5">
-          <label htmlFor="bsb-arrival" className="bsb-label font-label">
-            {t('booking.checkIn')}
-          </label>
-          <input
-            id="bsb-arrival"
-            type="date"
-            value={arrival}
-            min={today}
-            onChange={(e) => handleArrivalChange(e.target.value)}
-            required
-            className="bsb-input"
-          />
-        </div>
+        {/* ── Date + guests fields — flex row, wraps on very small screens ── */}
+        <div className="bsb-fields">
 
-        {/* ── Night count separator ──────────────────────────── */}
-        <div className="flex items-center justify-center sm:self-end sm:pb-[9px]">
-          {nights !== null ? (
-            <span className="bsb-nights-pill font-label">
-              {nights} {nights !== 1 ? t('booking.nights') : t('booking.night')}
-            </span>
-          ) : (
-            <span className="bsb-arrow hidden sm:block">→</span>
+          {/* Check-in */}
+          <div className="bsb-field-group">
+            <label htmlFor="bsb-arrival" className="bsb-label font-label">
+              {t('booking.checkIn')}
+            </label>
+            <input
+              id="bsb-arrival"
+              type="date"
+              value={arrival}
+              min={today}
+              onChange={(e) => handleArrivalChange(e.target.value)}
+              required
+              className="bsb-input"
+            />
+          </div>
+
+          {/* Night count separator */}
+          <div className="bsb-sep">
+            {nights !== null ? (
+              <span className="bsb-nights-pill font-label">
+                {nights} {nights !== 1 ? t('booking.nights') : t('booking.night')}
+              </span>
+            ) : (
+              <span className="bsb-arrow">→</span>
+            )}
+          </div>
+
+          {/* Check-out */}
+          <div className="bsb-field-group">
+            <label htmlFor="bsb-departure" className="bsb-label font-label">
+              {t('booking.checkOut')}
+            </label>
+            <input
+              id="bsb-departure"
+              type="date"
+              value={departure}
+              min={arrival ? calcMinDeparture(arrival) : today}
+              max={arrival && maxNights ? calcMaxDeparture(arrival) : undefined}
+              onChange={maxNights ? undefined : (e) => setDeparture(e.target.value)}
+              readOnly={!!maxNights}
+              required
+              className={`bsb-input${maxNights ? ' bsb-input--locked' : ''}`}
+            />
+          </div>
+
+          {/* Guests */}
+          {showGuests && (
+            <div className="bsb-field-group bsb-field-group--guests">
+              <span className="bsb-label font-label">{t('booking.guests')}</span>
+              <div className="bsb-guests">
+                <button
+                  type="button"
+                  onClick={() => adjustAdults(-1)}
+                  disabled={adults <= 1}
+                  aria-label={t('booking.removeGuest')}
+                  className="bsb-guest-btn"
+                >
+                  −
+                </button>
+                <span className="bsb-guest-count font-label">{adults}</span>
+                <button
+                  type="button"
+                  onClick={() => adjustAdults(1)}
+                  disabled={adults >= 10}
+                  aria-label={t('booking.addGuest')}
+                  className="bsb-guest-btn"
+                >
+                  +
+                </button>
+              </div>
+            </div>
           )}
         </div>
 
-        {/* ── Check-out ─────────────────────────────────────── */}
-        <div className="flex flex-1 flex-col gap-1.5">
-          <label htmlFor="bsb-departure" className="bsb-label font-label">
-            {t('booking.checkOut')}
-          </label>
-          <input
-            id="bsb-departure"
-            type="date"
-            value={departure}
-            min={arrival ? calcMinDeparture(arrival) : today}
-            max={arrival && maxNights ? calcMaxDeparture(arrival) : undefined}
-            onChange={maxNights ? undefined : (e) => setDeparture(e.target.value)}
-            readOnly={!!maxNights}
-            required
-            className={`bsb-input${maxNights ? ' bsb-input--locked' : ''}`}
-          />
-        </div>
-
-        {/* ── Guests ────────────────────────────────────────── */}
-        {showGuests && (
-          <div className="flex flex-col gap-1.5">
-            <span className="bsb-label font-label">{t('booking.guests')}</span>
-            <div className="bsb-guests">
-              <button
-                type="button"
-                onClick={() => adjustAdults(-1)}
-                disabled={adults <= 1}
-                aria-label={t('booking.removeGuest')}
-                className="bsb-guest-btn"
-              >
-                −
-              </button>
-              <span className="bsb-guest-count font-label">{adults}</span>
-              <button
-                type="button"
-                onClick={() => adjustAdults(1)}
-                disabled={adults >= 10}
-                aria-label={t('booking.addGuest')}
-                className="bsb-guest-btn"
-              >
-                +
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* ── Submit ────────────────────────────────────────── */}
-        <button type="submit" className="bsb-submit font-label sm:self-end">
+        {/* ── Submit — always full-width at the bottom of the card ──────── */}
+        <button type="submit" className="bsb-submit font-label">
           {resolvedSubmitLabel}
         </button>
       </form>
 
       <style>{`
-        /* ━━ Form shell ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━ Card shell — column layout so button always sits inside ━━━━ */
         .bsb-form {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
           background: #ffffff;
           border: 1px solid rgba(6, 78, 59, 0.1);
           border-radius: 1.5rem;
@@ -245,7 +244,28 @@ export function BookingSearchBar({
             0 8px 32px -8px rgba(6, 78, 59, 0.1);
         }
 
-        /* ━━ Labels ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━ Fields row — check-in | nights | check-out | [guests] ━━━━━━ */
+        .bsb-fields {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-end;
+          gap: 0.625rem;
+          flex-wrap: wrap;
+        }
+
+        .bsb-field-group {
+          display: flex;
+          flex-direction: column;
+          gap: 0.375rem;
+          flex: 1 1 100px; /* grow, shrink, minimum 100px before wrapping */
+        }
+
+        /* Guests control doesn't need to grow as wide as date inputs */
+        .bsb-field-group--guests {
+          flex: 0 0 auto;
+        }
+
+        /* ━━ Labels ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .bsb-label {
           font-size: 0.62rem;
           letter-spacing: 0.22em;
@@ -253,7 +273,32 @@ export function BookingSearchBar({
           color: rgba(6, 78, 59, 0.45);
         }
 
-        /* ━━ Date inputs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━ Night pill / arrow separator ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .bsb-sep {
+          display: flex;
+          align-items: flex-end;
+          padding-bottom: 0.55rem;
+          flex: 0 0 auto;
+        }
+
+        .bsb-nights-pill {
+          display: inline-block;
+          background: #ECFDF5;
+          color: #064E3B;
+          border-radius: 100px;
+          padding: 0.28rem 0.75rem;
+          font-size: 0.65rem;
+          letter-spacing: 0.1em;
+          font-weight: 600;
+          white-space: nowrap;
+        }
+
+        .bsb-arrow {
+          color: rgba(6, 78, 59, 0.25);
+          font-size: 1rem;
+        }
+
+        /* ━━ Date inputs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .bsb-input {
           width: 100%;
           border-radius: 0.875rem;
@@ -272,7 +317,6 @@ export function BookingSearchBar({
           box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.12);
         }
 
-        /* Locked departure — auto-calculated, not user-editable */
         .bsb-input--locked {
           background: #ECFDF5;
           border-color: rgba(52, 211, 153, 0.25);
@@ -281,24 +325,7 @@ export function BookingSearchBar({
           pointer-events: none;
         }
 
-        /* ━━ Night pill / arrow ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .bsb-nights-pill {
-          display: inline-block;
-          background: #ECFDF5;
-          color: #064E3B;
-          border-radius: 100px;
-          padding: 0.28rem 0.75rem;
-          font-size: 0.65rem;
-          letter-spacing: 0.1em;
-          font-weight: 600;
-          white-space: nowrap;
-        }
-
-        .bsb-arrow {
-          color: rgba(6, 78, 59, 0.25);
-        }
-
-        /* ━━ Guests control ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━ Guests control ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .bsb-guests {
           display: flex;
           align-items: center;
@@ -342,12 +369,13 @@ export function BookingSearchBar({
           color: #064E3B;
         }
 
-        /* ━━ Submit button ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━ Submit — full width, inside the card ━━━━━━━━━━━━━━━━━━━━━━ */
         .bsb-submit {
+          width: 100%;
           border-radius: 0.875rem;
           background: #064E3B;
           color: #F9FDF9;
-          padding: 0.65rem 1.75rem;
+          padding: 0.75rem 1.75rem;
           font-size: 0.72rem;
           letter-spacing: 0.18em;
           text-transform: uppercase;
@@ -361,6 +389,12 @@ export function BookingSearchBar({
         .bsb-submit:hover {
           background: #F59E0B;
           color: #064E3B;
+        }
+
+        /* ━━ Responsive — stack date fields on very small screens ━━━━━━━ */
+        @media (max-width: 380px) {
+          .bsb-sep { display: none; }
+          .bsb-field-group { flex: 1 1 100%; }
         }
       `}</style>
     </>
