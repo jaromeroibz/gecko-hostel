@@ -1,61 +1,45 @@
 import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { RequireAdminAuth } from './components/auth/RequireAdminAuth'
 import { MainLayout } from './components/layout/MainLayout'
 import { ScrollToTop } from './components/utils/ScrollToTop'
-import { AdminLoginPage } from './pages/AdminLoginPage'
-import { Booking } from './pages/Booking'
-import { BookingRoom } from './pages/BookingRoom'
-import { ContactPage } from './pages/ContactPage'
-import { HomePage } from './pages/HomePage'
-import { LocationPage } from './pages/LocationPage'
 
-const AdminPage = lazy(() => import('./pages/AdminPage').then((m) => ({ default: m.AdminPage })))
+// Route-level code splitting — each page loads only when navigated to.
+// This cuts the initial JS bundle and speeds up first paint.
+const HomePage    = lazy(() => import('./pages/HomePage').then(m => ({ default: m.HomePage })))
+const Booking     = lazy(() => import('./pages/Booking').then(m => ({ default: m.Booking })))
+const BookingRoom = lazy(() => import('./pages/BookingRoom').then(m => ({ default: m.BookingRoom })))
+const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })))
+const LocationPage = lazy(() => import('./pages/LocationPage').then(m => ({ default: m.LocationPage })))
+
+/** Minimal full-screen spinner shown while a lazy chunk loads */
+function PageFallback() {
+  return (
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ width: 28, height: 28, borderRadius: '50%', border: '2.5px solid #1e3d3230', borderTopColor: '#1e3d32', animation: 'spin 0.7s linear infinite' }} />
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+    </div>
+  )
+}
 
 function App() {
   return (
     <>
       <ScrollToTop />
-      <Routes>
-      <Route element={<MainLayout />}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/booking" element={<Booking />} />
-        <Route path="/booking/:roomId" element={<BookingRoom />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/location" element={<LocationPage />} />
-        {/* Admin routes disabled — feature not included in current plan */}
-        {/* To re-enable: restore AdminLoginPage route and the RequireAdminAuth block below */}
-        <Route path="/admin/login" element={<Navigate to="/" replace />} />
-      </Route>
-      {/* <Route element={<RequireAdminAuth />}>
-        <Route
-          path="/admin"
-          element={
-            <Suspense
-              fallback={
-                <div
-                  style={{
-                    minHeight: '100vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontFamily: 'system-ui, sans-serif',
-                    color: '#6c757d',
-                    fontSize: '0.875rem',
-                  }}
-                >
-                  Loading admin…
-                </div>
-              }
-            >
-              <AdminPage />
-            </Suspense>
-          }
-        />
-      </Route> */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+      <Suspense fallback={<PageFallback />}>
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/booking" element={<Booking />} />
+            <Route path="/booking/:roomId" element={<BookingRoom />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/location" element={<LocationPage />} />
+            {/* Admin routes disabled — feature not included in current plan */}
+            <Route path="/admin/login" element={<Navigate to="/" replace />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
     </>
   )
 }

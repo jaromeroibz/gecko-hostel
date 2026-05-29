@@ -7,8 +7,9 @@ const LOGO_URL =
   'https://res.cloudinary.com/doow0mhrm/image/upload/v1778622715/background-removed_kzu281.png'
 
 // Ambient background — hero full viewport
+// URL must match the <link rel="preload"> in index.html so the browser reuses the prefetched asset
 const HERO_BG =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/v1778627977/frames-for-your-heart-eBSKJJuPeO8-unsplash_uc6ksc.jpg'
+  'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1920/v1778627977/frames-for-your-heart-eBSKJJuPeO8-unsplash_uc6ksc.jpg'
 
 const NAV_KEYS = [
   { labelKey: 'nav.home',     to: '/' },
