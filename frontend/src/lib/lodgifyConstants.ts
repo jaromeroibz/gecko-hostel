@@ -9,4 +9,4 @@ export const LODGIFY_PORTABLE_SEARCH_SCRIPT_URL =
 /** Default properties listing + booking engine (Spanish). */
 export const LODGIFY_PROPERTIES_BASE_URL =
   import.meta.env.VITE_LODGIFY_PROPERTIES_URL ??
-  'https://npreview-rentari-group.lodgify.com/es/propiedades/?sort=price&selectedlocationid=0,49,0,846&city=Carmen%20Beach'
+  'https://allan-alvarez-d17ba1.lodgify.com/es/propiedades/?sort=price&selectedlocationid=0,49,0,846&city=Carmen%20Beach'

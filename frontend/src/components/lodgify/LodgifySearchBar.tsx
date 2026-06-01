@@ -1,6 +1,6 @@
 import { useLodgifyPortableSearchScript } from '../../hooks/useLodgifyPortableSearchScript'
 
-const WEBSITE_ID = '595112'
+const WEBSITE_ID = '655774'
 /** Override with `VITE_LODGIFY_SEARCH_LANGUAGE` (e.g. `es`) if the Lodgify widget should stay non-English. */
 const LANGUAGE = import.meta.env.VITE_LODGIFY_SEARCH_LANGUAGE ?? 'en'
 

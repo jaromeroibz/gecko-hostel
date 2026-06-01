@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import type { BookingRoom } from '../../data/bookingRooms'
 
@@ -12,12 +13,14 @@ type Props = {
 export function LodgifyWidget({ room, arrivalYmd, departureYmd, adults }: Props) {
   const [iframeHeight, setIframeHeight] = useState(420)
   const [widgetLoaded, setWidgetLoaded] = useState(false)
+  const { i18n } = useTranslation()
+  const lang = i18n.language?.startsWith('es') ? 'es' : 'en'
 
   // Always pass the real guest count so Lodgify prices correctly for every
   // room type — dorms (per bed) and private rooms (checks capacity/pricing).
   const widgetSrc =
     `/booking-widget.html?rentalId=${room.rentalId}` +
-    `&arrival=${arrivalYmd}&departure=${departureYmd}&adults=${adults}`
+    `&arrival=${arrivalYmd}&departure=${departureYmd}&adults=${adults}&lang=${lang}`
 
   // Reset loaded flag whenever the URL changes (new dates or room)
   useEffect(() => { setWidgetLoaded(false) }, [widgetSrc])

@@ -281,8 +281,8 @@
 <body>
   <div
     id="lodgify-book-now-box"
-    data-website-id="595112"
-    data-slug="rentari-group"
+    data-website-id="655774"
+    data-slug="allan-alvarez-d17ba1"
     data-language-code="en"
     data-new-tab="true"
     data-version="stable"
@@ -318,11 +318,41 @@
     const arrival  = params.get('arrival')  ?? ''   // YYYYMMDD
     const departure= params.get('departure')?? ''   // YYYYMMDD
     const adults   = parseInt(params.get('adults') ?? '1', 10)
+    const lang     = params.get('lang') ?? 'en'     // 'en' | 'es'
 
     // Stamp attributes onto the widget div BEFORE renderBookNowBox.js runs
     // (it's defer, so our inline script always wins the race).
     const _box = document.getElementById('lodgify-book-now-box')
     if (rentalId) _box.setAttribute('data-rental-id', rentalId)
+
+    // ── Language / localisation ──────────────────────────────────────────────
+    // Set the Lodgify language code so the widget fetches translated content,
+    // then override every visible label to match the site's active language.
+    _box.setAttribute('data-language-code', lang)
+    if (lang === 'es') {
+      _box.setAttribute('data-check-in-label',                      'Llegada')
+      _box.setAttribute('data-check-out-label',                     'Salida')
+      _box.setAttribute('data-guests-label',                        'Huéspedes')
+      _box.setAttribute('data-guests-singular-label',               '{{NumberOfGuests}} huésped')
+      _box.setAttribute('data-guests-plural-label',                 '{{NumberOfGuests}} huéspedes')
+      _box.setAttribute('data-total-price-label',                   'Precio total:')
+      _box.setAttribute('data-select-dates-to-see-price-label',     'Seleccione las fechas para ver el precio total')
+      _box.setAttribute('data-minimum-price-per-night-first-label', 'Desde')
+      _box.setAttribute('data-minimum-price-per-night-second-label','por noche')
+      _box.setAttribute('data-book-button-label',                   'Reservar ahora')
+      _box.setAttribute('data-guests-breakdown-label',              'Huéspedes')
+      _box.setAttribute('data-adults-label',                        '{"one":"adulto","other":"adultos"}')
+      _box.setAttribute('data-adults-description',                  'Edades {minAge} o mayores')
+      _box.setAttribute('data-children-label',                      '{"one":"niño","other":"niños"}')
+      _box.setAttribute('data-children-description',                'Edades {minAge} - {maxAge}')
+      _box.setAttribute('data-children-not-allowed-label',          'No adaptado para niños')
+      _box.setAttribute('data-infants-label',                       '{"one":"bebé","other":"bebés"}')
+      _box.setAttribute('data-infants-description',                 'Menos de {maxAge}')
+      _box.setAttribute('data-infants-not-allowed-label',           'No adaptado para bebés')
+      _box.setAttribute('data-pets-label',                          '{"one":"mascota","other":"mascotas"}')
+      _box.setAttribute('data-pets-not-allowed-label',              'No permitido')
+      _box.setAttribute('data-done-label',                          'Hecho')
+    }
 
     // ── Native guests pre-fill ───────────────────────────────────────────────
     // Lodgify's script reads these attributes during initialisation.

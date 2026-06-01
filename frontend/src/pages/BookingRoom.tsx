@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import { BookingSearchBar } from '../components/booking/BookingSearchBar'
 import { CheckoutReminderModal } from '../components/booking/CheckoutReminderModal'
@@ -19,6 +20,8 @@ export function BookingRoom() {
   const search = useLodgifySearchFromRoute()
   const [searchParams] = useSearchParams()
   const packageId = searchParams.get('package')
+  const { i18n } = useTranslation()
+  const widgetLang = i18n.language?.startsWith('es') ? 'es' : 'en'
 
   // ── All hooks must be declared before any early return ───────────────────
   const [iframeHeight, setIframeHeight]       = useState(420)
@@ -40,7 +43,8 @@ export function BookingRoom() {
     ? `/booking-widget.html?rentalId=${room.rentalId}` +
       `&arrival=${search.arrivalYmd}` +
       `&departure=${search.departureYmd}` +
-      `&adults=${widgetAdults}`
+      `&adults=${widgetAdults}` +
+      `&lang=${widgetLang}`
     : ''
 
   // Reset loaded flag whenever the iframe URL changes (dates / room change).
