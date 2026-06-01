@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { Helmet } from 'react-helmet-async'
 import { WaveButton } from '../ui/WaveButton'
 
 const LOGO_URL =
@@ -43,6 +44,19 @@ export function HomeHero() {
 
   return (
     <>
+      {/* Preload the LCP hero image only when this component actually mounts
+          (i.e. on the home route). Putting it in index.html would fire it on
+          every SPA route and trigger "preloaded but not used" warnings. */}
+      <Helmet>
+        <link
+          rel="preload"
+          as="image"
+          href={HERO_BG}
+          // @ts-expect-error – fetchpriority is valid HTML but not yet in React's type defs
+          fetchpriority="high"
+        />
+      </Helmet>
+
       {/* ── Hero section ────────────────────────────────────────────── */}
       <div
         ref={heroRef}

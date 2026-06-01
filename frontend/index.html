@@ -71,15 +71,9 @@
       />
     </noscript>
 
-    <!-- ── LCP image preload — hero background, above the fold ─────────── -->
-    <!-- URL must exactly match HomeHero.tsx HERO_BG so the browser reuses this fetch -->
-    <!-- fetchpriority=high tells the browser to fetch this before JS parses -->
-    <link
-      rel="preload"
-      as="image"
-      href="https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1920/v1778627977/frames-for-your-heart-eBSKJJuPeO8-unsplash_uc6ksc.jpg"
-      fetchpriority="high"
-    />
+    <!-- Hero image preload removed from here — HomeHero.tsx injects it via
+         react-helmet-async only when the home route actually renders, which
+         prevents the "preloaded but not used" warning on all other routes. -->
   </head>
   <body>
     <div id="root"></div>
