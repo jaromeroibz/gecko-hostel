@@ -492,7 +492,7 @@
         }
         console.log('[ldg-prefill] navigating', goBack ? 'back' : 'forward',
           '(current:', current.month + '/' + current.year, '→ target:', targetMonth + '/' + targetYear + ')')
-        reactClick(btn)
+        btn.click() // plain DOM click so the event bubbles up to parent handlers
         await sleep(400) // wait for calendar to finish transition
       }
     }
