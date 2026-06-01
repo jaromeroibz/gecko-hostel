@@ -540,11 +540,14 @@
       }
 
       // 5: aria-label text match — works when no testid is present.
-      //    Searches gridcell buttons, dialog buttons, and grid buttons.
+      //    Includes [role="gridcell"] elements directly because some Lodgify
+      //    widget versions make the gridcell itself the interactive element
+      //    rather than wrapping a <button> inside it.
       const monthEn = MONTH_NAMES_EN[month - 1].toLowerCase()
       const monthEs = MONTH_NAMES_ES[month - 1].toLowerCase()
       const yr      = String(year)
       const searchScope = [
+        ...document.querySelectorAll('[role="gridcell"]'),
         ...document.querySelectorAll('[role="gridcell"] button'),
         ...document.querySelectorAll('[role="dialog"] button'),
         ...document.querySelectorAll('[role="grid"] button'),
@@ -590,25 +593,33 @@
         if (!inTargetMonth) continue
         const tag  = el.tagName?.toLowerCase()
         const role = el.getAttribute('role')
-        if (tag !== 'button' && role !== 'button') continue
-        if (el.getAttribute('aria-disabled') === 'true' || el.disabled) continue
+        // Match buttons AND [role="gridcell"] — some Lodgify versions make
+        // the gridcell itself the clickable date element (no inner <button>).
+        if (tag !== 'button' && role !== 'button' && role !== 'gridcell') continue
+        if (el.getAttribute('aria-disabled') === 'true') continue
+        if (tag === 'button' && el.disabled) continue
         const txt = (el.textContent ?? '').trim()
         if (txt === d || txt === dd) {
-          console.log('[ldg-prefill] cell matched between-headings: "' + txt + '"')
+          console.log('[ldg-prefill] cell matched between-headings: "' + txt + '" role=' + (role ?? tag))
           return el
         }
       }
 
       // Debug: flat string output so the browser doesn't collapse values as "Object"
-      const diagBtns = [...document.querySelectorAll('[role="dialog"] button')]
+      const diagCells = [...document.querySelectorAll('[role="gridcell"]')]
         .slice(0, 8)
-        .map(b => '"' + (b.getAttribute('aria-label') || b.textContent?.trim().slice(0, 12)) + '"')
+        .map(c => '"' + (c.getAttribute('aria-label') || c.textContent?.trim().slice(0, 10)) + '"')
+        .join(', ')
+      const diagBtns = [...document.querySelectorAll('[role="dialog"] button')]
+        .slice(0, 6)
+        .map(b => '"' + (b.getAttribute('aria-label') || b.textContent?.trim().slice(0, 10)) + '"')
         .join(', ')
       console.warn(
         '[ldg-prefill] cell not found  day=' + day + ' month=' + month + ' year=' + year +
         '  dialogs=' + document.querySelectorAll('[role="dialog"]').length +
         '  grids=' + document.querySelectorAll('[role="grid"]').length +
         '  gridcells=' + document.querySelectorAll('[role="gridcell"]').length +
+        '  sample gridcells: ' + diagCells +
         '  sample dialog btns: ' + diagBtns
       )
       return null
