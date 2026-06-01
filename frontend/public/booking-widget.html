@@ -492,6 +492,36 @@
       }
     }
 
+    // ── Month-panel locator ──────────────────────────────────────────────────
+    // Some Lodgify calendars render two months side-by-side (check-in left,
+    // check-out right). Without scoping the cell search to the correct panel
+    // we'd click the wrong month's day (e.g. June 9 instead of July 9).
+    // Returns the smallest ancestor element whose subtree contains the heading
+    // "Month YYYY" for the target month AND has enough buttons to be a grid.
+    function findMonthSection(targetYear, targetMonth) {
+      const roots = [
+        ...document.querySelectorAll('[role="dialog"]'),
+        ...document.querySelectorAll('[role="presentation"]'),
+        document.body,
+      ]
+      for (const root of roots) {
+        for (const el of root.querySelectorAll('span, p, h2, h3, div, button')) {
+          const text = (el.textContent ?? '').trim()
+          const match = text.match(/^([A-Za-z]+)\s+(\d{4})$/)
+          if (!match) continue
+          const m = MONTH_LOOKUP[match[1].toLowerCase()]
+          if (m !== targetMonth || parseInt(match[2]) !== targetYear) continue
+          // Walk up until we find a container with enough buttons to be a calendar panel
+          let node = el.parentElement
+          while (node && node !== document.body) {
+            if (node.querySelectorAll('button').length > 7) return node
+            node = node.parentElement
+          }
+        }
+      }
+      return null
+    }
+
     // ── Resilient calendar-cell finder ──────────────────────────────────────
     // Tries four testid formats, then falls back to aria-label matching across
     // a broad set of selectors (new account has no data-testid on cells at all).
@@ -538,26 +568,22 @@
         }
       }
 
-      // 6: text-content match — last resort when cells have no aria-label.
-      // Safe because we've already navigated to the target month, so the only
-      // enabled button whose text is exactly the day number is the right cell.
-      // Disabled cells (greyed-out days from adjacent months) are skipped.
-      const calRoots = [
-        ...document.querySelectorAll('[role="dialog"]'),
-        ...document.querySelectorAll('[role="grid"]'),
-        ...document.querySelectorAll('[role="presentation"]'),
-      ]
-      if (!calRoots.length) calRoots.push(document.body)
-      for (const root of calRoots) {
-        for (const btn of root.querySelectorAll('button, [role="button"]')) {
-          if (seen.has(btn)) continue
-          seen.add(btn)
-          if (btn.getAttribute('aria-disabled') === 'true' || btn.disabled) continue
-          const txt = (btn.textContent ?? '').trim()
-          if (txt === d || txt === dd) {
-            console.log('[ldg-prefill] cell matched by text content "' + txt + '"')
-            return btn
-          }
+      // 6: text-content match scoped to the correct month's calendar panel.
+      // findMonthSection() ensures we only search the panel whose heading
+      // matches our target month — critical for dual-month calendars where
+      // an un-scoped search would find the adjacent month's day cell first.
+      const monthSection = findMonthSection(year, month)
+        ?? document.querySelector('[role="dialog"]')
+        ?? document.body
+      for (const btn of monthSection.querySelectorAll('button, [role="button"]')) {
+        if (seen.has(btn)) continue
+        seen.add(btn)
+        if (btn.getAttribute('aria-disabled') === 'true' || btn.disabled) continue
+        const txt = (btn.textContent ?? '').trim()
+        if (txt === d || txt === dd) {
+          const scope = monthSection === document.body ? 'full-page' : 'month-scoped'
+          console.log('[ldg-prefill] cell matched by text "' + txt + '" (' + scope + ')')
+          return btn
         }
       }
 
