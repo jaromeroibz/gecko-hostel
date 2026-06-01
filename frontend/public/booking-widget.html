@@ -667,7 +667,7 @@
         console.warn('[ldg-prefill] arrival date unavailable — leaving calendar open for manual selection')
         return
       }
-      reactClick(arrCell)
+      arrCell.click() // plain click so event bubbles to parent grid handlers (updates UI display)
       await sleep(600) // give calendar time to switch to departure-selection state
 
       // ── 3. Navigate to departure month (only if not already visible) ─────
@@ -686,7 +686,7 @@
         console.warn('[ldg-prefill] departure date unavailable — leaving calendar open')
         return
       }
-      reactClick(depCell)
+      depCell.click() // plain click so event bubbles to parent grid handlers
       await sleep(300)
 
       // ── 4. Wait for the calendar dialog to fully close ───────────────────
