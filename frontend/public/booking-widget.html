@@ -399,10 +399,18 @@
     }).observe(document.body, { childList: true, subtree: true })
 
     // ── Calendar pre-fill helpers ────────────────────────────────────────────
-    const MONTH_NAMES = [
+    const MONTH_NAMES_EN = [
       'January','February','March','April','May','June',
       'July','August','September','October','November','December',
     ]
+    const MONTH_NAMES_ES = [
+      'enero','febrero','marzo','abril','mayo','junio',
+      'julio','agosto','septiembre','octubre','noviembre','diciembre',
+    ]
+    // Combined month-name → 1-based index lookup (used for both EN and ES calendars)
+    const MONTH_LOOKUP = {}
+    MONTH_NAMES_EN.forEach((n, i) => { MONTH_LOOKUP[n.toLowerCase()] = i + 1 })
+    MONTH_NAMES_ES.forEach((n, i) => { MONTH_LOOKUP[n.toLowerCase()] = i + 1 })
 
     function sleep(ms) { return new Promise(r => setTimeout(r, ms)) }
 
@@ -441,12 +449,13 @@
         document.body,
       ]
       for (const root of roots) {
-        for (const el of root.querySelectorAll('span, p, h2, h3, div')) {
+        for (const el of root.querySelectorAll('span, p, h2, h3, div, button')) {
           const text = (el.textContent ?? '').trim()
-          const match = text.match(/^(\w+)\s+(\d{4})$/)
+          // Matches "July 2026", "julio 2026", etc. — \w+ covers all ASCII month names
+          const match = text.match(/^([A-Za-z]+)\s+(\d{4})$/)
           if (match) {
-            const idx = MONTH_NAMES.indexOf(match[1])
-            if (idx !== -1) return { year: parseInt(match[2]), month: idx + 1 }
+            const month = MONTH_LOOKUP[match[1].toLowerCase()]
+            if (month) return { year: parseInt(match[2]), month }
           }
         }
       }
@@ -466,72 +475,78 @@
           current.year > targetYear ||
           (current.year === targetYear && current.month > targetMonth)
 
-        const label = goBack ? 'Previous' : 'Next'
-        // Prefer a dialog-scoped button, fall back to any matching button in the document.
+        const labelEn = goBack ? 'Previous' : 'Next'
+        const labelEs = goBack ? 'Anterior' : 'Siguiente'
+        // Try EN and ES aria-labels; prefer dialog-scoped, fall back to document-wide.
         const btn =
-          document.querySelector(`[role="dialog"] button[aria-label="${label}"]`) ??
-          document.querySelector(`button[aria-label="${label}"]`)
+          document.querySelector(`[role="dialog"] button[aria-label="${labelEn}"]`) ??
+          document.querySelector(`[role="dialog"] button[aria-label="${labelEs}"]`) ??
+          document.querySelector(`button[aria-label="${labelEn}"]`) ??
+          document.querySelector(`button[aria-label="${labelEs}"]`)
         if (!btn) {
-          console.warn(`[ldg-prefill] nav button "${label}" not found`)
+          console.warn(`[ldg-prefill] nav button not found (tried "${labelEn}" / "${labelEs}")`)
           break
         }
-        btn.click()
+        reactClick(btn)
         await sleep(250)
       }
     }
 
     // ── Resilient calendar-cell finder ──────────────────────────────────────
-    // Lodgify's testid format has varied across accounts/versions. We try four
-    // known patterns in order, then fall back to matching the aria-label text.
-    const MONTH_NAMES_EN = [
-      'January','February','March','April','May','June',
-      'July','August','September','October','November','December',
-    ]
-    const MONTH_NAMES_ES = [
-      'enero','febrero','marzo','abril','mayo','junio',
-      'julio','agosto','septiembre','octubre','noviembre','diciembre',
-    ]
-
+    // Tries four testid formats, then falls back to aria-label matching across
+    // a broad set of selectors (new account has no data-testid on cells at all).
     function findDateCell(day, month, year) {
       const d  = String(day)
       const dd = String(day).padStart(2, '0')
       const mm = String(month).padStart(2, '0')
       const m  = String(month)
 
-      // Pattern 1 — original: day-month, no padding  e.g. "9-7"
-      // Pattern 2 — fully padded                     e.g. "09-07"
-      // Pattern 3 — padded day only                  e.g. "09-7"
-      // Pattern 4 — ISO date                         e.g. "2026-07-09"
-      const candidates = [
+      // 1-4: testid patterns (old accounts / some widget versions)
+      const testidCandidates = [
         `book-now-box.date-picker-calendar-cell-${d}-${m}`,
         `book-now-box.date-picker-calendar-cell-${dd}-${mm}`,
         `book-now-box.date-picker-calendar-cell-${dd}-${m}`,
         `book-now-box.date-picker-calendar-cell-${year}-${mm}-${dd}`,
       ]
-      for (const testid of candidates) {
+      for (const testid of testidCandidates) {
         const el = document.querySelector(`[data-testid="${testid}"]`)
         if (el) { console.log('[ldg-prefill] cell matched testid:', testid); return el }
       }
 
-      // Fallback — match aria-label text (e.g. "July 9, 2026" or "9 de julio de 2026")
-      const monthEn = MONTH_NAMES_EN[month - 1]
-      const monthEs = MONTH_NAMES_ES[month - 1]
-      for (const btn of document.querySelectorAll('[role="gridcell"] button')) {
+      // 5: aria-label text match — works when no testid is present.
+      //    Searches both [role="gridcell"] buttons AND any button inside a dialog/grid
+      //    to handle varying widget structures across Lodgify accounts.
+      const monthEn = MONTH_NAMES_EN[month - 1].toLowerCase()
+      const monthEs = MONTH_NAMES_ES[month - 1].toLowerCase()
+      const yr      = String(year)
+      const searchScope = [
+        ...document.querySelectorAll('[role="gridcell"] button'),
+        ...document.querySelectorAll('[role="dialog"] button'),
+        ...document.querySelectorAll('[role="grid"] button'),
+      ]
+      const seen = new Set()
+      for (const btn of searchScope) {
+        if (seen.has(btn)) continue
+        seen.add(btn)
         const lbl = (btn.getAttribute('aria-label') ?? '').toLowerCase()
         if (!lbl) continue
-        const hasDay  = lbl.includes(d)
-        const hasYear = lbl.includes(String(year))
-        const hasMon  = lbl.includes(monthEn.toLowerCase()) || lbl.includes(monthEs)
+        const hasDay  = lbl.includes(d) || lbl.includes(dd)
+        const hasYear = lbl.includes(yr)
+        const hasMon  = lbl.includes(monthEn) || lbl.includes(monthEs)
         if (hasDay && hasYear && hasMon) {
           console.log('[ldg-prefill] cell matched aria-label:', btn.getAttribute('aria-label'))
           return btn
         }
       }
 
-      // Debug: log a sample of actual testids so we know what format to add next
-      const sample = [...document.querySelectorAll('[role="gridcell"] button[data-testid]')]
-        .slice(0, 6).map(b => b.getAttribute('data-testid'))
-      console.warn('[ldg-prefill] cell not found. Sample testids in DOM:', sample)
+      // Debug: dump DOM state so future failures are diagnosable
+      console.warn('[ldg-prefill] cell not found for', { day, month, year }, '. DOM state:', {
+        dialogs:   document.querySelectorAll('[role="dialog"]').length,
+        grids:     document.querySelectorAll('[role="grid"]').length,
+        gridcells: document.querySelectorAll('[role="gridcell"]').length,
+        sampleDialogBtns: [...document.querySelectorAll('[role="dialog"] button')]
+          .slice(0, 6).map(b => ({ label: b.getAttribute('aria-label'), text: b.textContent?.trim().slice(0,15) })),
+      })
       return null
     }
 
@@ -551,7 +566,7 @@
       const dateTrigger = container.querySelector('[data-testid="book-now-box.date-picker.trigger"]')
       if (!dateTrigger) { console.warn('[ldg-prefill] date trigger not found'); return }
       console.log('[ldg-prefill] clicking date trigger')
-      dateTrigger.click()
+      reactClick(dateTrigger)
       await sleep(700)
 
       const monthAfterOpen = getVisibleCalendarMonth()
