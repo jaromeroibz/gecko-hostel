@@ -514,8 +514,7 @@
       }
 
       // 5: aria-label text match — works when no testid is present.
-      //    Searches both [role="gridcell"] buttons AND any button inside a dialog/grid
-      //    to handle varying widget structures across Lodgify accounts.
+      //    Searches gridcell buttons, dialog buttons, and grid buttons.
       const monthEn = MONTH_NAMES_EN[month - 1].toLowerCase()
       const monthEs = MONTH_NAMES_ES[month - 1].toLowerCase()
       const yr      = String(year)
@@ -539,14 +538,41 @@
         }
       }
 
-      // Debug: dump DOM state so future failures are diagnosable
-      console.warn('[ldg-prefill] cell not found for', { day, month, year }, '. DOM state:', {
-        dialogs:   document.querySelectorAll('[role="dialog"]').length,
-        grids:     document.querySelectorAll('[role="grid"]').length,
-        gridcells: document.querySelectorAll('[role="gridcell"]').length,
-        sampleDialogBtns: [...document.querySelectorAll('[role="dialog"] button')]
-          .slice(0, 6).map(b => ({ label: b.getAttribute('aria-label'), text: b.textContent?.trim().slice(0,15) })),
-      })
+      // 6: text-content match — last resort when cells have no aria-label.
+      // Safe because we've already navigated to the target month, so the only
+      // enabled button whose text is exactly the day number is the right cell.
+      // Disabled cells (greyed-out days from adjacent months) are skipped.
+      const calRoots = [
+        ...document.querySelectorAll('[role="dialog"]'),
+        ...document.querySelectorAll('[role="grid"]'),
+        ...document.querySelectorAll('[role="presentation"]'),
+      ]
+      if (!calRoots.length) calRoots.push(document.body)
+      for (const root of calRoots) {
+        for (const btn of root.querySelectorAll('button, [role="button"]')) {
+          if (seen.has(btn)) continue
+          seen.add(btn)
+          if (btn.getAttribute('aria-disabled') === 'true' || btn.disabled) continue
+          const txt = (btn.textContent ?? '').trim()
+          if (txt === d || txt === dd) {
+            console.log('[ldg-prefill] cell matched by text content "' + txt + '"')
+            return btn
+          }
+        }
+      }
+
+      // Debug: flat string output so the browser doesn't collapse values as "Object"
+      const diagBtns = [...document.querySelectorAll('[role="dialog"] button')]
+        .slice(0, 8)
+        .map(b => '"' + (b.getAttribute('aria-label') || b.textContent?.trim().slice(0, 12)) + '"')
+        .join(', ')
+      console.warn(
+        '[ldg-prefill] cell not found  day=' + day + ' month=' + month + ' year=' + year +
+        '  dialogs=' + document.querySelectorAll('[role="dialog"]').length +
+        '  grids=' + document.querySelectorAll('[role="grid"]').length +
+        '  gridcells=' + document.querySelectorAll('[role="gridcell"]').length +
+        '  sample dialog btns: ' + diagBtns
+      )
       return null
     }
 
