@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
@@ -39,13 +39,21 @@ export function BookingRoom() {
   // Compute widgetSrc before effects so it can be a dependency.
   const isDormitory  = room?.type === 'Dormitory Room' ?? false
   const widgetAdults = isDormitory ? search.adults : 1
-  const widgetSrc    = room
-    ? `/booking-widget.html?rentalId=${room.rentalId}` +
-      `&arrival=${search.arrivalYmd}` +
-      `&departure=${search.departureYmd}` +
-      `&adults=${widgetAdults}` +
-      `&lang=${widgetLang}`
-    : ''
+  // widgetLang is intentionally excluded from deps — a language-only toggle
+  // must not remount the iframe or re-run the calendar prefill animation.
+  // The lang param is picked up on the next natural reload (room / dates / guests change).
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const widgetSrc = useMemo(
+    () =>
+      room
+        ? `/booking-widget.html?rentalId=${room.rentalId}` +
+          `&arrival=${search.arrivalYmd}` +
+          `&departure=${search.departureYmd}` +
+          `&adults=${widgetAdults}` +
+          `&lang=${widgetLang}`
+        : '',
+    [room, search.arrivalYmd, search.departureYmd, widgetAdults],
+  )
 
   // Reset loaded flag whenever the iframe URL changes (dates / room change).
   useEffect(() => {

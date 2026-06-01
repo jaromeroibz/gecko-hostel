@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import type { BookingRoom } from '../../data/bookingRooms'
@@ -18,9 +18,15 @@ export function LodgifyWidget({ room, arrivalYmd, departureYmd, adults }: Props)
 
   // Always pass the real guest count so Lodgify prices correctly for every
   // room type — dorms (per bed) and private rooms (checks capacity/pricing).
-  const widgetSrc =
-    `/booking-widget.html?rentalId=${room.rentalId}` +
-    `&arrival=${arrivalYmd}&departure=${departureYmd}&adults=${adults}&lang=${lang}`
+  // lang is intentionally excluded from deps — language-only toggles must not
+  // remount the iframe and re-run the calendar prefill animation.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const widgetSrc = useMemo(
+    () =>
+      `/booking-widget.html?rentalId=${room.rentalId}` +
+      `&arrival=${arrivalYmd}&departure=${departureYmd}&adults=${adults}&lang=${lang}`,
+    [room.rentalId, arrivalYmd, departureYmd, adults],
+  )
 
   // Reset loaded flag whenever the URL changes (new dates or room)
   useEffect(() => { setWidgetLoaded(false) }, [widgetSrc])
