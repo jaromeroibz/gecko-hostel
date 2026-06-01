@@ -464,12 +464,16 @@
 
     async function navigateCalendarToMonth(targetYear, targetMonth) {
       for (let i = 0; i < 24; i++) {
+        // Stop as soon as the target month is visible in any panel (left or right).
+        // Using isMonthVisible (not getVisibleCalendarMonth) means we stop one step
+        // earlier on dual-month calendars and avoid over-shooting into the wrong view.
+        if (isMonthVisible(targetYear, targetMonth)) break
+
         const current = getVisibleCalendarMonth()
         if (!current) {
           console.warn('[ldg-prefill] getVisibleCalendarMonth returned null — calendar may not be open')
           break
         }
-        if (current.year === targetYear && current.month === targetMonth) break
 
         const goBack =
           current.year > targetYear ||
@@ -477,7 +481,6 @@
 
         const labelEn = goBack ? 'Previous' : 'Next'
         const labelEs = goBack ? 'Anterior' : 'Siguiente'
-        // Try EN and ES aria-labels; prefer dialog-scoped, fall back to document-wide.
         const btn =
           document.querySelector(`[role="dialog"] button[aria-label="${labelEn}"]`) ??
           document.querySelector(`[role="dialog"] button[aria-label="${labelEs}"]`) ??
@@ -487,18 +490,17 @@
           console.warn(`[ldg-prefill] nav button not found (tried "${labelEn}" / "${labelEs}")`)
           break
         }
+        console.log('[ldg-prefill] navigating', goBack ? 'back' : 'forward',
+          '(current:', current.month + '/' + current.year, '→ target:', targetMonth + '/' + targetYear + ')')
         reactClick(btn)
-        await sleep(250)
+        await sleep(400) // wait for calendar to finish transition
       }
     }
 
-    // ── Month-panel locator ──────────────────────────────────────────────────
-    // Some Lodgify calendars render two months side-by-side (check-in left,
-    // check-out right). Without scoping the cell search to the correct panel
-    // we'd click the wrong month's day (e.g. June 9 instead of July 9).
-    // Returns the smallest ancestor element whose subtree contains the heading
-    // "Month YYYY" for the target month AND has enough buttons to be a grid.
-    function findMonthSection(targetYear, targetMonth) {
+    // ── Month visibility check ───────────────────────────────────────────────
+    // Returns true if a "Month YYYY" heading for the given month is anywhere
+    // in the open calendar — works for both single-month and dual-month views.
+    function isMonthVisible(targetYear, targetMonth) {
       const roots = [
         ...document.querySelectorAll('[role="dialog"]'),
         ...document.querySelectorAll('[role="presentation"]'),
@@ -510,16 +512,10 @@
           const match = text.match(/^([A-Za-z]+)\s+(\d{4})$/)
           if (!match) continue
           const m = MONTH_LOOKUP[match[1].toLowerCase()]
-          if (m !== targetMonth || parseInt(match[2]) !== targetYear) continue
-          // Walk up until we find a container with enough buttons to be a calendar panel
-          let node = el.parentElement
-          while (node && node !== document.body) {
-            if (node.querySelectorAll('button').length > 7) return node
-            node = node.parentElement
-          }
+          if (m === targetMonth && parseInt(match[2]) === targetYear) return true
         }
       }
-      return null
+      return false
     }
 
     // ── Resilient calendar-cell finder ──────────────────────────────────────
@@ -568,22 +564,38 @@
         }
       }
 
-      // 6: text-content match scoped to the correct month's calendar panel.
-      // findMonthSection() ensures we only search the panel whose heading
-      // matches our target month — critical for dual-month calendars where
-      // an un-scoped search would find the adjacent month's day cell first.
-      const monthSection = findMonthSection(year, month)
-        ?? document.querySelector('[role="dialog"]')
-        ?? document.body
-      for (const btn of monthSection.querySelectorAll('button, [role="button"]')) {
-        if (seen.has(btn)) continue
-        seen.add(btn)
-        if (btn.getAttribute('aria-disabled') === 'true' || btn.disabled) continue
-        const txt = (btn.textContent ?? '').trim()
+      // 6: between-headings DOM-order search.
+      // Walk every element in the calendar in document order. Start collecting
+      // button candidates once we pass the "Month YYYY" heading for the target
+      // month, and stop as soon as we hit the NEXT month's heading.
+      // This is the only approach that correctly handles dual-month calendars
+      // regardless of how deeply the two panels share ancestor elements —
+      // walking up the DOM to find a scoped ancestor always risks hitting a
+      // shared parent that contains both months.
+      const calScope = document.querySelector('[role="dialog"]') ??
+                       document.querySelector('[role="presentation"]') ??
+                       document.body
+      let inTargetMonth = false
+      for (const el of calScope.querySelectorAll('*')) {
+        const elText = (el.textContent ?? '').trim()
+        const headingMatch = elText.match(/^([A-Za-z]+)\s+(\d{4})$/)
+        if (headingMatch) {
+          const hm = MONTH_LOOKUP[headingMatch[1].toLowerCase()]
+          if (hm) {
+            // Entering a month section — update whether it's our target
+            inTargetMonth = (hm === month && parseInt(headingMatch[2]) === year)
+            continue
+          }
+        }
+        if (!inTargetMonth) continue
+        const tag  = el.tagName?.toLowerCase()
+        const role = el.getAttribute('role')
+        if (tag !== 'button' && role !== 'button') continue
+        if (el.getAttribute('aria-disabled') === 'true' || el.disabled) continue
+        const txt = (el.textContent ?? '').trim()
         if (txt === d || txt === dd) {
-          const scope = monthSection === document.body ? 'full-page' : 'month-scoped'
-          console.log('[ldg-prefill] cell matched by text "' + txt + '" (' + scope + ')')
-          return btn
+          console.log('[ldg-prefill] cell matched between-headings: "' + txt + '"')
+          return el
         }
       }
 
@@ -624,9 +636,15 @@
       const monthAfterOpen = getVisibleCalendarMonth()
       console.log('[ldg-prefill] calendar open, visible month:', monthAfterOpen)
 
-      // ── 2. Navigate to arrival month and click arrival date ──────────────
-      await navigateCalendarToMonth(arrYear, arrMonth)
-      await sleep(200)
+      // ── 2. Navigate to arrival month (only if not already visible) ──────
+      // On dual-month calendars the target month may already be the right-
+      // hand panel — navigating unnecessarily would move it off screen.
+      if (!isMonthVisible(arrYear, arrMonth)) {
+        await navigateCalendarToMonth(arrYear, arrMonth)
+        await sleep(400)
+      } else {
+        console.log('[ldg-prefill] arrival month already visible, skipping navigation')
+      }
 
       const arrCell = findDateCell(arrDay, arrMonth, arrYear)
       const arrDisabled = arrCell?.getAttribute('aria-disabled') === 'true'
@@ -638,12 +656,16 @@
         console.warn('[ldg-prefill] arrival date unavailable — leaving calendar open for manual selection')
         return
       }
-      arrCell.click()
-      await sleep(400)
+      reactClick(arrCell)
+      await sleep(600) // give calendar time to switch to departure-selection state
 
-      // ── 3. Navigate to departure month and click departure date ──────────
-      await navigateCalendarToMonth(depYear, depMonth)
-      await sleep(200)
+      // ── 3. Navigate to departure month (only if not already visible) ─────
+      if (!isMonthVisible(depYear, depMonth)) {
+        await navigateCalendarToMonth(depYear, depMonth)
+        await sleep(400)
+      } else {
+        console.log('[ldg-prefill] departure month already visible, skipping navigation')
+      }
 
       const depCell = findDateCell(depDay, depMonth, depYear)
       const depDisabled = depCell?.getAttribute('aria-disabled') === 'true'
@@ -653,7 +675,7 @@
         console.warn('[ldg-prefill] departure date unavailable — leaving calendar open')
         return
       }
-      depCell.click()
+      reactClick(depCell)
       await sleep(300)
 
       // ── 4. Wait for the calendar dialog to fully close ───────────────────
