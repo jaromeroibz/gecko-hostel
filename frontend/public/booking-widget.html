@@ -480,6 +480,61 @@
       }
     }
 
+    // ── Resilient calendar-cell finder ──────────────────────────────────────
+    // Lodgify's testid format has varied across accounts/versions. We try four
+    // known patterns in order, then fall back to matching the aria-label text.
+    const MONTH_NAMES_EN = [
+      'January','February','March','April','May','June',
+      'July','August','September','October','November','December',
+    ]
+    const MONTH_NAMES_ES = [
+      'enero','febrero','marzo','abril','mayo','junio',
+      'julio','agosto','septiembre','octubre','noviembre','diciembre',
+    ]
+
+    function findDateCell(day, month, year) {
+      const d  = String(day)
+      const dd = String(day).padStart(2, '0')
+      const mm = String(month).padStart(2, '0')
+      const m  = String(month)
+
+      // Pattern 1 — original: day-month, no padding  e.g. "9-7"
+      // Pattern 2 — fully padded                     e.g. "09-07"
+      // Pattern 3 — padded day only                  e.g. "09-7"
+      // Pattern 4 — ISO date                         e.g. "2026-07-09"
+      const candidates = [
+        `book-now-box.date-picker-calendar-cell-${d}-${m}`,
+        `book-now-box.date-picker-calendar-cell-${dd}-${mm}`,
+        `book-now-box.date-picker-calendar-cell-${dd}-${m}`,
+        `book-now-box.date-picker-calendar-cell-${year}-${mm}-${dd}`,
+      ]
+      for (const testid of candidates) {
+        const el = document.querySelector(`[data-testid="${testid}"]`)
+        if (el) { console.log('[ldg-prefill] cell matched testid:', testid); return el }
+      }
+
+      // Fallback — match aria-label text (e.g. "July 9, 2026" or "9 de julio de 2026")
+      const monthEn = MONTH_NAMES_EN[month - 1]
+      const monthEs = MONTH_NAMES_ES[month - 1]
+      for (const btn of document.querySelectorAll('[role="gridcell"] button')) {
+        const lbl = (btn.getAttribute('aria-label') ?? '').toLowerCase()
+        if (!lbl) continue
+        const hasDay  = lbl.includes(d)
+        const hasYear = lbl.includes(String(year))
+        const hasMon  = lbl.includes(monthEn.toLowerCase()) || lbl.includes(monthEs)
+        if (hasDay && hasYear && hasMon) {
+          console.log('[ldg-prefill] cell matched aria-label:', btn.getAttribute('aria-label'))
+          return btn
+        }
+      }
+
+      // Debug: log a sample of actual testids so we know what format to add next
+      const sample = [...document.querySelectorAll('[role="gridcell"] button[data-testid]')]
+        .slice(0, 6).map(b => b.getAttribute('data-testid'))
+      console.warn('[ldg-prefill] cell not found. Sample testids in DOM:', sample)
+      return null
+    }
+
     async function prefillBookingBox() {
       if (arrival.length !== 8 || departure.length !== 8) return
 
@@ -506,10 +561,9 @@
       await navigateCalendarToMonth(arrYear, arrMonth)
       await sleep(200)
 
-      const arrCellTestid = `book-now-box.date-picker-calendar-cell-${arrDay}-${arrMonth}`
-      const arrCell = document.querySelector(`[data-testid="${arrCellTestid}"]`)
+      const arrCell = findDateCell(arrDay, arrMonth, arrYear)
       const arrDisabled = arrCell?.getAttribute('aria-disabled') === 'true'
-      console.log('[ldg-prefill] arrival cell:', arrCellTestid, 'found:', !!arrCell, 'disabled:', arrDisabled)
+      console.log('[ldg-prefill] arrival cell found:', !!arrCell, 'disabled:', arrDisabled)
 
       if (!arrCell || arrDisabled) {
         // Arrival date is blocked in Lodgify (room restriction or unavailability).
@@ -524,10 +578,9 @@
       await navigateCalendarToMonth(depYear, depMonth)
       await sleep(200)
 
-      const depCellTestid = `book-now-box.date-picker-calendar-cell-${depDay}-${depMonth}`
-      const depCell = document.querySelector(`[data-testid="${depCellTestid}"]`)
+      const depCell = findDateCell(depDay, depMonth, depYear)
       const depDisabled = depCell?.getAttribute('aria-disabled') === 'true'
-      console.log('[ldg-prefill] departure cell:', depCellTestid, 'found:', !!depCell, 'disabled:', depDisabled)
+      console.log('[ldg-prefill] departure cell found:', !!depCell, 'disabled:', depDisabled)
 
       if (!depCell || depDisabled) {
         console.warn('[ldg-prefill] departure date unavailable — leaving calendar open')
