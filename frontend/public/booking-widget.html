@@ -61,14 +61,26 @@
     #lodgify-book-now-box button {
       font-family: 'Nunito', 'DM Sans', system-ui, sans-serif !important;
     }
-    /* input[type="date"] uses the browser's native date-picker font on Chrome/
-       Safari and ignores font-family unless appearance is reset first.       */
-    #lodgify-book-now-box input[type="date"],
-    #lodgify-book-now-box input[type="text"],
+    /* Inputs inside the date trigger (check-in / check-out fields):
+       - pointer-events: none  → clicks fall through to the parent trigger so
+         Lodgify's RANGE picker opens for BOTH fields (without this the check-out
+         field intercepts the click and opens the browser's single-date picker).
+       - all: unset            → strips browser UA styles including the font that
+         input[type="date"] normally locks in on Chrome/Safari.
+       Re-apply every property we actually need after the reset.              */
     [data-testid="book-now-box.date-picker.trigger"] input {
-      -webkit-appearance: none !important;
-      appearance: none !important;
+      all: unset !important;
+      pointer-events: none !important;
+      display: block !important;
+      width: 100% !important;
       font-family: 'Nunito', 'DM Sans', system-ui, sans-serif !important;
+      font-size: 0.88rem !important;
+      font-weight: 600 !important;
+      color: #064E3B !important;
+      background: transparent !important;
+      border: none !important;
+      outline: none !important;
+      cursor: pointer !important;
     }
 
     /* ── Date picker trigger — "Check-in → Check-out" row ───────────────── */
