@@ -522,168 +522,10 @@
       if (s1) s1.click()
     }, true)
 
-    // ── Two-click range selection ─────────────────────────────────────────────
-    // Lodgify closes the calendar after ONE click (min-nights=0 in account).
-    //
-    // Root cause of all previous failures:
-    //   c1.click() + c2.click() synchronously don't work because React hasn't
-    //   updated state between them — c2 looks like a second "arrival" click.
-    //   reactClick() bypasses the DOM chain so Lodgify's auto-close never fires.
-    //
-    // Correct approach: use the EXACT same code path as prefillBookingBox(),
-    // which is proven to work. On the second user click we know both dates;
-    // we close the calendar, reopen fresh, then run the prefill flow with
-    // proper timing (click arrival → 800 ms → reopen if closed → click dep).
-
-    let _rangeCell1  = null   // {day, month, year} of first selected cell
-    let _rangeFiring = false   // true while running _commitRange (bypass all interceptors)
-
-    // Determine which month/year a gridcell belongs to by scanning DOM order.
-    // Walks the calendar in document order and returns the last heading seen
-    // before reaching targetCell — correctly handles dual-month calendars.
-    function _getMonthForCell(targetCell) {
-      const calScope = document.querySelector('[role="dialog"]') ??
-                       document.querySelector('[role="presentation"]') ??
-                       document.body
-      let heading = getVisibleCalendarMonth() // safe fallback
-      for (const el of calScope.querySelectorAll('*')) {
-        const text = (el.textContent ?? '').trim()
-        const match = text.match(/^([A-Za-z]+)\s+(\d{4})$/)
-        if (match) {
-          const m = MONTH_LOOKUP[match[1].toLowerCase()]
-          if (m) heading = { month: m, year: parseInt(match[2]) }
-        }
-        if (el === targetCell) break  // stop at the exact cell, not its ancestors
-      }
-      return heading
-    }
-
-    // Commit a date range using the same proven flow as prefillBookingBox:
-    //   open → navigate → click arrival → wait → reopen if closed → click dep
-    async function _commitRange(c1, c2) {
-      _rangeFiring = true
-      try {
-        const trigger = document.querySelector(
-          '[data-testid="book-now-box.date-picker.trigger"]')
-        if (!trigger) return
-
-        // 1. Close current dialog so we open from a clean state
-        const openDlg = document.querySelector('[role="dialog"]')
-        if (openDlg) {
-          openDlg.dispatchEvent(new KeyboardEvent('keydown', {
-            key: 'Escape', code: 'Escape', keyCode: 27, which: 27,
-            bubbles: true, cancelable: true, composed: true,
-          }))
-          await sleep(300)
-        }
-
-        // 2. Reopen calendar (same as prefill step 1)
-        reactClick(trigger)
-        await sleep(700)
-
-        // 3. Navigate to arrival month if needed (same as prefill step 2)
-        if (!isMonthVisible(c1.year, c1.month)) {
-          await navigateCalendarToMonth(c1.year, c1.month)
-          await sleep(400)
-        }
-
-        // 4. Click arrival cell (same as prefill step 3)
-        const freshC1 = findDateCell(c1.day, c1.month, c1.year)
-        if (!freshC1) { console.warn('[ldg-range] arrival cell not found'); return }
-        freshC1.click()
-        await sleep(800)
-
-        // 5. Reopen if calendar auto-closed (same-day mode — same as prefill step 3b)
-        if (!document.querySelector('[role="dialog"]')) {
-          reactClick(trigger)
-          await sleep(800)
-        }
-
-        // 6. Navigate to departure month if needed (same as prefill step 3c)
-        if (!isMonthVisible(c2.year, c2.month)) {
-          await navigateCalendarToMonth(c2.year, c2.month)
-          await sleep(400)
-        }
-
-        // 7. Click departure cell (same event sequence as prefill step 3d)
-        const freshC2 = findDateCell(c2.day, c2.month, c2.year)
-        if (!freshC2) { console.warn('[ldg-range] departure cell not found'); return }
-        freshC2.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true, view: window }))
-        freshC2.dispatchEvent(new MouseEvent('mouseup',   { bubbles: true, cancelable: true, view: window }))
-        freshC2.click()
-        await sleep(300)
-
-      } finally {
-        _rangeFiring = false
-      }
-    }
-
-    // Block pointer/mouse down on gridcells so Radix's DismissableLayer never
-    // sees the "inside click" that would close the dialog on the first user click.
-    function _blockCell(e) {
-      if (_rangeFiring) return
-      if (!document.querySelector('[role="dialog"]')) return
-      const cell = e.target.closest('[role="gridcell"]')
-      if (!cell || cell.getAttribute('aria-disabled') === 'true') return
-      e.stopImmediatePropagation()
-    }
-    document.addEventListener('pointerdown', _blockCell, true)
-    document.addEventListener('mousedown',   _blockCell, true)
-
-    // Block hover events while first cell is selected so Lodgify's
-    // drag-range-preview doesn't create a conflicting visual selection.
-    function _blockHover(e) {
-      if (_rangeFiring || !_rangeCell1) return
-      if (!document.querySelector('[role="dialog"]')) return
-      const cell = e.target.closest('[role="gridcell"]')
-      if (!cell) return
-      e.stopImmediatePropagation()
-    }
-    document.addEventListener('mouseover',  _blockHover, true)
-    document.addEventListener('mouseenter', _blockHover, true)
-    document.addEventListener('mousemove',  _blockHover, true)
-
-    // Main click interceptor — accumulates two cell clicks then commits
-    document.addEventListener('click', function(e) {
-      if (_rangeFiring) return
-      if (!document.querySelector('[role="dialog"]')) return
-      const cell = e.target.closest('[role="gridcell"]')
-      if (!cell || cell.getAttribute('aria-disabled') === 'true') return
-
-      e.stopImmediatePropagation()
-      e.preventDefault()
-
-      const monthInfo = _getMonthForCell(cell)
-      if (!monthInfo) return
-      const dayNum = parseInt(cell.textContent.trim())
-
-      if (!_rangeCell1) {
-        // ── First click: record date + show green highlight ───────────────
-        _rangeCell1 = { day: dayNum, month: monthInfo.month, year: monthInfo.year, el: cell }
-        cell.style.setProperty('background',    '#064E3B', 'important')
-        cell.style.setProperty('color',         '#F9FDF9', 'important')
-        cell.style.setProperty('border-radius', '8px',     'important')
-      } else {
-        // ── Second click: commit range using the prefill flow ─────────────
-        const c1 = { ..._rangeCell1 }
-        const c2 = { day: dayNum, month: monthInfo.month, year: monthInfo.year }
-        _rangeCell1.el.style.removeProperty('background')
-        _rangeCell1.el.style.removeProperty('color')
-        _rangeCell1.el.style.removeProperty('border-radius')
-        _rangeCell1 = null
-        _commitRange(c1, c2)  // async — fire and forget
-      }
-    }, true)
-
-    // Reset highlight if calendar closes before second click
-    new MutationObserver(function() {
-      if (!document.querySelector('[role="dialog"]') && _rangeCell1) {
-        _rangeCell1.el.style.removeProperty('background')
-        _rangeCell1.el.style.removeProperty('color')
-        _rangeCell1.el.style.removeProperty('border-radius')
-        _rangeCell1 = null
-      }
-    }).observe(document.body, { childList: true, subtree: true })
+    // The Lodgify calendar's natural two-click range selection (click arrival,
+    // click departure) works correctly on its own — confirmed working at the
+    // style-overhaul commit before interceptors were introduced. All custom
+    // gridcell interceptors have been removed; Lodgify handles selection natively.
 
     // ── Height reporter ──────────────────────────────────────────────────────
     // Dialogs (calendar, guests) are fixed-position and don't affect body.scrollHeight.
@@ -988,9 +830,7 @@
         console.warn('[ldg-prefill] arrival date unavailable — leaving calendar open for manual selection')
         return
       }
-      _rangeFiring = true  // bypass the two-click interceptor for prefill
       arrCell.click()     // plain click bubbles to parent grid handlers (updates UI display)
-      _rangeFiring = false
       await sleep(800) // give calendar time to switch to departure-selection state
 
       // ── 3. Navigate to departure month (only if not already visible) ─────
@@ -1021,11 +861,9 @@
       }
       // Dispatch mousedown + mouseup + click so React's onMouseDown handler fires
       // in departure-selection mode, not just the click synthetic event.
-      _rangeFiring = true  // bypass the two-click interceptor for prefill
       depCell.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true, view: window }))
       depCell.dispatchEvent(new MouseEvent('mouseup',   { bubbles: true, cancelable: true, view: window }))
       depCell.click()
-      _rangeFiring = false
       await sleep(300)
 
       // ── 4. Wait for the calendar dialog to fully close ───────────────────
