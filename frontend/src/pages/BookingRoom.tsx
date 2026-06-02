@@ -281,10 +281,12 @@ export function BookingRoom() {
         {/* Right: date search + Booking Box */}
         <div className="space-y-5">
 
-          {/* Our date picker — updates URL params */}
+          {/* Date + guests picker — the single source of truth for dates.
+               Updating and clicking Search reloads the iframe below with the
+               new dates; the Lodgify widget then shows updated pricing. */}
           <div>
             <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-gecko-forest/55">
-              Your dates
+              Select your dates
             </p>
             <BookingSearchBar
               key={`${search.arrivalYmd}-${search.departureYmd}-${search.adults}`}
@@ -296,10 +298,10 @@ export function BookingRoom() {
             />
           </div>
 
-          {/* Lodgify Booking Box ─────────────────────────────────────── */}
+          {/* Lodgify pricing + booking ───────────────────────────────── */}
           <div ref={widgetRef} className="rounded-2xl border border-gecko-sand bg-gecko-cream p-5 shadow-sm">
             <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-gecko-forest/55">
-              Book this room
+              Pricing &amp; availability
             </p>
 
             {/* Spinner — shown while iframe loads; height reserves card space */}

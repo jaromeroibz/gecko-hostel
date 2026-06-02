@@ -84,41 +84,13 @@
       box-shadow:  none !important;
     }
 
-    /* ── Date picker trigger — "Check-in → Check-out" row ───────────────── */
+    /* ── Date picker trigger — hidden ───────────────────────────────────────
+       Dates are managed exclusively by the BookingSearchBar above the widget.
+       Hiding this trigger removes the duplicate date input and avoids the
+       Lodgify-native date picker (which has min-nights=0 config issues).
+       The prefill code sets the dates programmatically so pricing still works. */
     [data-testid="book-now-box.date-picker.trigger"] {
-      border-radius: 14px !important;
-      border: 1.5px solid rgba(6, 78, 59, 0.15) !important;
-      background: rgba(6, 78, 59, 0.04) !important;
-      padding: 0.75rem 1rem !important;
-      transition: border-color 0.2s, box-shadow 0.2s !important;
-      cursor: pointer !important;
-    }
-    [data-testid="book-now-box.date-picker.trigger"]:hover {
-      border-color: rgba(52, 211, 153, 0.5) !important;
-    }
-
-    /* Field labels inside the trigger ("Check-in", "Check-out", "Llegada"…) */
-    [data-testid="book-now-box.date-picker.trigger"] label,
-    [data-testid="book-now-box.date-picker.trigger"] > * > *:first-child {
-      font-size: 0.6rem !important;
-      letter-spacing: 0.18em !important;
-      text-transform: uppercase !important;
-      color: rgba(6, 78, 59, 0.45) !important;
-      font-weight: 700 !important;
-    }
-    /* Date value / placeholder */
-    [data-testid="book-now-box.date-picker.trigger"] p,
-    [data-testid="book-now-box.date-picker.trigger"] input,
-    [data-testid="book-now-box.date-picker.trigger"] > * > *:last-child {
-      color: #064E3B !important;
-      font-weight: 600 !important;
-      font-size: 0.88rem !important;
-    }
-    /* Arrow separator between the two date fields */
-    [data-testid="book-now-box.date-picker.trigger"] svg,
-    [data-testid="book-now-box.date-picker.trigger"] [aria-hidden="true"] {
-      color: rgba(6, 78, 59, 0.3) !important;
-      flex-shrink: 0 !important;
+      display: none !important;
     }
 
     /* ── "From X / night" + "Select dates…" price text ─────────────────── */
@@ -510,22 +482,8 @@
     new MutationObserver(_applyTriggerStyles)
       .observe(document.body, { childList: true, subtree: true })
 
-    // ── Check-out click → range-calendar fix ─────────────────────────────────
-    // Lodgify inspects e.target: section2 → departure-only / single-date mode.
-    // Redirect section2 clicks to section1 so the range calendar always opens.
-    document.addEventListener('click', function(e) {
-      const s2 = e.target.closest('[data-testid="book-now-box.date-picker.trigger.section2"]')
-      if (!s2) return
-      e.stopImmediatePropagation()
-      e.preventDefault()
-      const s1 = document.querySelector('[data-testid="book-now-box.date-picker.trigger.section1"]')
-      if (s1) s1.click()
-    }, true)
-
-    // The Lodgify calendar's natural two-click range selection (click arrival,
-    // click departure) works correctly on its own — confirmed working at the
-    // style-overhaul commit before interceptors were introduced. All custom
-    // gridcell interceptors have been removed; Lodgify handles selection natively.
+    // Date selection is handled entirely by the BookingSearchBar above the widget.
+    // The Lodgify date trigger is hidden via CSS; no click interception needed.
 
     // ── Height reporter ──────────────────────────────────────────────────────
     // Dialogs (calendar, guests) are fixed-position and don't affect body.scrollHeight.
