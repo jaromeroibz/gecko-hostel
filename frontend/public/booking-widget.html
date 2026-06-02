@@ -46,10 +46,19 @@
     }
 
     /* ── Global font ────────────────────────────────────────────────────────
-       Lodgify loads its own font. Override everything inside the widget.    */
+       Lodgify loads its own font. Override everything inside the widget.
+       Form elements (input, button, select) do NOT inherit font-family
+       from their ancestors in most browsers, so they need an explicit rule. */
     body,
     #lodgify-book-now-box,
     #lodgify-book-now-box * {
+      font-family: 'Nunito', 'DM Sans', system-ui, sans-serif !important;
+    }
+    #lodgify-book-now-box input,
+    #lodgify-book-now-box input::placeholder,
+    #lodgify-book-now-box textarea,
+    #lodgify-book-now-box select,
+    #lodgify-book-now-box button {
       font-family: 'Nunito', 'DM Sans', system-ui, sans-serif !important;
     }
 
