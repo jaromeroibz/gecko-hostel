@@ -113,10 +113,17 @@
       font-size: 0.95rem !important;
     }
 
-    /* ── Guests trigger — match site input style ─────────────────────────
-       Targets the clickable row that shows "1 adult" and opens the
-       guests breakdown dialog.                                             */
+    /* ── Guests trigger — hidden ────────────────────────────────────────────
+       Guest count is managed by the BookingSearchBar above the widget (which
+       shows the selector only for dorm rooms). Hiding this avoids a dual-input
+       problem: guests changed here wouldn't sync with the modal/checkout which
+       reads guests from the URL params set by BookingSearchBar.              */
     [data-testid="guests-breakdown-trigger"] {
+      display: none !important;
+    }
+
+    /* (styles below kept for reference but have no effect while display:none) */
+    [data-testid="guests-breakdown-trigger-ref"] {
       border-radius: 14px !important;
       border: 1.5px solid rgba(6, 78, 59, 0.15) !important;
       background: rgba(6, 78, 59, 0.05) !important;
