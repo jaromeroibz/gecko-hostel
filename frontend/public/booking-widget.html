@@ -496,10 +496,14 @@
         '[data-testid="book-now-box.date-picker.trigger.section1"],' +
         '[data-testid="book-now-box.date-picker.trigger.section2"]'
       )) {
-        el.style.setProperty('color',       GREEN,    'important')
-        el.style.setProperty('font-weight', '600',    'important')
-        el.style.setProperty('font-family', FONT,     'important')
-        el.style.setProperty('font-size',   '0.88rem','important')
+        el.style.setProperty('color',          GREEN,    'important')
+        el.style.setProperty('font-weight',    '600',    'important')
+        el.style.setProperty('font-family',    FONT,     'important')
+        el.style.setProperty('font-size',      '0.88rem','important')
+        // Normalise letter-spacing — our CSS rule "> * > *:first-child" for
+        // label text inadvertently matches section1, giving it 0.18em spacing
+        // while section2 stays at normal.
+        el.style.setProperty('letter-spacing', 'normal', 'important')
       }
     }
     _applyTriggerStyles()
@@ -507,11 +511,8 @@
       .observe(document.body, { childList: true, subtree: true })
 
     // ── Check-out click → range-calendar fix ─────────────────────────────────
-    // Lodgify inspects e.target inside its button click handler:
-    //   section1 → opens full range picker  (first click = arrival, second = departure)
-    //   section2 → opens departure-only mode (single click sets both to same date)
-    // Fix: intercept section2 clicks in capture phase (before Lodgify sees them),
-    // cancel the event, then fire a new click on section1 so the range picker opens.
+    // Lodgify inspects e.target: section2 → departure-only / single-date mode.
+    // Redirect section2 clicks to section1 so the range calendar always opens.
     document.addEventListener('click', function(e) {
       const s2 = e.target.closest('[data-testid="book-now-box.date-picker.trigger.section2"]')
       if (!s2) return
@@ -519,7 +520,58 @@
       e.preventDefault()
       const s1 = document.querySelector('[data-testid="book-now-box.date-picker.trigger.section1"]')
       if (s1) s1.click()
-    }, true) // capture phase — fires before Lodgify's synthetic event handlers
+    }, true)
+
+    // ── Two-click range selection ─────────────────────────────────────────────
+    // Lodgify's widget (min-nights = 0 in the account config) closes the calendar
+    // after ONE date click, setting arrival = departure = that date.
+    // We intercept ALL gridcell clicks, accumulate two, then fire both to Lodgify
+    // via reactClick() synchronously. React 18 auto-batches synchronous state
+    // updates so both arrival + departure are committed before the next render,
+    // and the calendar closes with a valid range instead of a same-day stay.
+    let _rangeCell1  = null  // first selected cell waiting for second click
+    let _rangeFiring = false  // true while we fire programmatic reactClicks
+
+    document.addEventListener('click', function(e) {
+      if (_rangeFiring) return  // let programmatic clicks through
+      const dialog = document.querySelector('[role="dialog"]')
+      if (!dialog) return
+      const cell = e.target.closest('[role="gridcell"]')
+      if (!cell || cell.getAttribute('aria-disabled') === 'true') return
+
+      e.stopImmediatePropagation()
+      e.preventDefault()
+
+      if (!_rangeCell1) {
+        // ── First click: store + visual highlight ───────────────────────────
+        _rangeCell1 = cell
+        cell.style.setProperty('background',    '#064E3B', 'important')
+        cell.style.setProperty('color',         '#F9FDF9', 'important')
+        cell.style.setProperty('border-radius', '8px',     'important')
+      } else {
+        // ── Second click: fire both to Lodgify synchronously ───────────────
+        const c1 = _rangeCell1, c2 = cell
+        _rangeCell1 = null
+        c1.style.removeProperty('background')
+        c1.style.removeProperty('color')
+        c1.style.removeProperty('border-radius')
+
+        _rangeFiring = true
+        reactClick(c1)   // arrival  ← React queues setState
+        reactClick(c2)   // departure ← React queues setState (batched with above)
+        _rangeFiring = false
+      }
+    }, true) // capture phase — before Lodgify's handlers
+
+    // Reset first-cell highlight if calendar closes before second click
+    new MutationObserver(function() {
+      if (!document.querySelector('[role="dialog"]') && _rangeCell1) {
+        _rangeCell1.style.removeProperty('background')
+        _rangeCell1.style.removeProperty('color')
+        _rangeCell1.style.removeProperty('border-radius')
+        _rangeCell1 = null
+      }
+    }).observe(document.body, { childList: true, subtree: true })
 
     // ── Height reporter ──────────────────────────────────────────────────────
     // Dialogs (calendar, guests) are fixed-position and don't affect body.scrollHeight.
@@ -824,7 +876,9 @@
         console.warn('[ldg-prefill] arrival date unavailable — leaving calendar open for manual selection')
         return
       }
-      arrCell.click() // plain click so event bubbles to parent grid handlers (updates UI display)
+      _rangeFiring = true  // bypass the two-click interceptor for prefill
+      arrCell.click()     // plain click bubbles to parent grid handlers (updates UI display)
+      _rangeFiring = false
       await sleep(800) // give calendar time to switch to departure-selection state
 
       // ── 3. Navigate to departure month (only if not already visible) ─────
@@ -855,9 +909,11 @@
       }
       // Dispatch mousedown + mouseup + click so React's onMouseDown handler fires
       // in departure-selection mode, not just the click synthetic event.
+      _rangeFiring = true  // bypass the two-click interceptor for prefill
       depCell.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true, view: window }))
       depCell.dispatchEvent(new MouseEvent('mouseup',   { bubbles: true, cancelable: true, view: window }))
       depCell.click()
+      _rangeFiring = false
       await sleep(300)
 
       // ── 4. Wait for the calendar dialog to fully close ───────────────────
