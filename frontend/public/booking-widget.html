@@ -483,6 +483,40 @@
       _box.setAttribute('data-guests',           String(adults))
     }
 
+    // ── Date-input style enforcer ────────────────────────────────────────────
+    // CSS rules can be overridden by Lodgify's own injected stylesheet which
+    // loads after our <style> block. The only override that always wins is
+    // element.style.setProperty(prop, value, 'important') — inline !important.
+    //
+    // Two jobs:
+    //  1. pointer-events: none  → clicks fall through to the parent trigger so
+    //     Lodgify's RANGE picker opens for both check-in AND check-out (without
+    //     this the check-out input[type="date"] intercepts the click and opens
+    //     the browser's native single-date picker instead of the range calendar).
+    //  2. font-family            → force Nunito; input[type="date"] ignores CSS
+    //     font-family even with appearance:none unless set inline.
+    function _applyDateInputStyles() {
+      // Both date inputs inside the trigger AND any date input elsewhere in the
+      // widget (the check-out field may be a sibling of the trigger, not inside it)
+      const inputs = document.querySelectorAll(
+        '[data-testid="book-now-box.date-picker.trigger"] input, ' +
+        '#lodgify-book-now-box input[type="date"], ' +
+        '#lodgify-book-now-box input[type="text"]'
+      )
+      inputs.forEach(input => {
+        input.style.setProperty('pointer-events', 'none',          'important')
+        input.style.setProperty('font-family',    '"Nunito","DM Sans",system-ui,sans-serif', 'important')
+        input.style.setProperty('font-size',      '0.88rem',        'important')
+        input.style.setProperty('font-weight',    '600',            'important')
+        input.style.setProperty('color',          '#064E3B',        'important')
+        input.style.setProperty('-webkit-appearance', 'none',       'important')
+        input.style.setProperty('appearance',         'none',       'important')
+      })
+    }
+    _applyDateInputStyles() // run immediately
+    new MutationObserver(_applyDateInputStyles)
+      .observe(document.body, { childList: true, subtree: true })
+
     // ── Height reporter ──────────────────────────────────────────────────────
     // Dialogs (calendar, guests) are fixed-position and don't affect body.scrollHeight.
     // We measure them via getBoundingClientRect and also attach a ResizeObserver to
