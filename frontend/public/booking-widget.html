@@ -61,6 +61,15 @@
     #lodgify-book-now-box button {
       font-family: 'Nunito', 'DM Sans', system-ui, sans-serif !important;
     }
+    /* input[type="date"] uses the browser's native date-picker font on Chrome/
+       Safari and ignores font-family unless appearance is reset first.       */
+    #lodgify-book-now-box input[type="date"],
+    #lodgify-book-now-box input[type="text"],
+    [data-testid="book-now-box.date-picker.trigger"] input {
+      -webkit-appearance: none !important;
+      appearance: none !important;
+      font-family: 'Nunito', 'DM Sans', system-ui, sans-serif !important;
+    }
 
     /* ── Date picker trigger — "Check-in → Check-out" row ───────────────── */
     [data-testid="book-now-box.date-picker.trigger"] {
@@ -765,9 +774,18 @@
         return
       }
       arrCell.click() // plain click so event bubbles to parent grid handlers (updates UI display)
-      await sleep(600) // give calendar time to switch to departure-selection state
+      await sleep(800) // give calendar time to switch to departure-selection state
 
       // ── 3. Navigate to departure month (only if not already visible) ─────
+      // Safety: some Lodgify configurations close the calendar after arrival is
+      // selected. If the dialog is gone we must reopen it before searching for
+      // the departure cell — otherwise depCell would be a detached node.
+      if (!document.querySelector('[role="dialog"]')) {
+        console.log('[ldg-prefill] calendar closed after arrival click — reopening for departure')
+        reactClick(dateTrigger)
+        await sleep(800)
+      }
+
       if (!isMonthVisible(depYear, depMonth)) {
         await navigateCalendarToMonth(depYear, depMonth)
         await sleep(400)
@@ -777,13 +795,18 @@
 
       const depCell = findDateCell(depDay, depMonth, depYear)
       const depDisabled = depCell?.getAttribute('aria-disabled') === 'true'
-      console.log('[ldg-prefill] departure cell found:', !!depCell, 'disabled:', depDisabled)
+      console.log('[ldg-prefill] departure cell found:', !!depCell, 'disabled:', depDisabled,
+        'text:', depCell?.textContent?.trim())
 
       if (!depCell || depDisabled) {
         console.warn('[ldg-prefill] departure date unavailable — leaving calendar open')
         return
       }
-      depCell.click() // plain click so event bubbles to parent grid handlers
+      // Dispatch mousedown + mouseup + click so React's onMouseDown handler fires
+      // in departure-selection mode, not just the click synthetic event.
+      depCell.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true, view: window }))
+      depCell.dispatchEvent(new MouseEvent('mouseup',   { bubbles: true, cancelable: true, view: window }))
+      depCell.click()
       await sleep(300)
 
       // ── 4. Wait for the calendar dialog to fully close ───────────────────
