@@ -523,47 +523,75 @@
     }, true)
 
     // ── Two-click range selection ─────────────────────────────────────────────
-    // Lodgify's widget (min-nights = 0 in the account config) closes the calendar
-    // after ONE date click, setting arrival = departure = that date.
-    // We intercept ALL gridcell clicks, accumulate two, then fire both to Lodgify
-    // via reactClick() synchronously. React 18 auto-batches synchronous state
-    // updates so both arrival + departure are committed before the next render,
-    // and the calendar closes with a valid range instead of a same-day stay.
-    let _rangeCell1  = null  // first selected cell waiting for second click
-    let _rangeFiring = false  // true while we fire programmatic reactClicks
+    // Lodgify's calendar closes after ONE date click (min-nights = 0 in the
+    // Lodgify account config — same-day stay treated as valid).
+    // Strategy:
+    //  1. Block ALL pointer/mouse/click events on gridcells so Lodgify and
+    //     Radix UI's DismissableLayer never see them (DismissableLayer uses
+    //     pointerdown to detect outside clicks — it fires before click).
+    //  2. Accumulate two cells ourselves (first = arrival, second = departure).
+    //  3. On second click: fire both to Lodgify's React handlers via reactClick()
+    //     synchronously (React 18 auto-batches the two setState calls), then
+    //     send Escape after 200 ms in case the calendar doesn't auto-close
+    //     (reactClick bypasses the DOM event chain so auto-close may not trigger).
+    let _rangeCell1  = null   // first selected cell, waiting for second
+    let _rangeFiring = false   // true during programmatic reactClicks (bypass)
 
-    document.addEventListener('click', function(e) {
-      if (_rangeFiring) return  // let programmatic clicks through
+    function _blockGridcellEvent(e) {
+      if (_rangeFiring) return
       const dialog = document.querySelector('[role="dialog"]')
       if (!dialog) return
       const cell = e.target.closest('[role="gridcell"]')
       if (!cell || cell.getAttribute('aria-disabled') === 'true') return
-
+      // stopImmediatePropagation prevents Lodgify AND Radix from seeing this event.
+      // We do NOT call preventDefault() on pointer/mouse events so the browser
+      // still generates the subsequent click event for our handler below.
       e.stopImmediatePropagation()
-      e.preventDefault()
+      if (e.type === 'click') e.preventDefault() // click must be fully cancelled
+    }
+    document.addEventListener('pointerdown', _blockGridcellEvent, true)
+    document.addEventListener('mousedown',   _blockGridcellEvent, true)
+    document.addEventListener('pointerup',   _blockGridcellEvent, true)
+    document.addEventListener('mouseup',     _blockGridcellEvent, true)
+    document.addEventListener('click',       function(e) {
+      _blockGridcellEvent(e)
+      if (e.defaultPrevented) {
+        // Event was on a live gridcell — handle two-click logic
+        const cell = e.target.closest('[role="gridcell"]')
+        if (!cell) return
+        if (!_rangeCell1) {
+          // ── First click: highlight and wait ──────────────────────────────
+          _rangeCell1 = cell
+          cell.style.setProperty('background',    '#064E3B', 'important')
+          cell.style.setProperty('color',         '#F9FDF9', 'important')
+          cell.style.setProperty('border-radius', '8px',     'important')
+        } else {
+          // ── Second click: commit range to Lodgify ─────────────────────────
+          const c1 = _rangeCell1, c2 = cell
+          _rangeCell1 = null
+          c1.style.removeProperty('background')
+          c1.style.removeProperty('color')
+          c1.style.removeProperty('border-radius')
 
-      if (!_rangeCell1) {
-        // ── First click: store + visual highlight ───────────────────────────
-        _rangeCell1 = cell
-        cell.style.setProperty('background',    '#064E3B', 'important')
-        cell.style.setProperty('color',         '#F9FDF9', 'important')
-        cell.style.setProperty('border-radius', '8px',     'important')
-      } else {
-        // ── Second click: fire both to Lodgify synchronously ───────────────
-        const c1 = _rangeCell1, c2 = cell
-        _rangeCell1 = null
-        c1.style.removeProperty('background')
-        c1.style.removeProperty('color')
-        c1.style.removeProperty('border-radius')
+          _rangeFiring = true
+          reactClick(c1)  // arrival  — React queues setState
+          reactClick(c2)  // departure — batched with arrival in React 18
+          _rangeFiring = false
 
-        _rangeFiring = true
-        reactClick(c1)   // arrival  ← React queues setState
-        reactClick(c2)   // departure ← React queues setState (batched with above)
-        _rangeFiring = false
+          // Fallback: if reactClick bypassed the auto-close mechanism, close
+          // the calendar via Escape after React has processed the updates.
+          setTimeout(function() {
+            const dlg = document.querySelector('[role="dialog"]')
+            if (dlg) dlg.dispatchEvent(new KeyboardEvent('keydown', {
+              key: 'Escape', code: 'Escape', keyCode: 27, which: 27,
+              bubbles: true, cancelable: true, composed: true,
+            }))
+          }, 200)
+        }
       }
-    }, true) // capture phase — before Lodgify's handlers
+    }, true)
 
-    // Reset first-cell highlight if calendar closes before second click
+    // Reset first-cell highlight if the calendar closes before second click
     new MutationObserver(function() {
       if (!document.querySelector('[role="dialog"]') && _rangeCell1) {
         _rangeCell1.style.removeProperty('background')
