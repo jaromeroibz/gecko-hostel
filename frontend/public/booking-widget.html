@@ -45,6 +45,71 @@
       max-width: 100%;
     }
 
+    /* ── Global font ────────────────────────────────────────────────────────
+       Lodgify loads its own font. Override everything inside the widget.    */
+    body,
+    #lodgify-book-now-box,
+    #lodgify-book-now-box * {
+      font-family: 'Nunito', 'DM Sans', system-ui, sans-serif !important;
+    }
+
+    /* ── Date picker trigger — "Check-in → Check-out" row ───────────────── */
+    [data-testid="book-now-box.date-picker.trigger"] {
+      border-radius: 14px !important;
+      border: 1.5px solid rgba(6, 78, 59, 0.15) !important;
+      background: rgba(6, 78, 59, 0.04) !important;
+      padding: 0.75rem 1rem !important;
+      transition: border-color 0.2s, box-shadow 0.2s !important;
+      cursor: pointer !important;
+    }
+    [data-testid="book-now-box.date-picker.trigger"]:hover {
+      border-color: rgba(52, 211, 153, 0.5) !important;
+    }
+
+    /* Field labels inside the trigger ("Check-in", "Check-out", "Llegada"…) */
+    [data-testid="book-now-box.date-picker.trigger"] label,
+    [data-testid="book-now-box.date-picker.trigger"] > * > *:first-child {
+      font-size: 0.6rem !important;
+      letter-spacing: 0.18em !important;
+      text-transform: uppercase !important;
+      color: rgba(6, 78, 59, 0.45) !important;
+      font-weight: 700 !important;
+    }
+    /* Date value / placeholder */
+    [data-testid="book-now-box.date-picker.trigger"] p,
+    [data-testid="book-now-box.date-picker.trigger"] input,
+    [data-testid="book-now-box.date-picker.trigger"] > * > *:last-child {
+      color: #064E3B !important;
+      font-weight: 600 !important;
+      font-size: 0.88rem !important;
+    }
+    /* Arrow separator between the two date fields */
+    [data-testid="book-now-box.date-picker.trigger"] svg,
+    [data-testid="book-now-box.date-picker.trigger"] [aria-hidden="true"] {
+      color: rgba(6, 78, 59, 0.3) !important;
+      flex-shrink: 0 !important;
+    }
+
+    /* ── "From X / night" + "Select dates…" price text ─────────────────── */
+    /* Minimum nightly price row */
+    [data-testid*="minimum-price"],
+    [data-testid*="per-night"] {
+      color: rgba(6, 78, 59, 0.6) !important;
+      font-size: 0.82rem !important;
+      font-weight: 500 !important;
+    }
+    /* "Select dates to see total price" hint */
+    [data-testid*="select-dates"] {
+      color: rgba(6, 78, 59, 0.4) !important;
+      font-size: 0.78rem !important;
+    }
+    /* Total price value (after dates are selected) */
+    [data-testid*="total-price"] {
+      color: #064E3B !important;
+      font-weight: 700 !important;
+      font-size: 0.95rem !important;
+    }
+
     /* ── Guests trigger — match site input style ─────────────────────────
        Targets the clickable row that shows "1 adult" and opens the
        guests breakdown dialog.                                             */
@@ -212,6 +277,9 @@
     }
 
     /* ── Day cells ───────────────────────────────────────────────────── */
+    /* Target both variants: new account (gridcell is the interactive
+       element) and old account (button inside the gridcell).           */
+    [role="gridcell"],
     [role="gridcell"] button {
       border-radius: 8px !important;
       font-size: 0.83rem !important;
@@ -221,20 +289,40 @@
     }
 
     /* Hover on available, unselected days */
+    [role="gridcell"]:not([aria-disabled="true"]):hover,
     [role="gridcell"] button:not([aria-disabled="true"]):not([disabled]):hover {
       background: rgba(52, 211, 153, 0.2) !important;
       color: #064E3B !important;
     }
 
     /* Disabled / unavailable days */
+    [role="gridcell"][aria-disabled="true"],
     [role="gridcell"] button[aria-disabled="true"],
     [role="gridcell"] button[disabled] {
       color: rgba(6, 78, 59, 0.2) !important;
       background: transparent !important;
       cursor: default !important;
+      pointer-events: none !important;
+    }
+
+    /* Selected endpoints (arrival / departure dates) */
+    [role="gridcell"][aria-selected="true"]:not([aria-disabled="true"]),
+    [role="gridcell"] button[aria-selected="true"]:not([aria-disabled="true"]) {
+      background: #064E3B !important;
+      color: #F9FDF9 !important;
+      font-weight: 700 !important;
+    }
+
+    /* In-range days between arrival and departure */
+    [role="gridcell"][data-selected="true"],
+    [role="gridcell"][aria-pressed="true"],
+    [role="gridcell"] button[data-selected="true"] {
+      background: rgba(52, 211, 153, 0.18) !important;
+      color: #064E3B !important;
     }
 
     /* Today indicator */
+    [role="gridcell"][aria-current="date"],
     [role="gridcell"] button[aria-current="date"] {
       border: 1.5px solid rgba(52, 211, 153, 0.55) !important;
     }
