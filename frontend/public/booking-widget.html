@@ -944,6 +944,64 @@
       }
     }, true) // capture phase — fires before React's synthetic event handlers
 
+    // ── Availability detection ───────────────────────────────────────────────────
+    // Two-layer check so the parent can show "not available" BEFORE the user
+    // gets rejected at Lodgify checkout.
+    //
+    // Layer 1 — DOM scan: look for Lodgify's own error text in the widget.
+    // Layer 2 — API call: fetch the same pricing endpoint the widget uses.
+    //   Lodgify's widget script runs on any customer domain and calls
+    //   checkout.lodgify.com, so those endpoints must allow cross-origin
+    //   requests — our iframe can make the same call.
+
+    function _toIso(ymd) {
+      return `${ymd.slice(0,4)}-${ymd.slice(4,6)}-${ymd.slice(6,8)}`
+    }
+
+    async function checkAvailability() {
+      if (arrival.length !== 8 || departure.length !== 8 || !rentalId) return
+
+      // Layer 1: DOM scan (instant, no network)
+      const widgetText = (document.getElementById('lodgify-book-now-box')?.textContent || '').toLowerCase()
+      if (/not available|no availability|unavailable/i.test(widgetText)) {
+        window.parent.postMessage({ type: 'ldg-availability', available: false }, '*')
+        return
+      }
+
+      // Layer 2: Lodgify pricing API (authoritative inventory check)
+      try {
+        const url = 'https://checkout.lodgify.com/api/v1/checkout/price' +
+          `?propertyId=${rentalId}` +
+          `&arrival=${_toIso(arrival)}` +
+          `&departure=${_toIso(departure)}` +
+          `&currency=CRC` +
+          `&adults=${adults}` +
+          `&language=${lang}`
+        const res = await fetch(url)
+        window.parent.postMessage({ type: 'ldg-availability', available: res.ok }, '*')
+      } catch (_err) {
+        // CORS or network error — can't determine, leave state as null (unknown)
+      }
+    }
+
+    // Watch the widget for error messages that appear after initial load
+    // (e.g. user changes dates via BookingSearchBar → iframe reloads →
+    //  widget reports unavailability in its own DOM).
+    ;(function watchForErrors() {
+      let _lastState = null
+      new MutationObserver(function() {
+        const text = (document.getElementById('lodgify-book-now-box')?.textContent || '').toLowerCase()
+        const isError   = /not available|no availability|unavailable|validation failed/i.test(text)
+        const hasTotal  = /total/.test(text)
+        const nextState = isError ? 'no' : hasTotal ? 'yes' : null
+        if (nextState && nextState !== _lastState) {
+          _lastState = nextState
+          window.parent.postMessage({ type: 'ldg-availability', available: nextState === 'yes' }, '*')
+        }
+      }).observe(document.getElementById('lodgify-book-now-box') || document.body,
+        { childList: true, subtree: true })
+    })()
+
     // ── Poll until the widget is ready, prefill dates, wait for pricing ────────
     // The parent keeps its spinner until it receives ldg-widget-ready, so we
     // only send that signal after the full flow: render → prefill → price loaded.
@@ -972,6 +1030,8 @@
         }
         reportHeight()
         window.parent.postMessage({ type: 'ldg-widget-ready' }, '*')
+        // Run availability check after widget is fully revealed
+        checkAvailability().catch(() => {})
       }
 
       const id = setInterval(() => {

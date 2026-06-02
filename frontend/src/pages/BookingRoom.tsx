@@ -34,6 +34,16 @@ export function BookingRoom() {
   const [reminderOpen, setReminderOpen]   = useState(false)
   const [checkoutUrl,  setCheckoutUrl]    = useState('')
 
+  // ── Availability state ─────────────────────────────────────────────────────
+  // null = unknown (loading or no dates), true = available, false = unavailable
+  const [isAvailable, setIsAvailable]     = useState<boolean | null>(null)
+  // Ref so the message-handler closure ([]  deps) always reads the current value
+  const isAvailableRef = useRef<boolean | null>(null)
+  function setAvailability(val: boolean | null) {
+    isAvailableRef.current = val
+    setIsAvailable(val)
+  }
+
   const room = BOOKING_ROOMS.find((r) => r.id === roomId)
 
   // Compute widgetSrc before effects so it can be a dependency.
@@ -55,9 +65,10 @@ export function BookingRoom() {
     [room, search.arrivalYmd, search.departureYmd, widgetAdults],
   )
 
-  // Reset loaded flag whenever the iframe URL changes (dates / room change).
+  // Reset loaded + availability whenever the iframe URL changes (new dates/room).
   useEffect(() => {
     setWidgetLoaded(false)
+    setAvailability(null)
   }, [widgetSrc])
 
   // Listen for messages from the iframe.
@@ -71,8 +82,14 @@ export function BookingRoom() {
       if (e.data?.type === 'ldg-widget-ready') {
         setWidgetLoaded(true)
       }
+      // Availability result from the widget's API check + DOM scan
+      if (e.data?.type === 'ldg-availability' && typeof e.data.available === 'boolean') {
+        setAvailability(e.data.available)
+      }
       // Fired from booking-widget.html when the user clicks "Book now"
       if (e.data?.type === 'ldg-checkout-intercept' && typeof e.data.url === 'string') {
+        // Block checkout if we already know dates are unavailable
+        if (isAvailableRef.current === false) return
         setCheckoutUrl(e.data.url)
         setReminderOpen(true)
       }
@@ -303,6 +320,18 @@ export function BookingRoom() {
             <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-gecko-forest/55">
               Pricing &amp; availability
             </p>
+
+            {/* Unavailability banner ─────────────────────────────────── */}
+            {isAvailable === false && (
+              <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
+                <p className="text-sm font-semibold text-amber-900">
+                  Not available for these dates
+                </p>
+                <p className="mt-0.5 text-sm text-amber-800/75">
+                  Please select different dates above to check availability.
+                </p>
+              </div>
+            )}
 
             {/* Spinner — shown while iframe loads; height reserves card space */}
             {!widgetLoaded && (
