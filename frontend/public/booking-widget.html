@@ -524,44 +524,117 @@
 
     // ── Two-click range selection ─────────────────────────────────────────────
     // Lodgify closes the calendar after ONE click (min-nights=0 in account).
-    // We implement our own two-click picker:
     //
-    //  Block phase (first click):
-    //   • pointerdown/mousedown → stopImmediatePropagation so Radix's
-    //     DismissableLayer never sees the "inside click" and won't close.
-    //   • mouseover/mouseenter → block while waiting for 2nd click so
-    //     Lodgify's drag-range-preview doesn't show a conflicting selection.
-    //   • click → intercept, store cell, show green highlight.
+    // Root cause of all previous failures:
+    //   c1.click() + c2.click() synchronously don't work because React hasn't
+    //   updated state between them — c2 looks like a second "arrival" click.
+    //   reactClick() bypasses the DOM chain so Lodgify's auto-close never fires.
     //
-    //  Fire phase (second click):
-    //   • Set _rangeFiring=true so all our blockers pass events through.
-    //   • c1.click() then c2.click() — real DOM events so Lodgify's full
-    //     event chain runs (including auto-close). React 18 batches the two
-    //     setState calls so arrival + departure are committed in one render.
-    //   • Escape fallback after 200 ms covers older React or edge cases.
+    // Correct approach: use the EXACT same code path as prefillBookingBox(),
+    // which is proven to work. On the second user click we know both dates;
+    // we close the calendar, reopen fresh, then run the prefill flow with
+    // proper timing (click arrival → 800 ms → reopen if closed → click dep).
 
-    let _rangeCell1  = null   // first selected cell, waiting for second
-    let _rangeFiring = false   // true while firing programmatic clicks (pass-through)
+    let _rangeCell1  = null   // {day, month, year} of first selected cell
+    let _rangeFiring = false   // true while running _commitRange (bypass all interceptors)
 
-    // Generic blocker for events that must never reach Lodgify/Radix during pick
+    // Determine which month/year a gridcell belongs to by scanning DOM order.
+    // Walks the calendar in document order and returns the last heading seen
+    // before reaching targetCell — correctly handles dual-month calendars.
+    function _getMonthForCell(targetCell) {
+      const calScope = document.querySelector('[role="dialog"]') ??
+                       document.querySelector('[role="presentation"]') ??
+                       document.body
+      let heading = getVisibleCalendarMonth() // safe fallback
+      for (const el of calScope.querySelectorAll('*')) {
+        const text = (el.textContent ?? '').trim()
+        const match = text.match(/^([A-Za-z]+)\s+(\d{4})$/)
+        if (match) {
+          const m = MONTH_LOOKUP[match[1].toLowerCase()]
+          if (m) heading = { month: m, year: parseInt(match[2]) }
+        }
+        if (el === targetCell) break  // stop at the exact cell, not its ancestors
+      }
+      return heading
+    }
+
+    // Commit a date range using the same proven flow as prefillBookingBox:
+    //   open → navigate → click arrival → wait → reopen if closed → click dep
+    async function _commitRange(c1, c2) {
+      _rangeFiring = true
+      try {
+        const trigger = document.querySelector(
+          '[data-testid="book-now-box.date-picker.trigger"]')
+        if (!trigger) return
+
+        // 1. Close current dialog so we open from a clean state
+        const openDlg = document.querySelector('[role="dialog"]')
+        if (openDlg) {
+          openDlg.dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'Escape', code: 'Escape', keyCode: 27, which: 27,
+            bubbles: true, cancelable: true, composed: true,
+          }))
+          await sleep(300)
+        }
+
+        // 2. Reopen calendar (same as prefill step 1)
+        reactClick(trigger)
+        await sleep(700)
+
+        // 3. Navigate to arrival month if needed (same as prefill step 2)
+        if (!isMonthVisible(c1.year, c1.month)) {
+          await navigateCalendarToMonth(c1.year, c1.month)
+          await sleep(400)
+        }
+
+        // 4. Click arrival cell (same as prefill step 3)
+        const freshC1 = findDateCell(c1.day, c1.month, c1.year)
+        if (!freshC1) { console.warn('[ldg-range] arrival cell not found'); return }
+        freshC1.click()
+        await sleep(800)
+
+        // 5. Reopen if calendar auto-closed (same-day mode — same as prefill step 3b)
+        if (!document.querySelector('[role="dialog"]')) {
+          reactClick(trigger)
+          await sleep(800)
+        }
+
+        // 6. Navigate to departure month if needed (same as prefill step 3c)
+        if (!isMonthVisible(c2.year, c2.month)) {
+          await navigateCalendarToMonth(c2.year, c2.month)
+          await sleep(400)
+        }
+
+        // 7. Click departure cell (same event sequence as prefill step 3d)
+        const freshC2 = findDateCell(c2.day, c2.month, c2.year)
+        if (!freshC2) { console.warn('[ldg-range] departure cell not found'); return }
+        freshC2.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true, view: window }))
+        freshC2.dispatchEvent(new MouseEvent('mouseup',   { bubbles: true, cancelable: true, view: window }))
+        freshC2.click()
+        await sleep(300)
+
+      } finally {
+        _rangeFiring = false
+      }
+    }
+
+    // Block pointer/mouse down on gridcells so Radix's DismissableLayer never
+    // sees the "inside click" that would close the dialog on the first user click.
     function _blockCell(e) {
       if (_rangeFiring) return
-      const dialog = document.querySelector('[role="dialog"]')
-      if (!dialog) return
+      if (!document.querySelector('[role="dialog"]')) return
       const cell = e.target.closest('[role="gridcell"]')
       if (!cell || cell.getAttribute('aria-disabled') === 'true') return
       e.stopImmediatePropagation()
     }
-
-    // Block pointer/mouse down → prevents Radix DismissableLayer from seeing click
     document.addEventListener('pointerdown', _blockCell, true)
     document.addEventListener('mousedown',   _blockCell, true)
 
-    // Block hover while first cell is selected → hides Lodgify's drag-range preview
+    // Block hover events while first cell is selected so Lodgify's
+    // drag-range-preview doesn't create a conflicting visual selection.
     function _blockHover(e) {
-      if (_rangeFiring || !_rangeCell1) return  // only active after first click
-      const dialog = document.querySelector('[role="dialog"]')
-      if (!dialog) return
+      if (_rangeFiring || !_rangeCell1) return
+      if (!document.querySelector('[role="dialog"]')) return
       const cell = e.target.closest('[role="gridcell"]')
       if (!cell) return
       e.stopImmediatePropagation()
@@ -570,57 +643,44 @@
     document.addEventListener('mouseenter', _blockHover, true)
     document.addEventListener('mousemove',  _blockHover, true)
 
-    // Main click interceptor
+    // Main click interceptor — accumulates two cell clicks then commits
     document.addEventListener('click', function(e) {
       if (_rangeFiring) return
-      const dialog = document.querySelector('[role="dialog"]')
-      if (!dialog) return
+      if (!document.querySelector('[role="dialog"]')) return
       const cell = e.target.closest('[role="gridcell"]')
       if (!cell || cell.getAttribute('aria-disabled') === 'true') return
 
       e.stopImmediatePropagation()
       e.preventDefault()
 
+      const monthInfo = _getMonthForCell(cell)
+      if (!monthInfo) return
+      const dayNum = parseInt(cell.textContent.trim())
+
       if (!_rangeCell1) {
-        // ── First click: highlight + wait for second ──────────────────────
-        _rangeCell1 = cell
+        // ── First click: record date + show green highlight ───────────────
+        _rangeCell1 = { day: dayNum, month: monthInfo.month, year: monthInfo.year, el: cell }
         cell.style.setProperty('background',    '#064E3B', 'important')
         cell.style.setProperty('color',         '#F9FDF9', 'important')
         cell.style.setProperty('border-radius', '8px',     'important')
       } else {
-        // ── Second click: fire both to Lodgify via real DOM events ─────────
-        // Using .click() (not reactClick) so Lodgify's full event chain runs,
-        // including the auto-close logic. React 18 batches the two setState
-        // calls so arrival + departure are set before the calendar re-renders.
-        const c1 = _rangeCell1, c2 = cell
+        // ── Second click: commit range using the prefill flow ─────────────
+        const c1 = { ..._rangeCell1 }
+        const c2 = { day: dayNum, month: monthInfo.month, year: monthInfo.year }
+        _rangeCell1.el.style.removeProperty('background')
+        _rangeCell1.el.style.removeProperty('color')
+        _rangeCell1.el.style.removeProperty('border-radius')
         _rangeCell1 = null
-        c1.style.removeProperty('background')
-        c1.style.removeProperty('color')
-        c1.style.removeProperty('border-radius')
-
-        _rangeFiring = true
-        c1.click()   // arrival  → Lodgify setState (queued, not yet applied)
-        c2.click()   // departure → Lodgify setState (batched with above)
-        _rangeFiring = false
-
-        // Escape fallback: closes calendar if it didn't auto-close
-        // (edge case where React processes updates before c2.click())
-        setTimeout(function() {
-          const dlg = document.querySelector('[role="dialog"]')
-          if (dlg) dlg.dispatchEvent(new KeyboardEvent('keydown', {
-            key: 'Escape', code: 'Escape', keyCode: 27, which: 27,
-            bubbles: true, cancelable: true, composed: true,
-          }))
-        }, 300)
+        _commitRange(c1, c2)  // async — fire and forget
       }
     }, true)
 
-    // Reset highlight if calendar closes before second click (Escape / outside click)
+    // Reset highlight if calendar closes before second click
     new MutationObserver(function() {
       if (!document.querySelector('[role="dialog"]') && _rangeCell1) {
-        _rangeCell1.style.removeProperty('background')
-        _rangeCell1.style.removeProperty('color')
-        _rangeCell1.style.removeProperty('border-radius')
+        _rangeCell1.el.style.removeProperty('background')
+        _rangeCell1.el.style.removeProperty('color')
+        _rangeCell1.el.style.removeProperty('border-radius')
         _rangeCell1 = null
       }
     }).observe(document.body, { childList: true, subtree: true })
