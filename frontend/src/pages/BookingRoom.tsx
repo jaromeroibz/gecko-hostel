@@ -300,7 +300,8 @@ export function BookingRoom() {
 
           {/* Date + guests picker — the single source of truth for dates.
                Updating and clicking Search reloads the iframe below with the
-               new dates; the Lodgify widget then shows updated pricing. */}
+               new dates; the Lodgify widget then shows updated pricing.
+               maxAdults enforces each room's per-booking guest limit. */}
           <div>
             <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-gecko-forest/55">
               Select your dates
@@ -309,8 +310,9 @@ export function BookingRoom() {
               key={`${search.arrivalYmd}-${search.departureYmd}-${search.adults}`}
               arrivalYmd={search.arrivalYmd}
               departureYmd={search.departureYmd}
-              adults={search.adults}
-              showGuests={isDormitory}
+              adults={Math.min(search.adults, room.maxGuests)}
+              showGuests={room.maxGuests > 1}
+              maxAdults={room.maxGuests}
               basePath={`/booking/${room.id}`}
             />
           </div>

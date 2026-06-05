@@ -18,6 +18,8 @@ type Props = {
   minNights?: number
   /** Maximum number of nights — enforces exact duration for packages. */
   maxNights?: number
+  /** Maximum number of adults — enforces per-room capacity. Default: 10. */
+  maxAdults?: number
   /** Label for the submit button. Default: 'Search'. */
   submitLabel?: string
   /** Called after a successful search navigation — use to scroll to results. */
@@ -49,6 +51,7 @@ export function BookingSearchBar({
   extraQuery,
   minNights,
   maxNights,
+  maxAdults = 10,
   submitLabel,
   onAfterSearch,
   onAdultsChange,
@@ -76,7 +79,7 @@ export function BookingSearchBar({
     }
     return dep
   })
-  const [adults, setAdults] = useState(initialAdults)
+  const [adults, setAdults] = useState(() => Math.min(initialAdults, maxAdults))
 
   function calcMinDeparture(arrivalHtml: string): string {
     const d = htmlDateValueToDate(arrivalHtml)
@@ -108,7 +111,7 @@ export function BookingSearchBar({
 
   function adjustAdults(delta: number) {
     setAdults((prev) => {
-      const next = Math.max(1, Math.min(10, prev + delta))
+      const next = Math.max(1, Math.min(maxAdults, prev + delta))
       onAdultsChange?.(next)
       return next
     })
@@ -212,7 +215,7 @@ export function BookingSearchBar({
                 <button
                   type="button"
                   onClick={() => adjustAdults(1)}
-                  disabled={adults >= 10}
+                  disabled={adults >= maxAdults}
                   aria-label={t('booking.addGuest')}
                   className="bsb-guest-btn"
                 >

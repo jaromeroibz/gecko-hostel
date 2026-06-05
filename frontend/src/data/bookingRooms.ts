@@ -5,6 +5,8 @@ export type BookingRoom = {
   type: string
   beds: string
   capacity: number
+  /** Maximum guests allowed per booking — enforced in the search bar. */
+  maxGuests: number
   size: number
   bathroom: 'private' | 'shared'
   description: string
@@ -20,6 +22,7 @@ export const BOOKING_ROOMS: BookingRoom[] = [
     type: 'Dormitory Room',
     beds: '1 single bed',
     capacity: 6,
+    maxGuests: 1,
     size: 56,
     bathroom: 'shared',
     description:
@@ -40,6 +43,7 @@ export const BOOKING_ROOMS: BookingRoom[] = [
     type: 'Double Room',
     beds: '1 double bed',
     capacity: 2,
+    maxGuests: 2,
     size: 30,
     bathroom: 'shared',
     description:
@@ -58,6 +62,7 @@ export const BOOKING_ROOMS: BookingRoom[] = [
     type: 'Quadruple Room',
     beds: '2 single beds + 1 double bed',
     capacity: 4,
+    maxGuests: 4,
     size: 42,
     bathroom: 'private',
     description:
@@ -77,6 +82,7 @@ export const BOOKING_ROOMS: BookingRoom[] = [
     type: 'Quadruple Room',
     beds: '2 single beds + 1 double bed',
     capacity: 4,
+    maxGuests: 4,
     size: 42,
     bathroom: 'private',
     description:
