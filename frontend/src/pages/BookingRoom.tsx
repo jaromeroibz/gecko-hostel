@@ -88,8 +88,9 @@ export function BookingRoom() {
       }
       // Fired from booking-widget.html when the user clicks "Book now"
       if (e.data?.type === 'ldg-checkout-intercept' && typeof e.data.url === 'string') {
-        // Block checkout if we already know dates are unavailable
-        if (isAvailableRef.current === false) return
+        // Always open the modal — the availability banner already warns the user
+        // if dates look unavailable. Blocking silently here breaks package bookings
+        // because the package-pricing API returns non-200 and isAvailable flips false.
         setCheckoutUrl(e.data.url)
         setReminderOpen(true)
       }
