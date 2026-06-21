@@ -927,14 +927,18 @@
     })
 
     // ── Checkout intercept ───────────────────────────────────────────────────────
-    // Lodgify's "Book now" renders as an <a href="https://checkout.lodgify.com/...">
-    // with data-new-tab="true". We intercept the click before it opens a new tab,
-    // fire a postMessage to the parent so it can show the reminder modal, and let
-    // the parent open the URL once the user confirms.
+    // Lodgify's "Book now" can trigger checkout in two ways:
+    //   1. <a href="https://checkout.lodgify.com/..."> link click (standard rooms)
+    //   2. window.open('https://checkout.lodgify.com/...') call (some configurations,
+    //      e.g. package dates or when data-new-tab="true" is processed by React)
+    // We intercept both and forward the URL to the parent via postMessage.
+
+    // Method 1: <a> element click
     document.addEventListener('click', function(e) {
       let el = e.target
       while (el && el !== document.body) {
         if (el.tagName === 'A' && typeof el.href === 'string' && el.href.includes('checkout.lodgify.com')) {
+          console.log('[ldg-checkout] intercepted <a> click:', el.href)
           e.preventDefault()
           e.stopImmediatePropagation()
           window.parent.postMessage({ type: 'ldg-checkout-intercept', url: el.href }, '*')
@@ -943,6 +947,19 @@
         el = el.parentElement
       }
     }, true) // capture phase — fires before React's synthetic event handlers
+
+    // Method 2: window.open() call (used for some Lodgify widget configurations)
+    ;(function() {
+      var _origOpen = window.open.bind(window)
+      window.open = function(url, target, features) {
+        if (typeof url === 'string' && url.includes('checkout.lodgify.com')) {
+          console.log('[ldg-checkout] intercepted window.open:', url)
+          window.parent.postMessage({ type: 'ldg-checkout-intercept', url: url }, '*')
+          return null
+        }
+        return _origOpen(url, target, features)
+      }
+    })()
 
     // ── Availability detection ───────────────────────────────────────────────────
     // Two-layer check so the parent can show "not available" BEFORE the user
