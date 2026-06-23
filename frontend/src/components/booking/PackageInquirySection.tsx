@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { Package } from '../../data/packages'
 import type { BookingRoom } from '../../data/bookingRooms'
 
-const API_BASE       = import.meta.env.VITE_API_BASE_URL ?? 'http://127.0.0.1:5001/api'
+const API_BASE       = import.meta.env.VITE_API_BASE_URL ?? 'http://127.0.0.1:5000/api'
 const WHATSAPP_NUMBER = '50687390370' // Costa Rica +506
 
 function fmtDate(ymd: string): string {
