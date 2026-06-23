@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { useInView } from '../hooks/useInView'
 
 import { BookingSearchBar } from '../components/booking/BookingSearchBar'
-import { CheckoutReminderModal } from '../components/booking/CheckoutReminderModal'
 import { LodgifyWidget } from '../components/booking/LodgifyWidget'
+import { PackageInquirySection } from '../components/booking/PackageInquirySection'
 import { RoomCard } from '../components/booking/RoomCard'
 import { StickyDateBar } from '../components/booking/StickyDateBar'
 import { SEOHead } from '../components/seo/SEOHead'
@@ -34,20 +34,6 @@ export function Booking() {
 
   const [selectedRoomId, setSelectedRoomId] = useState<string | null>(null)
 
-  // ── Checkout reminder modal (for the inline package widget) ───────────────
-  const [reminderOpen, setReminderOpen] = useState(false)
-  const [checkoutUrl,  setCheckoutUrl]  = useState('')
-
-  useEffect(() => {
-    function onMessage(e: MessageEvent) {
-      if (e.data?.type === 'ldg-checkout-intercept' && typeof e.data.url === 'string') {
-        setCheckoutUrl(e.data.url)
-        setReminderOpen(true)
-      }
-    }
-    window.addEventListener('message', onMessage)
-    return () => window.removeEventListener('message', onMessage)
-  }, [])
 
   const [trustRef, trustInView] = useInView<HTMLDivElement>({ threshold: 0.1 })
   const [gridRef,  gridInView]  = useInView<HTMLDivElement>({ threshold: 0.06 })
@@ -219,7 +205,7 @@ export function Booking() {
         </ul>
       </div>
 
-      {/* ── Inline Lodgify widget (package context only) ─────────────── */}
+      {/* ── Package inquiry section (replaces Lodgify widget for packages) */}
       {activePackage && selectedRoomId && (() => {
         const selectedRoom = BOOKING_ROOMS.find(r => r.id === selectedRoomId)
         if (!selectedRoom) return null
@@ -240,7 +226,8 @@ export function Booking() {
                 </button>
               )}
             </div>
-            <LodgifyWidget
+            <PackageInquirySection
+              pkg={activePackage}
               room={selectedRoom}
               arrivalYmd={search.arrivalYmd}
               departureYmd={search.departureYmd}
@@ -255,23 +242,7 @@ export function Booking() {
         {activePackage ? t('booking.footnotePackage') : t('booking.footnoteLive')}
       </p>
 
-      {/* ── Checkout reminder modal (package inline widget) ──────────── */}
-      <CheckoutReminderModal
-        isOpen={reminderOpen}
-        onClose={() => setReminderOpen(false)}
-        onConfirm={() => {
-          setReminderOpen(false)
-          window.open(checkoutUrl, '_blank', 'noopener,noreferrer')
-        }}
-        roomName={BOOKING_ROOMS.find(r => r.id === selectedRoomId)?.name ?? ''}
-        arrivalYmd={search.arrivalYmd}
-        departureYmd={search.departureYmd}
-        adults={search.adults}
-        hasPackage={!!activePackage}
-        packageName={activePackage?.name}
-      />
-
-      {/* ── Sticky mobile bar ────────────────────────────────────────── */}
+{/* ── Sticky mobile bar ────────────────────────────────────────── */}
       <StickyDateBar
         arrivalYmd={search.arrivalYmd}
         departureYmd={search.departureYmd}
