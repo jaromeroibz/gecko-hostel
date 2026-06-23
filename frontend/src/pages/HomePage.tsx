@@ -9,7 +9,6 @@ import {
   HomeHero,
   HomePackagesSection,
   HomeRoomsSection,
-  HomeSurfServicesSection,
   HomeTestimonialsSection,
 } from '../components/home'
 
@@ -35,7 +34,6 @@ export function HomePage() {
       />
       <HomeHero />
       <HomeEditorialSection />
-      <HomeSurfServicesSection />
       <HomeExperiencesSection />
       <HomePackagesSection />
       <HomeRoomsSection />
