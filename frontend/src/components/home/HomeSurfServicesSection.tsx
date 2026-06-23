@@ -6,9 +6,7 @@ const IMG_GROUP   = 'https://res.cloudinary.com/doow0mhrm/image/upload/v17790360
 const IMG_PRIVATE = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_8726_y1g3pn.jpg'
 
 const GROUP_PLANS = [
-  { id: 'single',  price: '$70'  },
-  { id: 'three',   price: '$180', saveKey: 'surfServices.group.save30' },
-  { id: 'five',    price: '$275', saveKey: 'surfServices.group.save75', highlight: true },
+  { id: 'single', price: '$70' },
 ]
 
 const PRIVATE_PLANS = [
