@@ -76,4 +76,11 @@
     <priority>0.65</priority>
   </url>
 
+  <!-- Privacy policy -->
+  <url>
+    <loc>https://geckosurfhouse.com/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
 </urlset>

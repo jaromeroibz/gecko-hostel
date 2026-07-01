@@ -117,6 +117,8 @@ export function Footer() {
         <div className="footer-bottom">
           <p className="footer-copy font-label">
             © {new Date().getFullYear()} {t('footer.copyright')}
+            {' · '}
+            <Link to="/privacy" className="footer-dev-link">Privacy Policy</Link>
           </p>
           <p className="footer-locale font-label uppercase">
             Santa Teresa · Costa Rica
