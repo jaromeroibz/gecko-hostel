@@ -2,9 +2,9 @@ import { useTranslation } from 'react-i18next'
 import { useInView } from '../../hooks/useInView'
 
 // ── Experience images ──────────────────────────────────────────────────────
-const IMG_ATV        = 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688497/zkyvvcmfetn0xc03naqh.webp'
-const IMG_WATERFALLS = 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688180/d30t12tefrpmbdqpipys.webp'
-const IMG_TIDEPOOLS  = 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688597/pj2fxkluiewa4rxm2lr0.webp'
+const IMG_ATV        = 'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200/v1779688497/zkyvvcmfetn0xc03naqh.webp'
+const IMG_WATERFALLS = 'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200/v1779688180/d30t12tefrpmbdqpipys.webp'
+const IMG_TIDEPOOLS  = 'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200/v1779688597/pj2fxkluiewa4rxm2lr0.webp'
 
 export function HomeExperiencesSection() {
   const [ref, inView] = useInView<HTMLElement>()

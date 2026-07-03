@@ -2,11 +2,11 @@ import { useTranslation } from 'react-i18next'
 
 // Surf session at golden hour — sets the outdoor lifestyle mood
 const IMG_SURF =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036019/AZC_9979_gzhuvd.jpg'
+  'https://res.cloudinary.com/dgvalkx1m/image/upload/v1779036019/AZC_9979_gzhuvd.jpg'
 
 // Bonfire at sunset — community, social energy, warmth
 const IMG_BONFIRE =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/v1779039282/kimson-doan-AZMmUy2qL6A-unsplash_pwv13o.jpg'
+  'https://res.cloudinary.com/dgvalkx1m/image/upload/v1779039282/kimson-doan-AZMmUy2qL6A-unsplash_pwv13o.jpg'
 
 export function HomeWhySection() {
   const { t } = useTranslation()

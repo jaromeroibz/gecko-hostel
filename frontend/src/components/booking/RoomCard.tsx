@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import type { BookingRoom } from '../../data/bookingRooms'
 
 const GECKO_DORM_PLACEHOLDER =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779470181/trpavi8zpjdcrjisycz3.webp'
+  'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200/v1779470181/trpavi8zpjdcrjisycz3.webp'
 
 type Props = {
   room: BookingRoom

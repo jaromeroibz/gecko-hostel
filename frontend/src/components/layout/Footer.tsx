@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 const LOGO =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/v1779032984/Untitled_xbxmok.png'
+  'https://res.cloudinary.com/dgvalkx1m/image/upload/v1779032984/Untitled_xbxmok.png'
 
 const NAV_LINKS = [
   { labelKey: 'nav.home',     to: '/'          },

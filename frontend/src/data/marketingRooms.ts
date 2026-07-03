@@ -23,7 +23,7 @@ export const MARKETING_ROOMS: MarketingRoom[] = [
     capacityLabel: 'Sleeps 6',
     roomType: 'Shared dorm',
     imageSrc:
-      'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779470181/trpavi8zpjdcrjisycz3.webp',
+      'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200/v1779470181/trpavi8zpjdcrjisycz3.webp',
     imageAlt: 'Spacious shared dorm at Gecko Surf House',
     highlights: ['Lockers', 'Shared lounge', 'Surf rinse area nearby'],
   },
@@ -36,7 +36,7 @@ export const MARKETING_ROOMS: MarketingRoom[] = [
     capacityLabel: 'Sleeps 2',
     roomType: 'Private room',
     imageSrc:
-      'https://res.cloudinary.com/doow0mhrm/image/upload/v1778106215/lphrdekhiwz6shgubevs.png',
+      'https://res.cloudinary.com/dgvalkx1m/image/upload/v1778106215/lphrdekhiwz6shgubevs.png',
     imageAlt: 'Private double room at Gecko Surf House — La Lora',
     highlights: ['Private bathroom', 'Daily housekeeping', 'Flat screen TV'],
   },
@@ -49,7 +49,7 @@ export const MARKETING_ROOMS: MarketingRoom[] = [
     capacityLabel: 'Sleeps 4',
     roomType: 'Family room',
     imageSrc:
-      'https://res.cloudinary.com/doow0mhrm/image/upload/v1778106383/ljp9opiqapsdx5u5ipno.png',
+      'https://res.cloudinary.com/dgvalkx1m/image/upload/v1778106383/ljp9opiqapsdx5u5ipno.png',
     imageAlt: 'Paraíso quadruple room at Gecko Surf House',
     highlights: ['Private bathroom', 'AC', 'Shared kitchen'],
   },
@@ -62,7 +62,7 @@ export const MARKETING_ROOMS: MarketingRoom[] = [
     capacityLabel: 'Sleeps 4',
     roomType: 'Private suite',
     imageSrc:
-      'https://res.cloudinary.com/doow0mhrm/image/upload/v1778097552/nptib5wvaavcyx87vmlj.png',
+      'https://res.cloudinary.com/dgvalkx1m/image/upload/v1778097552/nptib5wvaavcyx87vmlj.png',
     imageAlt: 'Rocamar suite at Gecko Surf House',
     highlights: ['Free WiFi', 'Private bathroom', 'Flat screen TV'],
   },

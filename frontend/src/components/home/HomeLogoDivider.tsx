@@ -1,5 +1,5 @@
 const GECKO_ICON =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/v1778622715/background-removed_kzu281.png'
+  'https://res.cloudinary.com/dgvalkx1m/image/upload/v1778622715/background-removed_kzu281.png'
 
 const COUNT = 20
 

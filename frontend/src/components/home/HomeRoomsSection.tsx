@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { useInView } from '../../hooks/useInView'
 import { MARKETING_ROOMS } from '../../data/marketingRooms'
 
-const GECKO_ICON = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1778622715/background-removed_kzu281.png'
+const GECKO_ICON = 'https://res.cloudinary.com/dgvalkx1m/image/upload/v1778622715/background-removed_kzu281.png'
 const DIVIDER_COUNT = 20
 
 export function HomeRoomsSection() {

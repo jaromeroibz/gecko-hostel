@@ -4,7 +4,7 @@ import { useInView } from '../../hooks/useInView'
 
 // Surfer paddling at dusk — deep moody blue, cinematic
 const CTA_BG =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036018/AZC_9775_bnnbdm.jpg'
+  'https://res.cloudinary.com/dgvalkx1m/image/upload/v1779036018/AZC_9775_bnnbdm.jpg'
 
 export function HomeBookingCtaSection() {
   const { t } = useTranslation()

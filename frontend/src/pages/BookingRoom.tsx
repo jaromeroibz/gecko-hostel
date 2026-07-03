@@ -11,7 +11,7 @@ import { PACKAGES } from '../data/packages'
 import { useLodgifySearchFromRoute } from '../hooks/useLodgifySearchFromRoute'
 
 const PLACEHOLDER_IMG =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779470181/trpavi8zpjdcrjisycz3.webp'
+  'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200/v1779470181/trpavi8zpjdcrjisycz3.webp'
 
 // ── Component ────────────────────────────────────────────────────────────────
 

@@ -6,25 +6,25 @@ import { SEOHead } from '../components/seo/SEOHead'
 import { useInView } from '../hooks/useInView'
 
 // ── Images (swap for your own Cloudinary URLs when ready) ─────────────────────
-const HERO_IMG = 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779689486/j9kzefwlwcb6yrk1825s.webp'
-const SURF_IMG = 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688177/nylo3uhstgl3zium2ulk.webp'
+const HERO_IMG = 'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200/v1779689486/j9kzefwlwcb6yrk1825s.webp'
+const SURF_IMG = 'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200/v1779688177/nylo3uhstgl3zium2ulk.webp'
 
 const TILES = [
   {
     id: 'waterfalls',
-    img: 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688179/kylykmwfpcokuxsdsne2.webp',
+    img: 'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200/v1779688179/kylykmwfpcokuxsdsne2.webp',
   },
   {
     id: 'wildlife',
-    img: 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688179/wxmofl4tudxikumspmcd.webp',
+    img: 'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200/v1779688179/wxmofl4tudxikumspmcd.webp',
   },
   {
     id: 'sunsets',
-    img: 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688896/qnxln0z2pzqq9phy80zy.webp',
+    img: 'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200/v1779688896/qnxln0z2pzqq9phy80zy.webp',
   },
   {
     id: 'adventure',
-    img: 'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688941/olu30hgccjaqbiolzevf.webp',
+    img: 'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200/v1779688941/olu30hgccjaqbiolzevf.webp',
   },
   // shown on mobile only (desktop mosaic has 4 tiles)
   {

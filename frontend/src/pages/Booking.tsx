@@ -16,7 +16,7 @@ import { PACKAGES } from '../data/packages'
 import { useLodgifySearchFromRoute } from '../hooks/useLodgifySearchFromRoute'
 
 const HERO_BG =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779689915/ktet7vjrefaeo0lqdwg9.webp'
+  'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200/v1779689915/ktet7vjrefaeo0lqdwg9.webp'
 
 const TRUST_KEYS = [
   { icon: '★', key: 'booking.trust.fiveStars' },

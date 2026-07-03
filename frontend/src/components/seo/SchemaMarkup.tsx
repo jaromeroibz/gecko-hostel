@@ -12,7 +12,7 @@ const LOGO_URL =
   'https://res.cloudinary.com/dgvalkx1m/image/upload/v1779896306/gecko-logo-cropped_hpduef.png'
 
 const HERO_IMAGE =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200,h_630,c_fill,g_auto/v1778627977/frames-for-your-heart-eBSKJJuPeO8-unsplash_uc6ksc.jpg'
+  'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200,h_630,c_fill,g_auto/v1778627977/frames-for-your-heart-eBSKJJuPeO8-unsplash_uc6ksc.jpg'
 
 // ── Helper: inject a <script type="application/ld+json"> ──────────────────────
 function JsonLd({ schema }: { schema: object }) {

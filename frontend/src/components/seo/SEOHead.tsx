@@ -6,7 +6,7 @@ export const SITE_URL  = 'https://geckosurfhouse.com'
 
 // Social-share image: 1200×630 Cloudinary crop — update if hero image changes
 export const DEFAULT_OG_IMAGE =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200,h_630,c_fill,g_auto/v1778627977/frames-for-your-heart-eBSKJJuPeO8-unsplash_uc6ksc.jpg'
+  'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200,h_630,c_fill,g_auto/v1778627977/frames-for-your-heart-eBSKJJuPeO8-unsplash_uc6ksc.jpg'
 
 type Props = {
   /** Page-level title. If it already contains the site name it won't be appended. */

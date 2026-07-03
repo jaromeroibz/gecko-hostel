@@ -1,10 +1,10 @@
 // Bonfire at sunset — group of friends on the beach
 const IMG_BONFIRE =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/v1779039282/kimson-doan-AZMmUy2qL6A-unsplash_pwv13o.jpg'
+  'https://res.cloudinary.com/dgvalkx1m/image/upload/v1779039282/kimson-doan-AZMmUy2qL6A-unsplash_pwv13o.jpg'
 
 // Four friends walking the wet sand at crimson sunset
 const IMG_SUNSET_WALK =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/v1778627973/lisa-van-vliet-vpsnM6zxrkc-unsplash_spsmme.jpg'
+  'https://res.cloudinary.com/dgvalkx1m/image/upload/v1778627973/lisa-van-vliet-vpsnM6zxrkc-unsplash_spsmme.jpg'
 
 export function HomeLifestyleSection() {
   return (

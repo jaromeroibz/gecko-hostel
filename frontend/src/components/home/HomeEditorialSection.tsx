@@ -3,9 +3,9 @@ import { WaveButton } from '../ui/WaveButton'
 import { useInView } from '../../hooks/useInView'
 
 const IMAGE_1 =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688177/v2qsha0l6ppjfternu6w.webp'
+  'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200/v1779688177/v2qsha0l6ppjfternu6w.webp'
 const IMAGE_2 =
-  'https://res.cloudinary.com/doow0mhrm/image/upload/f_auto,q_auto,w_1200/v1779688351/evakkr0xhkqn8w1qerma.webp'
+  'https://res.cloudinary.com/dgvalkx1m/image/upload/f_auto,q_auto,w_1200/v1779688351/evakkr0xhkqn8w1qerma.webp'
 
 export function HomeEditorialSection() {
   const [ref, inView] = useInView<HTMLElement>()

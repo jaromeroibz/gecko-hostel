@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useInView } from '../../hooks/useInView'
 
-const IMG_GROUP   = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_9199_vecrln.jpg'
-const IMG_PRIVATE = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1779036017/AZC_8726_y1g3pn.jpg'
+const IMG_GROUP   = 'https://res.cloudinary.com/dgvalkx1m/image/upload/v1779036017/AZC_9199_vecrln.jpg'
+const IMG_PRIVATE = 'https://res.cloudinary.com/dgvalkx1m/image/upload/v1779036017/AZC_8726_y1g3pn.jpg'
 
 const GROUP_PLANS = [
   { id: 'single', price: '$70' },

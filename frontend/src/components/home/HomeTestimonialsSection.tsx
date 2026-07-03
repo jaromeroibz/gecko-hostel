@@ -22,7 +22,7 @@ export function HomeTestimonialsSection() {
   const [ref, inView] = useInView<HTMLElement>()
   const { t } = useTranslation()
 
-  const GECKO_ICON = 'https://res.cloudinary.com/doow0mhrm/image/upload/v1778622715/background-removed_kzu281.png'
+  const GECKO_ICON = 'https://res.cloudinary.com/dgvalkx1m/image/upload/v1778622715/background-removed_kzu281.png'
   const DIVIDER_COUNT = 20
 
   return (
